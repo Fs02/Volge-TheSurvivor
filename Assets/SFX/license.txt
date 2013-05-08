@@ -1,0 +1,4 @@
+freesound.org
+name			author			license
+gun_m16_reload		maurosama		CC zero
+gun_cock		thecluegeek		CC zero

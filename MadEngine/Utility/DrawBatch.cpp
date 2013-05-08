@@ -4,6 +4,8 @@
 
 Mad::Utility::DrawBatch::DrawBatch()
 {
+	m_Font			= new sf::Font;
+	m_Font->loadFromFile("Assets//Font//BuxtonSketch.ttf");
 }
 
 Mad::Utility::DrawBatch::~DrawBatch()
@@ -50,7 +52,11 @@ void Mad::Utility::DrawBatch::cleanUp()
 
 void Mad::Utility::DrawBatch::drawText(const std::string& text, sf::Vector2f& pos, float rot, int size, const sf::Color& color, sf::Text::Style style)
 {
-	if (m_Text == nullptr)		m_Text		= new sf::Text;
+	if (m_Text == nullptr)		
+	{
+		m_Text		= new sf::Text;
+		m_Text->setFont(*m_Font);
+	}
 
 	m_Text->setString(text);
 	m_Text->setCharacterSize(size);
@@ -91,6 +97,7 @@ Mad::Utility::DrawBatch	*Mad::Utility::DrawBatch::instance			= nullptr;
 sf::RenderWindow		*Mad::Utility::DrawBatch::m_TargetWindow	= nullptr;
 Mad::Manager::Resource	*Mad::Utility::DrawBatch::m_ResourceMan		= nullptr;
 
+sf::Font				*Mad::Utility::DrawBatch::m_Font			= nullptr;
 sf::Text				*Mad::Utility::DrawBatch::m_Text			= nullptr;
 sf::Sprite				*Mad::Utility::DrawBatch::m_Sprite			= nullptr;
 sf::RectangleShape		*Mad::Utility::DrawBatch::m_RectShape		= nullptr;

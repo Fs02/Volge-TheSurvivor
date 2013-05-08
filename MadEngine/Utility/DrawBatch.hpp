@@ -17,6 +17,7 @@ namespace Mad
 			static sf::RenderWindow* m_TargetWindow;
 			static Mad::Manager::Resource *m_ResourceMan;
 
+			static sf::Font *m_Font;
 			static sf::Text *m_Text;
 			static sf::Sprite *m_Sprite;
 			static sf::RectangleShape *m_RectShape;

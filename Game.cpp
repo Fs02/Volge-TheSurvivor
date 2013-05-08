@@ -31,6 +31,7 @@ void Game::update()
 		{
 		splash();
 		m_Splash.draw();
+		DrawBatch->drawText("Press Space", sf::Vector2f(400,500),0.f ,30, sf::Color::White);
 		}break;
 	case Mad::Manager::GameState::Menu:
 		{

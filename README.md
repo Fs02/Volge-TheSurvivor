@@ -1,4 +1,4 @@
-Volge_TheSurvivor
+Volge - TheSurvivor
 =================
 
 Volge experimental game using MadEngine

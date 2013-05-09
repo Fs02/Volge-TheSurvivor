@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../stdafx.h"
-#include "../CWaepon/CGun.hpp"
+#include "../CWeapon/CGun.hpp"
 #include "../../MadEngine/MadEngine.hpp"
 #include "../EnumStates.hpp"
 

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../stdafx.h"
-#include "../ICWaepon.hpp"
+#include "../ICWeapon.hpp"
 #include "CBullet.hpp"
 #include "../../MadEngine/MadEngine.hpp"
 

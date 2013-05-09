@@ -6,7 +6,7 @@
 #include "../../CEntity/EnumStates.hpp"
 #include "../../CEntity/CSkeleton/Human.hpp"
 #include "../../CEntity/CAI/Player.hpp"
-#include "../../CEntity/CWaepon/CGun.hpp"
+#include "../../CEntity/CWeapon/CGun.hpp"
 #include "../../CEntity/CHealth/CHealth.hpp"
 
 namespace Entity

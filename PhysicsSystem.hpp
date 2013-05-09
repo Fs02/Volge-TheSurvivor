@@ -2,7 +2,7 @@
 
 #include "stdafx.h"
 #include "MadEngine/MadEngine.hpp"
-#include "CEntity/CWaepon/CBullet.hpp"
+#include "CEntity/CWeapon/CBullet.hpp"
 #include "Entity/Human/Soldier.hpp"
 #include "Entity/Zombie/Zombie.hpp"
 

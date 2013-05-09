@@ -1,20 +1,107 @@
 #include "stdafx.h"
 #include "IPhysicsSystem.hpp"
 
+namespace
+{
+	class RayCastCallback
+			: public b2RayCastCallback
+	{
+	private:
+		b2Fixture* m_Fix;
+		b2Vec2 m_Origin;
+		b2Vec2 m_Pos, m_Norm;
+
+	public:
+		RayCastCallback(const b2Vec2& origin)
+			: m_Fix(nullptr), m_Origin(origin)
+		{
+		}
+
+		float32 ReportFixture(b2Fixture* fix, const b2Vec2& pt, const b2Vec2& norm, float32 fraction)
+		{
+			if(m_Fix == nullptr)
+			{
+				m_Fix=fix;
+				m_Pos=pt;
+				m_Norm=norm;
+				return 1;
+			}
+
+			float prevDist=(m_Origin-m_Pos).LengthSquared();
+			float newDist=(m_Origin-pt).LengthSquared();
+
+			if(prevDist > newDist)
+			{
+				m_Fix=fix;
+				m_Pos=pt;
+				m_Norm=norm;
+			}
+
+			return 1;
+		}
+
+		bool hit() const
+		{
+			return (m_Fix != nullptr);
+		}
+
+		b2Fixture* hitFixture()
+		{
+			return m_Fix;
+		}
+
+		const b2Vec2& hitPosition() const
+		{
+			return m_Pos;
+		}
+
+		const b2Vec2& hitNormal() const
+		{
+			return m_Norm;
+		}
+	};
+}
+
 const float Mad::Interface::IPhysicsSystem::FIXED_TIMESTEP = 1/60.f;
 
 Mad::Interface::IPhysicsSystem::IPhysicsSystem(b2World* World)
 	: m_FixedTimestepAccumulator(0),
 	  m_FixedTimestepAccumulatorRatio(0),
 	  m_VelIter(1),
-	  m_PosIter(1)
+	  m_PosIter(1),
+	  m_dbgDraw(nullptr)
 {
 	m_World			= World;
 }
 
 Mad::Interface::IPhysicsSystem::~IPhysicsSystem()
 {
-	m_World			= nullptr;
+	delete m_World;
+}
+
+void Mad::Interface::IPhysicsSystem::enableDebugDraw(sf::RenderWindow& wnd)
+{
+	if(m_dbgDraw)
+		return;
+
+	m_dbgDraw=new DebugDraw(wnd);
+	m_dbgDraw->SetFlags(~0);
+	m_World->SetDebugDraw(m_dbgDraw);
+}
+
+void Mad::Interface::IPhysicsSystem::disableDebugDraw()
+{
+	m_World->SetDebugDraw(nullptr);
+	delete m_dbgDraw;
+	m_dbgDraw=nullptr;
+}
+
+void Mad::Interface::IPhysicsSystem::drawDebugData()
+{
+	if(!m_dbgDraw)
+		return;
+
+	m_World->DrawDebugData();
 }
 
 void Mad::Interface::IPhysicsSystem::smoothStates()
@@ -52,6 +139,14 @@ void Mad::Interface::IPhysicsSystem::resetSmoothStates()
 		b->SetTransform(smoothedPosition, smoothedAngle);
 	}
 	*/
+}
+
+b2Fixture* Mad::Interface::IPhysicsSystem::internalClosestRayCastResult(
+		const b2Vec2& start, const b2Vec2& end)
+{
+	RayCastCallback cb(start);
+	m_World->RayCast(&cb, start, end);
+	return cb.hitFixture();
 }
 
 void Mad::Interface::IPhysicsSystem::update(float dt)
@@ -101,4 +196,9 @@ void Mad::Interface::IPhysicsSystem::update(float dt)
 void Mad::Interface::IPhysicsSystem::singleStep(float dt)
 {
 	m_World->Step(dt, m_VelIter, m_PosIter);
+}
+
+b2Body* Mad::Interface::IPhysicsSystem::createBody(const b2BodyDef& bd)
+{
+	return m_World->CreateBody(&bd);
 }

@@ -22,10 +22,9 @@ namespace Entity
 		CEntity::CWeapon::CGun* m_Waepon;
 
 		sf::Sound m_FootSteps;
-		b2World* m_World;
 
 	public:
-		Soldier(PhysicsSystem* physicsInstance, b2World* World);
+		Soldier(PhysicsSystem* physicsInstance);
 		~Soldier();
 
 		void update(float deltaTime);

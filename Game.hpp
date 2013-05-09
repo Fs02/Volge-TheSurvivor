@@ -15,7 +15,6 @@ private:
 	sf::Clock clock;
 	float time;
 
-	b2World* m_World;
 	PhysicsSystem *m_PhysicsManager;
 
 	Entity::Soldier*			m_Player;

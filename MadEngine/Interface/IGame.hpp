@@ -16,20 +16,16 @@ namespace Mad
 	{
 		class IGame
 		{
-		private:
+		protected:
 			sf::RenderWindow m_Window;
 			sf::View m_Camera;
 			sf::Event m_Event;
 			sfx::FrameClock frameStats;
 			bool isQuit;
 			bool isDisplayFrameStats;
-			DebugDraw* b2debugDrawI;
 
 			Mad::Graphics::Sprite m_Logo;
 
-
-
-		protected:
 			IGame();
 			virtual ~IGame();
 

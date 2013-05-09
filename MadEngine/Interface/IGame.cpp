@@ -9,7 +9,6 @@ Mad::Interface::IGame::IGame()
 	DrawBatch		= Mad::Utility::DrawBatch::getSingleton();
 
 	isDisplayFrameStats		= false;
-	b2debugDrawI			= nullptr;
 	isQuit					= false;
 }
 
@@ -58,81 +57,6 @@ void Mad::Interface::IGame::quit()
 sf::RenderWindow* Mad::Interface::IGame::getSFWindow()
 {
 	return &m_Window;
-}
-
-void Mad::Interface::IGame::b2DebugDraw(b2World* world)
-{
-	if (b2debugDrawI == nullptr)
-		b2debugDrawI		= new DebugDraw(m_Window);
-
-	for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
-    {
-        const b2Transform& xf = b->GetTransform();
-        for (b2Fixture* fixture = b->GetFixtureList(); fixture; fixture = fixture->GetNext())
-        {
-            b2Color color = b2Color(0.5f, 0.5f, 0.3f);
-
-            switch (fixture->GetType())
-            {
-                case b2Shape::e_circle:
-                {
-                    b2CircleShape* circle = (b2CircleShape*)fixture->GetShape();
-
-                    b2Vec2 center = b2Mul(xf, circle->m_p);
-                    float32 radius = circle->m_radius;
-                    b2Vec2 axis = b2Mul(xf.q, b2Vec2(1.0f, 0.0f));
-
-                    b2debugDrawI->DrawSolidCircle(center, radius, axis, color);
-                }
-                break;
-
-                case b2Shape::e_edge:
-                {
-                    b2EdgeShape* edge = (b2EdgeShape*)fixture->GetShape();
-                    b2Vec2 v1 = b2Mul(xf, edge->m_vertex1);
-                    b2Vec2 v2 = b2Mul(xf, edge->m_vertex2);
-                    b2debugDrawI->DrawSegment(v1, v2, color);
-                }
-                break;
-
-                case b2Shape::e_chain:
-                {
-                    b2ChainShape* chain = (b2ChainShape*)fixture->GetShape();
-                    int32 count = chain->m_count;
-                    const b2Vec2* vertices = chain->m_vertices;
-
-                    b2Vec2 v1 = b2Mul(xf, vertices[0]);
-                    for (int32 i = 1; i < count; ++i)
-                    {
-                        b2Vec2 v2 = b2Mul(xf, vertices[i]);
-                        b2debugDrawI->DrawSegment(v1, v2, color);
-                        b2debugDrawI->DrawCircle(v1, 0.05f, color);
-                        v1 = v2;
-                    }
-                }
-                break;
-
-                case b2Shape::e_polygon:
-                {
-                    b2PolygonShape* poly = (b2PolygonShape*)fixture->GetShape();
-                    int32 vertexCount = poly->m_vertexCount;
-                    b2Assert(vertexCount <= b2_maxPolygonVertices);
-                    b2Vec2 vertices[b2_maxPolygonVertices];
-
-                    for (int32 i = 0; i < vertexCount; ++i)
-                    {
-                        vertices[i] = b2Mul(xf, poly->m_vertices[i]);
-                    }
-
-                    b2debugDrawI->DrawSolidPolygon(vertices, vertexCount, color);
-                }
-                break;
-
-                default:
-                break;
-            }
-        }
-    }
 }
 
 void Mad::Interface::IGame::start()

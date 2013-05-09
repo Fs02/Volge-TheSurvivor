@@ -17,7 +17,7 @@ namespace CEntity
 			int m_State;
 
 		protected:
-			Human(PhysicsSystem* physicsInstance, b2World* world, int catBits);
+			Human(PhysicsSystem* physicsInstance, int catBits);
 			~Human();
 
 			b2Body* m_Body;
@@ -30,7 +30,7 @@ namespace CEntity
 
 		public:
 			const b2Vec2& getPosition();
-			const b2Vec2& getNormal();
+			b2Vec2 getNormal();
 			float getAngle();
 		};
 	}

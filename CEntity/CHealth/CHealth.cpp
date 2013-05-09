@@ -31,10 +31,7 @@ void CEntity::CHealth::update(float deltaTime)
 {
 }
 
-void CEntity::CHealth::onCollisionBegin(Entity::IEntity* other)
+void CEntity::CHealth::onDamage(Entity::IEntity* other, int damage)
 {
-}
-
-void CEntity::CHealth::onCollisionEnd(Entity::IEntity* other)
-{
+	this->decreaseHealthPoints(damage);
 }

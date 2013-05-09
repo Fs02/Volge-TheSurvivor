@@ -45,7 +45,7 @@ void DebugDraw::DrawAABB(b2AABB* aabb, const b2Color& color)
     polygon.setPoint(3, sf::Vector2f(aabb->lowerBound.x*RATIO, aabb->upperBound.y*RATIO));
 
     polygon.setFillColor(this->B2SFColor(color, 50));
-    polygon.setOutlineColor(this->B2SFColor(color));
+    polygon.setOutlineColor(this->B2SFColor(color, 255));
     polygon.setOutlineThickness(1.0f);
 	this->window->draw(polygon);
 }
@@ -67,8 +67,8 @@ void DebugDraw::DrawTransform(const b2Transform& xf)
 void DebugDraw::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color)
 {
     sf::VertexArray line;
-    line.append(sf::Vertex(sf::Vector2f(p1.x*RATIO, p1.y*RATIO), this->B2SFColor(color)));
-    line.append(sf::Vertex(sf::Vector2f(p2.x*RATIO, p2.y*RATIO), this->B2SFColor(color)));
+    line.append(sf::Vertex(sf::Vector2f(p1.x*RATIO, p1.y*RATIO), this->B2SFColor(color, 255)));
+    line.append(sf::Vertex(sf::Vector2f(p2.x*RATIO, p2.y*RATIO), this->B2SFColor(color, 255)));
     line.setPrimitiveType(sf::Lines);
     
     this->window->draw(line);
@@ -80,7 +80,7 @@ void DebugDraw::DrawSolidCircle(const b2Vec2& center, float32 radius, const b2Ve
     sf::CircleShape circle(radius*RATIO);
     circle.setPosition(center.x*RATIO - radius*RATIO, center.y*RATIO - radius*RATIO);
     circle.setFillColor(this->B2SFColor(color, 50));
-    circle.setOutlineColor(this->B2SFColor(color));
+    circle.setOutlineColor(this->B2SFColor(color, 255));
     circle.setOutlineThickness(1.f);
 
     // line of the circle wich shows the angle
@@ -95,7 +95,7 @@ void DebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color& 
     sf::CircleShape circle((radius*RATIO));
     circle.setPosition(center.x*RATIO-radius*RATIO, center.y*RATIO-radius*RATIO);
     circle.setFillColor(sf::Color::Transparent);
-    circle.setOutlineColor(this->B2SFColor(color));
+    circle.setOutlineColor(this->B2SFColor(color, 255));
     circle.setOutlineThickness(1.f);
     this->window->draw(circle);
 }
@@ -109,7 +109,7 @@ void DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, cons
 		polygon.setPoint(i, sf::Vector2f(vertex.x*RATIO, vertex.y*RATIO));
 	}
     polygon.setFillColor(this->B2SFColor(color, 50));
-    polygon.setOutlineColor(this->B2SFColor(color));
+    polygon.setOutlineColor(this->B2SFColor(color, 255));
 	polygon.setOutlineThickness(1.0f);
 	this->window->draw(polygon);
 }
@@ -123,7 +123,7 @@ void DebugDraw::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2C
 		polygon.setPoint(i, sf::Vector2f(vertex.x*RATIO, vertex.y*RATIO));
 	}
     polygon.setFillColor(sf::Color::Transparent);
-    polygon.setOutlineColor(this->B2SFColor(color));
+    polygon.setOutlineColor(this->B2SFColor(color, 255));
 	polygon.setOutlineThickness(1.0f);
 	this->window->draw(polygon);
 }

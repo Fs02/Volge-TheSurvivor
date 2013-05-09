@@ -17,8 +17,9 @@ namespace CEntity
 		~CHealth();
 	
 		void update(float deltaTime);
-		void onCollisionBegin(Entity::IEntity* other);
-		void onCollisionEnd(Entity::IEntity* other);
+//		void onCollisionBegin(Entity::IEntity* other);
+//		void onCollisionEnd(Entity::IEntity* other);
+		void onDamage(Entity::IEntity* other, int damage);
 
 	public:
 		void increaseHealthPoints(int points = 1);

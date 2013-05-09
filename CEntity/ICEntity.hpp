@@ -51,9 +51,15 @@ namespace CEntity
 		~ICEntity();
 
 		virtual void update(float deltaTime) = 0;
-		virtual void onCollisionBegin(Entity::IEntity* other) = 0;
-		virtual void onCollisionEnd(Entity::IEntity* other) = 0;
+		/* I've added implementations, so that
+		 * we don't have to write dummy implementations
+		 * for components not using these methods.
+		 * These implementations do nothing.
+		 */
+		virtual void onCollisionBegin(Entity::IEntity* other);
+		virtual void onCollisionEnd(Entity::IEntity* other);
+		virtual void onDamage(Entity::IEntity* other, int damage);
 
-		PhysicsSystem* m_PhysicsSytem;
+		PhysicsSystem* m_PhysicsSystem;
 	};
 }

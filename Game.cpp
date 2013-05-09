@@ -38,7 +38,6 @@ void Game::update()
 		}break;
 	case Mad::Manager::GameState::Play:
 		{
-			b2DebugDraw(m_World);
 			play();
 		}break;
 	}
@@ -74,8 +73,8 @@ void Game::load()
 		}break;
 	case Mad::Manager::GameState::Play:
 		{
-			m_World				= new b2World(b2Vec2(0.f,0.f));
-			m_PhysicsManager	= new PhysicsSystem(m_World);
+			m_PhysicsManager	= new PhysicsSystem();
+			m_PhysicsManager->enableDebugDraw(m_Window);
 	
 			ResourceProvider->loadTextureFromFile("soldier","soldier.png");
 			ResourceProvider->loadTextureFromFile("zombie","zombie.png");
@@ -95,23 +94,16 @@ void Game::load()
 			Controller->setKeyboardControl("throw",sf::Keyboard::G);
 			Controller->setKeyboardControl("delete",sf::Keyboard::Delete);
 	
-			b2BodyDef def;
-			def.type		= b2_staticBody;
-			def.position.Set(10,10);
-			b2Body* newBody	= m_World->CreateBody(&def);
-	
-			b2PolygonShape shape;
-			shape.SetAsBox(1,0.5f);
-			newBody->CreateFixture(&shape,1.f);
-	
-			m_Player		= new Entity::Soldier(m_PhysicsManager, m_World);
-			m_Zombie		= new Entity::Zombie(m_PhysicsManager, m_World);
+			m_Player		= new Entity::Soldier(m_PhysicsManager);
+			m_Zombie		= new Entity::Zombie(m_PhysicsManager);
 		}break;
 	}
 }
 
 void Game::unLoad()
 {
+	delete m_PhysicsManager;
+	m_PhysicsManager=nullptr;
 }
 
 void Game::play()
@@ -131,9 +123,7 @@ void Game::play()
 	if (Controller->getControl("exit"))
 		quit();
 
-	//m_PhysicsManager->update(clock.getElapsedTime().asSeconds());
-	//clock.restart();
-	m_World->Step(deltaTime,8,3);
+	m_PhysicsManager->drawDebugData();
+	m_PhysicsManager->update(clock.getElapsedTime().asSeconds());
 	clock.restart();
-	m_PhysicsManager->processBuffer();
 }

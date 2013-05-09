@@ -1,0 +1,3 @@
+1. adding generic events for less used event types (by event I mean things like onCollisionBegin, onDamage etc.)
+2. Did you use C#/Java? You're nulling pointers in destructors.
+3. Why do we have that RATIO constant in DebugDraw?

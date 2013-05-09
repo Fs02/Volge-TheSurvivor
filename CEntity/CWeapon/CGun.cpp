@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include "CGun.hpp"
 
-CEntity::CWeapon::CGun::CGun(PhysicsSystem* physicsInstance, b2World* world, const std::string& name, float spr, int totalBullet,int magCapacity, float loadTime)
+CEntity::CWeapon::CGun::CGun(PhysicsSystem* physicsInstance, const std::string& name, float spr, int totalBullet,int magCapacity, float loadTime)
 	: CEntity::ICEntity(physicsInstance)
 {
-	m_World			= world;
 	m_Name			= name;
 	m_Spr			= spr;
 	m_TotalBullet	= totalBullet;
@@ -19,7 +18,6 @@ CEntity::CWeapon::CGun::CGun(PhysicsSystem* physicsInstance, b2World* world, con
 
 CEntity::CWeapon::CGun::~CGun()
 {
-	m_World			= nullptr;
 }
 
 void CEntity::CWeapon::CGun::attack(const b2Vec2& normal, const b2Vec2& pos, float rot)
@@ -33,7 +31,7 @@ void CEntity::CWeapon::CGun::attack(const b2Vec2& normal, const b2Vec2& pos, flo
 		if ((time - m_TimeLastAction) > m_Spr)
 		{
 			m_ShootSound.play();
-			new CEntity::CBullet(m_World, normal, pos, rot);
+			// TODO ray cast
 			m_TimeLastAction	= time;
 			m_MagBullet			-=1;
 		}

@@ -1,14 +1,15 @@
 #include "stdafx.h"
 #include "Human.hpp"
+#include "../../PhysicsSystem.hpp"
 
-CEntity::CSkeleton::Human::Human(PhysicsSystem* physicsInstance, b2World* world, int catBits)
+CEntity::CSkeleton::Human::Human(PhysicsSystem* physicsInstance, int catBits)
 	: CEntity::ICEntity(physicsInstance)
 {
     b2BodyDef def;
     def.type        = b2_dynamicBody;
 	def.position.Set(10,10);
 
-    m_Body          = world->CreateBody(&def);
+    m_Body          = physicsInstance->createBody(def);
 
     b2PolygonShape shape;
     shape.SetAsBox(0.55f,0.35f);
@@ -93,7 +94,7 @@ const b2Vec2& CEntity::CSkeleton::Human::getPosition()
 	return m_Body->GetPosition();
 }
 
-const b2Vec2& CEntity::CSkeleton::Human::getNormal()
+b2Vec2 CEntity::CSkeleton::Human::getNormal()
 {
 	return m_Body->GetWorldVector(b2Vec2(0,1));
 }

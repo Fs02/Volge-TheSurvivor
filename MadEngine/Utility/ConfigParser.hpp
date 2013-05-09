@@ -1,4 +1,4 @@
-#include "..\..\stdafx.h"
+#include "../../stdafx.h"
 
 namespace Mad
 {
@@ -27,7 +27,7 @@ namespace Mad
 		public:
 			ConfigParser(const std::string& fileName);
 			~ConfigParser();
-void saveChanges();
+			void saveChanges();
 			void getValue(const std::string &key, std::string& value) const;
 			void setValue(const std::string &key, const std::string& value);
 			bool isKeyExists(const std::string& key) const;

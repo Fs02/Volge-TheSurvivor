@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "CGun.hpp"
 
-CEntity::CWaepon::CGun::CGun(b2World* world, const std::string& name, float spr, int totalBullet,int magCapacity, float loadTime)
-	:CEntity::CWaepon::ICWaepon(CEntity::CWaepon::GUN)
+CEntity::CWeapon::CGun::CGun(b2World* world, const std::string& name, float spr, int totalBullet,int magCapacity, float loadTime)
+	:CEntity::CWeapon::ICWaepon(CEntity::CWeapon::GUN)
 {
 	m_World			= world;
 	m_Name			= name;
@@ -17,12 +17,12 @@ CEntity::CWaepon::CGun::CGun(b2World* world, const std::string& name, float spr,
 	m_NoAmmoSound.setBuffer(*Mad::Manager::Resource::getSoundBuffer("gun_noammo"));
 }
 
-CEntity::CWaepon::CGun::~CGun()
+CEntity::CWeapon::CGun::~CGun()
 {
 	m_World			= nullptr;
 }
 
-void CEntity::CWaepon::CGun::attack(const b2Vec2& normal, const b2Vec2& pos, float rot)
+void CEntity::CWeapon::CGun::attack(const b2Vec2& normal, const b2Vec2& pos, float rot)
 {
 	m_isShooting	= false;
 	float time	= m_Clock.getElapsedTime().asSeconds();
@@ -70,7 +70,7 @@ void CEntity::CWaepon::CGun::attack(const b2Vec2& normal, const b2Vec2& pos, flo
 	}
 }
 
-void CEntity::CWaepon::CGun::reload()
+void CEntity::CWeapon::CGun::reload()
 {
 	if (m_CockSound.getStatus() != m_CockSound.Playing)
 	m_CockSound.play();
@@ -78,7 +78,7 @@ void CEntity::CWaepon::CGun::reload()
 	m_MagBullet			= 0;
 }
 
-bool CEntity::CWaepon::CGun::isShooting()
+bool CEntity::CWeapon::CGun::isShooting()
 {
 	return m_isShooting;
 }

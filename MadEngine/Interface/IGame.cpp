@@ -142,7 +142,7 @@ void Mad::Interface::IGame::start()
 	initialize();
 
 	sf::Font hudFont;
-	hudFont.loadFromFile("Assets//Font//BuxtonSketch.ttf");
+	hudFont.loadFromFile("Assets/Font/BuxtonSketch.ttf");
 	
 	ClockHUD *StatsHUD;
 	if (isDisplayFrameStats)

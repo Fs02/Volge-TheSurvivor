@@ -1,8 +1,8 @@
 #pragma once
 
-#include "..\..\stdafx.h"
-#include "..\..\MadEngine\MadEngine.hpp"
-#include "..\EnumStates.hpp"
+#include "../../stdafx.h"
+#include "../../MadEngine/MadEngine.hpp"
+#include "../EnumStates.hpp"
 
 namespace CEntity
 {

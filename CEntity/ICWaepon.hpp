@@ -1,11 +1,11 @@
 #pragma once
 
-#include "..\stdafx.h"
-#include "..\MadEngine\MadEngine.hpp"
+#include "../stdafx.h"
+#include "../MadEngine/MadEngine.hpp"
 
 namespace CEntity
 {
-	namespace CWaepon
+	namespace CWeapon
 	{
 		enum
 		{

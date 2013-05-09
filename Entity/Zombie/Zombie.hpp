@@ -1,12 +1,12 @@
 #pragma once
 
-#include "..\..\stdafx.h"
-#include "..\..\MadEngine\MadEngine.hpp"
-#include "..\IEntity.hpp"
-#include "..\..\CEntity\EnumStates.hpp"
-#include "..\..\CEntity\CSkeleton\Human.hpp"
-#include "..\..\CEntity\CHealth\CHealth.hpp"
-#include "..\..\CEntity\CAI\AIZombie.hpp"
+#include "../../stdafx.h"
+#include "../../MadEngine/MadEngine.hpp"
+#include "../IEntity.hpp"
+#include "../../CEntity/EnumStates.hpp"
+#include "../../CEntity/CSkeleton/Human.hpp"
+#include "../../CEntity/CHealth/CHealth.hpp"
+#include "../../CEntity/CAI/AIZombie.hpp"
 
 namespace Entity
 {

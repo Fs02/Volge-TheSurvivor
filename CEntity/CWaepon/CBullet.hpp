@@ -1,8 +1,8 @@
 #pragma once
 
-#include "..\..\stdafx.h"
-#include "..\ICSkeleton.hpp"
-#include "..\..\MadEngine\MadEngine.hpp"
+#include "../../stdafx.h"
+#include "../ICSkeleton.hpp"
+#include "../../MadEngine/MadEngine.hpp"
 
 namespace CEntity
 {

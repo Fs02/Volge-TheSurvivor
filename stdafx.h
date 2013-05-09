@@ -7,10 +7,10 @@
 
 //#include "targetver.h"
 
-#include <SFML\Window.hpp>
-#include <SFML\Graphics.hpp>
-#include <SFML\Audio.hpp>
-#include <Box2D\Box2D.h>
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include <Box2D/Box2D.h>
 //#include <stdio.h>
 #include <fstream>
 #include <iostream>

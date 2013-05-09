@@ -1,14 +1,14 @@
 #pragma once
 
-#include "..\..\stdafx.h"
-#include "..\Manager\GameState.hpp"
-#include "..\Manager\Resource.hpp"
-#include "..\Manager\Controller.hpp"
-#include "..\Utility\DrawBatch.hpp"
-#include "..\3rdParty\FrameClock\FrameClock.hpp"
-#include "..\3rdParty\FrameClock\ClockHUD.hpp"
-#include "..\3rdParty\b2DebugDraw\DebugDraw.hpp"
-#include "..\Graphics\Sprite.hpp"
+#include "../../stdafx.h"
+#include "../Manager/GameState.hpp"
+#include "../Manager/Resource.hpp"
+#include "../Manager/Controller.hpp"
+#include "../Utility/DrawBatch.hpp"
+#include "../3rdParty/FrameClock/FrameClock.hpp"
+#include "../3rdParty/FrameClock/ClockHUD.hpp"
+#include "../3rdParty/b2DebugDraw/DebugDraw.hpp"
+#include "../Graphics/Sprite.hpp"
 
 namespace Mad
 {
@@ -31,7 +31,7 @@ namespace Mad
 
 		protected:
 			IGame();
-			~IGame();
+			virtual ~IGame();
 
 			Mad::Manager::GameState *GameState;
 			Mad::Manager::Resource *ResourceProvider;

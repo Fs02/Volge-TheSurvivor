@@ -3,10 +3,10 @@
 
 Mad::Manager::Resource::Resource()
 {
-	m_Properties["TexturePath"] = "Assets\\Texture\\";
+	m_Properties["TexturePath"] = "Assets/Texture/";
 	m_Properties["TextureType"]	= "default";
-	m_Properties["SFXPath"]		= "Assets\\SFX\\";
-	m_Properties["AudioPath"]	= "Assets\\Audio\\";
+	m_Properties["SFXPath"]		= "Assets/SFX/";
+	m_Properties["AudioPath"]	= "Assets/Audio/";
 }
 
 Mad::Manager::Resource::~Resource()

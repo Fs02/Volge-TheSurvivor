@@ -15,7 +15,7 @@ Entity::Soldier::Soldier(b2World* World)
 	m_AniSprite.setLoopSpeed(10);
 	m_AniSprite.setInvertSprite(true);
 	m_World				= World;
-	m_Waepon			= new CEntity::CWaepon::CGun(World,"m16",0.21f ,120,30,1);
+	m_Waepon			= new CEntity::CWeapon::CGun(World,"m16",0.21f ,120,30,1);
 
 	m_FootSteps.setBuffer(*Mad::Manager::Resource::getSoundBuffer("footsteps"));
 	m_FootSteps.setVolume(30);

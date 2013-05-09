@@ -1,7 +1,7 @@
 #pragma once
 
-#include "..\stdafx.h"
-#include "..\MadEngine\MadEngine.hpp"
+#include "../stdafx.h"
+#include "../MadEngine/MadEngine.hpp"
 
 namespace Entity
 {
@@ -13,7 +13,7 @@ namespace Entity
 
 	public:
 		IEntity();
-		~IEntity();
+		virtual ~IEntity();
 
 		virtual void update() = 0;
 		virtual void draw() = 0;

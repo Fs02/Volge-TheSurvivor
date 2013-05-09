@@ -1,7 +1,7 @@
 #pragma once
 
-#include "..\..\stdafx.h"
-#include "..\Utility\DrawBatch.hpp"
+#include "../../stdafx.h"
+#include "../Utility/DrawBatch.hpp"
 
 namespace Mad
 {

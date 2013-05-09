@@ -3,8 +3,8 @@
 //
 #pragma once
 
-#include "..\stdafx.h"
-#include "..\MadEngine\MadEngine.hpp"
+#include "../stdafx.h"
+#include "../MadEngine/MadEngine.hpp"
 #include "EnumStates.hpp"
 
 namespace CEntity
@@ -38,9 +38,9 @@ namespace CEntity
 
 	public:		
 		ICSkeleton();
-		~ICSkeleton();
+		virtual ~ICSkeleton();
 		const b2Vec2& getPosition();
-		b2Vec2& getNormal();
+		b2Vec2 getNormal();
 		float getAngle();
 	};
 }

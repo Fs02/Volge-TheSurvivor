@@ -2,10 +2,10 @@
 
 #include "stdafx.h"
 
-#include "MadEngine\MadEngine.hpp"
+#include "MadEngine/MadEngine.hpp"
 #include "PhysicsSystem.hpp"
-#include "Entity\Human\Soldier.hpp"
-#include "Entity\Zombie\Zombie.hpp"
+#include "Entity/Human/Soldier.hpp"
+#include "Entity/Zombie/Zombie.hpp"
 
 class Game :
 	public Mad::Interface::IGame

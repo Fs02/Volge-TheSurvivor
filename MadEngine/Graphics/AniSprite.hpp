@@ -1,6 +1,6 @@
 #pragma once
 
-#include "..\..\stdafx.h"
+#include "../../stdafx.h"
 #include "Sprite.hpp"
 
 namespace Mad

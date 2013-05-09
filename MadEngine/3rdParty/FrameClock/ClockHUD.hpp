@@ -24,7 +24,7 @@
 
 #pragma once
 
-#include "..\..\..\stdafx.h"
+#include "../../../stdafx.h"
 #include "FrameClock.hpp"
 
 class ClockHUD : public sf::Drawable

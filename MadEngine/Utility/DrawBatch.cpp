@@ -50,7 +50,7 @@ void Mad::Utility::DrawBatch::cleanUp()
 	m_CircleShape	= nullptr;
 }
 
-void Mad::Utility::DrawBatch::drawText(const std::string& text, sf::Vector2f& pos, float rot, int size, const sf::Color& color, sf::Text::Style style)
+void Mad::Utility::DrawBatch::drawText(const std::string& text, const sf::Vector2f& pos, float rot, int size, const sf::Color& color, sf::Text::Style style)
 {
 	if (m_Text == nullptr)		
 	{
@@ -69,7 +69,7 @@ void Mad::Utility::DrawBatch::drawText(const std::string& text, sf::Vector2f& po
 
 ///
 
-void Mad::Utility::DrawBatch::drawSprite(const std::string& textureId, sf::Vector2f& pos, float rot, sf::Vector2f& origin)
+void Mad::Utility::DrawBatch::drawSprite(const std::string& textureId, const sf::Vector2f& pos, float rot, const sf::Vector2f& origin)
 {
 	if (m_Sprite == nullptr)	m_Sprite	= new sf::Sprite;
 
@@ -81,7 +81,7 @@ void Mad::Utility::DrawBatch::drawSprite(const std::string& textureId, sf::Vecto
 	m_TargetWindow->draw(*m_Sprite);
 }
 
-void Mad::Utility::DrawBatch::drawSprite(const std::string& textureId, sf::IntRect& area, sf::Vector2f& pos, float rot, sf::Vector2f& origin)
+void Mad::Utility::DrawBatch::drawSprite(const std::string& textureId, const sf::IntRect& area, const sf::Vector2f& pos, float rot, const sf::Vector2f& origin)
 {
 	if (m_Sprite == nullptr)	m_Sprite	= new sf::Sprite;
 

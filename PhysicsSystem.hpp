@@ -1,10 +1,10 @@
 #pragma once
 
 #include "stdafx.h"
-#include "MadEngine\MadEngine.hpp"
-#include "CEntity\CWaepon\CBullet.hpp"
-#include "Entity\Human\Soldier.hpp"
-#include "Entity\Zombie\Zombie.hpp"
+#include "MadEngine/MadEngine.hpp"
+#include "CEntity/CWaepon/CBullet.hpp"
+#include "Entity/Human/Soldier.hpp"
+#include "Entity/Zombie/Zombie.hpp"
 
 class PhysicsSystem 
 	: b2ContactListener

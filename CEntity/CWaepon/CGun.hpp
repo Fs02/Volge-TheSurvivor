@@ -1,16 +1,16 @@
 #pragma once
 
-#include "..\..\stdafx.h"
-#include "..\ICWaepon.hpp"
+#include "../../stdafx.h"
+#include "../ICWaepon.hpp"
 #include "CBullet.hpp"
-#include "..\..\MadEngine\MadEngine.hpp"
+#include "../../MadEngine/MadEngine.hpp"
 
 namespace CEntity
 {
-	namespace CWaepon
+	namespace CWeapon
 	{
 		class CGun
-			: public CEntity::CWaepon::ICWaepon
+			: public CEntity::CWeapon::ICWaepon
 		{
 		private:
 			std::string m_Name;

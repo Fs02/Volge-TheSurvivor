@@ -16,7 +16,7 @@ const b2Vec2& CEntity::ICSkeleton::getPosition()
 	return m_Body->GetPosition();
 }
 
-b2Vec2& CEntity::ICSkeleton::getNormal()
+b2Vec2 CEntity::ICSkeleton::getNormal()
 {
 	return m_Body->GetWorldVector(b2Vec2(0,1));
 }

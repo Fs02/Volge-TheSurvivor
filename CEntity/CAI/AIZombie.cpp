@@ -81,7 +81,7 @@ void CEntity::CAI::AIZombie::updateAI()
 		setAIState(STATE::ATTACK);
 
 	//Where to Turn 
-	float angle			= std::atan2f(localVector.x, localVector.y);
+	float angle			= std::atan2(localVector.x, localVector.y);
 	if (angle > (5.f * DEGTORAD))
 		setAIState(STATE::LEFT);
 	else if (angle < (-5.f * DEGTORAD))

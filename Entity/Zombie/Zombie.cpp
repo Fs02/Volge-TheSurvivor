@@ -1,9 +1,10 @@
 #include "stdafx.h"
 #include "Zombie.hpp"
 
-Entity::Zombie::Zombie(b2World* World)
-	:CEntity::CSkeleton::Human(World, CEntity::ZOMBIE),
-	CEntity::CHealth(100)
+Entity::Zombie::Zombie(PhysicsSystem* physicsInstance, b2World* World)
+	:CEntity::CSkeleton::Human(physicsInstance, World, CEntity::ZOMBIE),
+	CEntity::CHealth(physicsInstance, 100),
+	CEntity::CAI::AIZombie(physicsInstance)
 {
 	m_Body->SetUserData(this);
 	setSpeed(0.5f);
@@ -20,11 +21,13 @@ Entity::Zombie::~Zombie()
 {
 }
 
-void Entity::Zombie::update()
+void Entity::Zombie::update(float deltaTime)
 {
-	updateAI();
+	CEntity::CAI::AIZombie::update(deltaTime);
 	int state		= getAIState();
-	updateSkeleton(state);
+
+	CEntity::CSkeleton::Human::setState(state);
+	CEntity::CSkeleton::Human::update(deltaTime);
 	
 	//waepon attack
 
@@ -49,6 +52,14 @@ void Entity::Zombie::update()
 	m_AniSprite.setPosition(getPosition().x * RATIO, getPosition().y * RATIO);
 	m_AniSprite.setRotation(getAngle() * RADTODEG);
 	m_AniSprite.update();
+}
+
+void Entity::Zombie::onCollisionBegin(Entity::IEntity* other)
+{
+}
+
+void Entity::Zombie::onCollisionEnd(Entity::IEntity* other)
+{
 }
 
 void Entity::Zombie::draw()

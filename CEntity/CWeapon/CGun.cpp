@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "CGun.hpp"
 
-CEntity::CWeapon::CGun::CGun(b2World* world, const std::string& name, float spr, int totalBullet,int magCapacity, float loadTime)
-	:CEntity::CWeapon::ICWaepon(CEntity::CWeapon::GUN)
+CEntity::CWeapon::CGun::CGun(PhysicsSystem* physicsInstance, b2World* world, const std::string& name, float spr, int totalBullet,int magCapacity, float loadTime)
+	: CEntity::ICEntity(physicsInstance)
 {
 	m_World			= world;
 	m_Name			= name;
@@ -81,4 +81,16 @@ void CEntity::CWeapon::CGun::reload()
 bool CEntity::CWeapon::CGun::isShooting()
 {
 	return m_isShooting;
+}
+
+void CEntity::CWeapon::CGun::update(float deltaTime)
+{
+}
+
+void CEntity::CWeapon::CGun::onCollisionBegin(Entity::IEntity* other)
+{
+}
+
+void CEntity::CWeapon::CGun::onCollisionEnd(Entity::IEntity* other)
+{
 }

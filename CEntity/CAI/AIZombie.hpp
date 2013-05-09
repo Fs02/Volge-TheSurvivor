@@ -2,16 +2,17 @@
 
 #include "../../stdafx.h"
 #include "../../MadEngine/MadEngine.hpp"
-#include "../EnumStates.hpp"
+#include "../ICEntity.hpp"
 
 namespace CEntity
 {
 	namespace CAI
 	{
 		class AIZombie
+			: public CEntity::ICEntity
 		{
 		public:
-			AIZombie();
+			AIZombie(PhysicsSystem* physicsInstance);
 			~AIZombie();
 
 			int getAIState();
@@ -20,16 +21,17 @@ namespace CEntity
 			void addTarget(b2Body* body);
 			void removeTarget(b2Body* body);
 
-			void updateAI();
-
 		protected:
+			void update(float deltaTime);
+			void onCollisionBegin(Entity::IEntity* other);
+			void onCollisionEnd(Entity::IEntity* other);
+
 			void setAIBody(b2Body* body);
 
 		private:
 			int m_State;
 			int m_prevState;
-			sf::Clock m_Clock;
-			float m_Time;
+			float m_TotalTime;
 			b2Body* m_Bodyptr;
 			std::vector<b2Body*> m_TargetList;
 

@@ -1,10 +1,10 @@
 #include "stdafx.h"
 #include "Soldier.hpp"
 
-Entity::Soldier::Soldier(b2World* World)
-	:CEntity::CSkeleton::Human(World, CEntity::SOLDIER),
-	CEntity::CHealth(100),
-	CEntity::CAI::Player()
+Entity::Soldier::Soldier(PhysicsSystem* physicsInstance, b2World* World)
+	:CEntity::CSkeleton::Human(physicsInstance, World, CEntity::SOLDIER),
+	CEntity::CHealth(physicsInstance, 100),
+	CEntity::CAI::Player(physicsInstance)
 {
 	m_Controller		= Mad::Manager::Controller::getSingleton();
 
@@ -15,7 +15,7 @@ Entity::Soldier::Soldier(b2World* World)
 	m_AniSprite.setLoopSpeed(10);
 	m_AniSprite.setInvertSprite(true);
 	m_World				= World;
-	m_Waepon			= new CEntity::CWeapon::CGun(World,"m16",0.21f ,120,30,1);
+	m_Waepon			= new CEntity::CWeapon::CGun(physicsInstance ,World,"m16",0.21f ,120,30,1);
 
 	m_FootSteps.setBuffer(*Mad::Manager::Resource::getSoundBuffer("footsteps"));
 	m_FootSteps.setVolume(30);
@@ -26,12 +26,14 @@ Entity::Soldier::~Soldier()
 {
 }
 
-void Entity::Soldier::update()
+void Entity::Soldier::update(float deltaTime)
 {
-	updateAI();
+	CEntity::CAI::Player::update(deltaTime);
 	int state		= getAIState();
-	updateSkeleton(state);
-	
+
+	CEntity::CSkeleton::Human::setState(state);
+	CEntity::CSkeleton::Human::update(deltaTime);
+
 	if (0 != (state & STATE::ATTACK))
 		m_Waepon->attack(m_Body->GetWorldVector(b2Vec2(0.f,1.f)), m_Body->GetWorldPoint(b2Vec2(-0.6f,1.f)), getAngle());
 	if (!m_Waepon->isShooting())
@@ -83,6 +85,14 @@ void Entity::Soldier::update()
 	m_AniSprite.setPosition(getPosition().x * RATIO, getPosition().y * RATIO);
 	m_AniSprite.setRotation(getAngle() * RADTODEG);
 	m_AniSprite.update();
+}
+
+void Entity::Soldier::onCollisionBegin(Entity::IEntity* other)
+{
+}
+
+void Entity::Soldier::onCollisionEnd(Entity::IEntity* other)
+{
 }
 
 void Entity::Soldier::draw()

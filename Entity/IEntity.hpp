@@ -15,7 +15,9 @@ namespace Entity
 		IEntity();
 		virtual ~IEntity();
 
-		virtual void update() = 0;
+		virtual void update(float deltaTime) = 0;
+		virtual void onCollisionBegin(IEntity* other) = 0;
+		virtual void onCollisionEnd(IEntity* other) = 0;
 		virtual void draw() = 0;
 
 		const std::string& getName() const;

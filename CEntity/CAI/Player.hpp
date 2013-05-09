@@ -1,32 +1,35 @@
 #pragma once
 
 #include "../../stdafx.h"
+#include "../ICEntity.hpp"
 #include "../CWeapon/CGun.hpp"
 #include "../../MadEngine/MadEngine.hpp"
-#include "../EnumStates.hpp"
 
 namespace CEntity
 {
 	namespace CAI
 	{
 		class Player
+			: public CEntity::ICEntity
 		{
 		public:
-			Player();
+			Player(PhysicsSystem* physicsInstance);
 			~Player();
 
 			int getAIState();
 			void setAIState(int state);
 			void unsetAIState(int state);
 
-			void updateAI();
+		protected:
+			void update(float deltaTime);
+			void onCollisionBegin(Entity::IEntity* other);
+			void onCollisionEnd(Entity::IEntity* other);
 			
 		private:
 			int m_State;
 			int m_prevState;
-			sf::Clock m_Clock;
 			Mad::Manager::Controller* m_Controller;
-			float m_Time;
+			float m_TotalTime;
 			
 			void resetState();
 		};

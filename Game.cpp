@@ -104,8 +104,8 @@ void Game::load()
 			shape.SetAsBox(1,0.5f);
 			newBody->CreateFixture(&shape,1.f);
 	
-			m_Player		= new Entity::Soldier(m_World);
-			m_Zombie		= new Entity::Zombie(m_World);
+			m_Player		= new Entity::Soldier(m_PhysicsManager, m_World);
+			m_Zombie		= new Entity::Zombie(m_PhysicsManager, m_World);
 		}break;
 	}
 }
@@ -116,13 +116,15 @@ void Game::unLoad()
 
 void Game::play()
 {
+	float deltaTime		= clock.getElapsedTime().asSeconds();
+
 	DrawBatch->drawText("Test Text");
 	DrawBatch->drawText("another test text",sf::Vector2f(100,100), 32, 15, sf::Color::Red, sf::Text::Underlined);
 	
-	m_Player->update();
+	m_Player->update(deltaTime);
 	m_Player->draw();
 
-	m_Zombie->update();
+	m_Zombie->update(deltaTime);
 	m_Zombie->draw();
 	//if (Controller->getControl("delete"))
 	//	delete m_Player;
@@ -131,7 +133,7 @@ void Game::play()
 
 	//m_PhysicsManager->update(clock.getElapsedTime().asSeconds());
 	//clock.restart();
-	m_World->Step(clock.getElapsedTime().asSeconds(),8,8);
+	m_World->Step(deltaTime,8,3);
 	clock.restart();
 	m_PhysicsManager->processBuffer();
 }

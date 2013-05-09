@@ -181,7 +181,6 @@ void Mad::Interface::IGame::start()
 			if (GameState->getCurrentState() != gstate)
 				loaded	= false;
 
-			std::cout<<GameState->getCurrentState()<<" | "<<gstate<<std::endl;
 		} while ((loaded == true) && (isQuit == false));
 		unLoad();
 	}

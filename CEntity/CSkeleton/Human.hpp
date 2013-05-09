@@ -1,30 +1,37 @@
-//
-//Human Skeleton will automatically have a censor.
-//the Category Bits of the censor equivalent to m_Body category Bits + 1
-//
-
 #pragma once
 
 #include "../../stdafx.h"
-#include "../ICSkeleton.hpp"
 #include "../../MadEngine/MadEngine.hpp"
+#include "../ICEntity.hpp"
 
 namespace CEntity
 {
 	namespace CSkeleton
 	{
 		class Human
-			:public CEntity::ICSkeleton
+			: public CEntity::ICEntity
 		{
 		private:
 			void updateFriction();
 			float m_Speed;
+			int m_State;
 
 		protected:
-			Human(b2World* world, int catBits);
+			Human(PhysicsSystem* physicsInstance, b2World* world, int catBits);
 			~Human();
-			void updateSkeleton(int state);
+
+			b2Body* m_Body;
+			void update(float deltaTime);
+			void onCollisionBegin(Entity::IEntity* other);
+			void onCollisionEnd(Entity::IEntity* other);
+
 			void setSpeed(float speed);
+			void setState(int state);
+
+		public:
+			const b2Vec2& getPosition();
+			const b2Vec2& getNormal();
+			float getAngle();
 		};
 	}
 }

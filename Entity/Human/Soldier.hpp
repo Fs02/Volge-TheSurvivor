@@ -3,7 +3,6 @@
 #include "../../stdafx.h"
 #include "../../MadEngine/MadEngine.hpp"
 #include "../IEntity.hpp"
-#include "../../CEntity/EnumStates.hpp"
 #include "../../CEntity/CSkeleton/Human.hpp"
 #include "../../CEntity/CAI/Player.hpp"
 #include "../../CEntity/CWeapon/CGun.hpp"
@@ -26,10 +25,12 @@ namespace Entity
 		b2World* m_World;
 
 	public:
-		Soldier(b2World* World);
+		Soldier(PhysicsSystem* physicsInstance, b2World* World);
 		~Soldier();
 
-		void update();
+		void update(float deltaTime);
+		void onCollisionBegin(Entity::IEntity* other);
+		void onCollisionEnd(Entity::IEntity* other);
 		void draw();
 	};
 }

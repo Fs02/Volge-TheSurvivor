@@ -1,10 +1,11 @@
 #include "stdafx.h"
 #include "AIZombie.hpp"
 
-CEntity::CAI::AIZombie::AIZombie()
+CEntity::CAI::AIZombie::AIZombie(PhysicsSystem* physicsIntance)
+	: CEntity::ICEntity(physicsIntance)
 {	
 	m_State				= STATE::IDLE;
-	m_Bodyptr				= nullptr;
+	m_Bodyptr			= nullptr;
 }
 
 CEntity::CAI::AIZombie::~AIZombie()
@@ -63,13 +64,13 @@ b2Vec2 CEntity::CAI::AIZombie::getNearestTarget()
 	return nearPos;
 }
 
-void CEntity::CAI::AIZombie::updateAI()
+void CEntity::CAI::AIZombie::update(float deltaTime)
 {
 	if (m_Bodyptr == nullptr)
 		throw Mad::Manager::Exceptions::BadMemoryAllocation("Invalid Pointer !");
 
 	resetState();
-	float elapsedTime	= m_Clock.getElapsedTime().asSeconds();
+	m_TotalTime			+= deltaTime;
 
 	b2Vec2 localVector	= m_Bodyptr->GetLocalPoint(getNearestTarget());
 	//UPDATE STATE
@@ -89,7 +90,7 @@ void CEntity::CAI::AIZombie::updateAI()
 	else;
 
 	//Check if it's time to idle
-	if ((0 != (m_prevState & STATE::STEADY)) && (elapsedTime > 5) || ((m_prevState == m_State) == STATE::IDLE))
+	if ((0 != (m_prevState & STATE::STEADY)) && (m_TotalTime > 5) || ((m_prevState == m_State) == STATE::IDLE))
 		resetState();
 	else
 		setAIState(STATE::STEADY);
@@ -97,9 +98,17 @@ void CEntity::CAI::AIZombie::updateAI()
 	//Reset Clock if state has been changed
 	if (m_State != m_prevState)
 	{
-		m_Clock.restart();
+		m_TotalTime		= 0;
 	}
 	m_prevState			=  m_State;
+}
+
+void CEntity::CAI::AIZombie::onCollisionBegin(Entity::IEntity* other)
+{
+}
+
+void CEntity::CAI::AIZombie::onCollisionEnd(Entity::IEntity* other)
+{
 }
 
 void CEntity::CAI::AIZombie::resetState()

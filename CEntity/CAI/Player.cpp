@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Player.hpp"
 
-CEntity::CAI::Player::Player()
+CEntity::CAI::Player::Player(PhysicsSystem* physicsInstance)
+	: CEntity::ICEntity(physicsInstance)
 {
 	m_Controller		= Mad::Manager::Controller::getSingleton();
 	int m_State			= STATE::IDLE;
@@ -26,11 +27,11 @@ void CEntity::CAI::Player::unsetAIState(int state)
 	m_State				= m_State & ~state;
 }
 
-void CEntity::CAI::Player::updateAI()
+void CEntity::CAI::Player::update(float deltaTime)
 {
 	//reset all states back to idle
 	resetState();
-	float elapsedTime	= m_Clock.getElapsedTime().asSeconds();
+	m_TotalTime			+= deltaTime;
 
 	//UPDATE STATE
 	if (m_Controller->getControl("forward"))
@@ -54,7 +55,7 @@ void CEntity::CAI::Player::updateAI()
 	else;
 
 	//Check if player need to idle
-	if ((0 != (m_prevState & STATE::STEADY)) && (elapsedTime > 5) || ((m_prevState == m_State) == STATE::IDLE))
+	if ((0 != (m_prevState & STATE::STEADY)) && (m_TotalTime > 5) || ((m_prevState == m_State) == STATE::IDLE))
 	{
 		resetState();	//set back to idle
 	}
@@ -64,9 +65,17 @@ void CEntity::CAI::Player::updateAI()
 	//Reset Clock if state has been changed
 	if (m_State != m_prevState)
 	{
-		m_Clock.restart();
+		m_TotalTime			= 0;
 	}
 	m_prevState		= m_State;
+}
+
+void CEntity::CAI::Player::onCollisionBegin(Entity::IEntity* other)
+{
+}
+
+void CEntity::CAI::Player::onCollisionEnd(Entity::IEntity* other)
+{
 }
 
 void CEntity::CAI::Player::resetState()

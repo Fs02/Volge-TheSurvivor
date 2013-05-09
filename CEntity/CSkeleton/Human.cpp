@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "Human.hpp"
 
-CEntity::CSkeleton::Human::Human(b2World* world, int catBits)
+CEntity::CSkeleton::Human::Human(PhysicsSystem* physicsInstance, b2World* world, int catBits)
+	: CEntity::ICEntity(physicsInstance)
 {
     b2BodyDef def;
     def.type        = b2_dynamicBody;
@@ -40,7 +41,7 @@ void CEntity::CSkeleton::Human::updateFriction()
     m_Body->ApplyTorque( m_Body->GetInertia() * -m_Body->GetAngularVelocity());
 }
 
-void CEntity::CSkeleton::Human::updateSkeleton(int state)
+void CEntity::CSkeleton::Human::update(float deltaTime)
 {
     b2Vec2 desiredVelocity;
     b2Vec2 vel = m_Body->GetLinearVelocity();
@@ -48,11 +49,11 @@ void CEntity::CSkeleton::Human::updateSkeleton(int state)
 	b2Vec2 direction	= m_Body->GetWorldVector(b2Vec2(0,0));
     float desiredAngle	= m_Body->GetAngle();
 
-	if (0 != (state & STATE::FORWARD))			direction		= m_Body->GetWorldVector(b2Vec2(0,1.f));
-	else if (0 != (state & STATE::BACKWARD))	direction		= m_Body->GetWorldVector(b2Vec2(0,-1.f));
+	if (0 != (m_State & STATE::FORWARD))		direction		= m_Body->GetWorldVector(b2Vec2(0,1.f));
+	else if (0 != (m_State & STATE::BACKWARD))	direction		= m_Body->GetWorldVector(b2Vec2(0,-1.f));
 	else;
-	if (0 != (state & STATE::LEFT))				desiredAngle	+= -5.f * DEGTORAD;
-	else if (0 != (state & STATE::RIGHT))		desiredAngle	+= 5.f * DEGTORAD;
+	if (0 != (m_State & STATE::LEFT))			desiredAngle	+= -5.f * DEGTORAD;
+	else if (0 != (m_State & STATE::RIGHT))		desiredAngle	+= 5.f * DEGTORAD;
 	else;
 
     m_Body->ApplyLinearImpulse(m_Speed * direction , m_Body->GetWorldCenter());
@@ -69,7 +70,35 @@ void CEntity::CSkeleton::Human::updateSkeleton(int state)
 	updateFriction();
 }
 
+void CEntity::CSkeleton::Human::onCollisionBegin(Entity::IEntity* other)
+{
+}
+
+void CEntity::CSkeleton::Human::onCollisionEnd(Entity::IEntity* other)
+{
+}
+
 void CEntity::CSkeleton::Human::setSpeed(float speed)
 {
 	m_Speed				= speed;
+}
+
+void CEntity::CSkeleton::Human::setState(int state)
+{
+	m_State				= state;
+}
+
+const b2Vec2& CEntity::CSkeleton::Human::getPosition()
+{
+	return m_Body->GetPosition();
+}
+
+const b2Vec2& CEntity::CSkeleton::Human::getNormal()
+{
+	return m_Body->GetWorldVector(b2Vec2(0,1));
+}
+
+float CEntity::CSkeleton::Human::getAngle()
+{
+	return m_Body->GetAngle();
 }

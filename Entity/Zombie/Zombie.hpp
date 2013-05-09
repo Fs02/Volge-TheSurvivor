@@ -3,7 +3,6 @@
 #include "../../stdafx.h"
 #include "../../MadEngine/MadEngine.hpp"
 #include "../IEntity.hpp"
-#include "../../CEntity/EnumStates.hpp"
 #include "../../CEntity/CSkeleton/Human.hpp"
 #include "../../CEntity/CHealth/CHealth.hpp"
 #include "../../CEntity/CAI/AIZombie.hpp"
@@ -23,10 +22,12 @@ namespace Entity
 		b2World* m_World;
 
 	public:
-		Zombie(b2World* World);
+		Zombie(PhysicsSystem* physicsInstance, b2World* World);
 		~Zombie();
 
-		void update();
+		void update(float deltaTime);
+		void onCollisionBegin(Entity::IEntity* other);
+		void onCollisionEnd(Entity::IEntity* other);
 		void draw();
 	};
 }

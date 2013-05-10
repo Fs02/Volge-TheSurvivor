@@ -133,7 +133,7 @@ void Mad::Interface::IGame::load()
 
 void Mad::Interface::IGame::update()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) GameState->changeState(Mad::Manager::GameState::Exit);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) quit();
 
 	//Start Drawing to window
 	DrawBatch->begin();

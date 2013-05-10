@@ -9,17 +9,16 @@ namespace Mad
 		class GameState
 		{
 		public:
-			enum States{Uninitialized, Splash, Pause, Resume, Menu, Load, Play, Exit};
 			static GameState *getSingleton();
-			static States getCurrentState();
-			static void changeState(States state);
+			static int getCurrentState();
+			static void changeState(int state);
 
 		private:
 			GameState();
 			~GameState();
 
 			static GameState *instance;
-			static States m_States;
+			static int m_States;
 		};
 	}
 }

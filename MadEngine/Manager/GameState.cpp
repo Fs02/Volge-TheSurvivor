@@ -10,19 +10,19 @@ Mad::Manager::GameState* Mad::Manager::GameState::getSingleton()
 	return instance;
 }
 
-Mad::Manager::GameState::States Mad::Manager::GameState::getCurrentState()
+int Mad::Manager::GameState::getCurrentState()
 {
 	return m_States;
 }
 
-void Mad::Manager::GameState::changeState(States state)
+void Mad::Manager::GameState::changeState(int state)
 {
 	m_States	= state;
 }
 
 Mad::Manager::GameState::GameState()
 {
-	m_States	= Uninitialized;
+	m_States	= 0;
 }
 
 Mad::Manager::GameState::~GameState()
@@ -30,5 +30,5 @@ Mad::Manager::GameState::~GameState()
 }
 
 Mad::Manager::GameState *Mad::Manager::GameState::instance	= nullptr;
-Mad::Manager::GameState::States Mad::Manager::GameState::m_States	= Mad::Manager::GameState::States::Uninitialized;
+int Mad::Manager::GameState::m_States						= 0;
 

@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "Game.hpp"
 
+namespace GSTATE
+{
+	enum {Uninitialized, Splash, Menu, Play, Pause, Resume, Exit};
+}
+
 void Game::initialize()
 {
 	Mad::Utility::ConfigParser cfg("setting.cfg");
@@ -18,7 +23,7 @@ void Game::initialize()
 	setDisplayStatistics(true);
 	time = 0;
 
-	GameState->changeState(Mad::Manager::GameState::Splash);
+	GameState->changeState(GSTATE::Splash);
 
 	m_PhysicsManager = nullptr;
 }
@@ -27,16 +32,16 @@ void Game::update()
 {
 	switch (GameState->getCurrentState())
 	{
-	case Mad::Manager::GameState::Splash:
+	case GSTATE::Splash:
 		{
 		splash();
 		m_Splash.draw();
 		}break;
-	case Mad::Manager::GameState::Menu:
+	case GSTATE::Menu:
 		{
 		menu();
 		}break;
-	case Mad::Manager::GameState::Play:
+	case GSTATE::Play:
 		{
 			play();
 		}break;
@@ -47,19 +52,19 @@ void Game::splash()
 {	
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 	//if (time >100.f)
-		GameState->changeState(GameState->Menu);
+		GameState->changeState(GSTATE::Menu);
 }
 
 void Game::menu()
 {
-	GameState->changeState(GameState->Play);
+	GameState->changeState(GSTATE::Play);
 }
 
 void Game::load()
 {
 	switch (GameState->getCurrentState())
 	{
-	case Mad::Manager::GameState::Splash:
+	case GSTATE::Splash:
 		{
 			ResourceProvider->loadTextureFromFile("volge","volge.png");
 
@@ -68,10 +73,10 @@ void Game::load()
 			m_Splash.setPosition(getSFWindow()->getSize().x/2.f,getSFWindow()->getSize().y/2.f);
 			time += clock.getElapsedTime().asSeconds();
 		}break;
-	case Mad::Manager::GameState::Menu:
+	case GSTATE::Menu:
 		{
 		}break;
-	case Mad::Manager::GameState::Play:
+	case GSTATE::Play:
 		{
 			m_PhysicsManager	= new PhysicsSystem();
 			m_PhysicsManager->enableDebugDraw(m_Window);
@@ -102,8 +107,24 @@ void Game::load()
 
 void Game::unLoad()
 {
-	delete m_PhysicsManager;
-	m_PhysicsManager=nullptr;
+	switch (GameState->getCurrentState() - 1) //Unload object from previous state
+	{
+	case GSTATE::Splash:
+		{
+		} break;
+
+	case GSTATE::Menu:
+		{
+		} break;
+
+	case GSTATE::Play:
+		{
+			delete m_Player;
+			delete m_Zombie;
+			delete m_PhysicsManager;
+			m_PhysicsManager=nullptr;
+		} break;
+	}
 }
 
 void Game::play()

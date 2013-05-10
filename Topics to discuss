@@ -4,6 +4,9 @@
 	- Just to avoiding include conflict
 3. Problem with multiple inheritance - we cannot cast e.g. CHealth to IEntity and back easily. Should we stick with inheritance-based 
    component system or switch to aggregation based one?
+   - in what case do we need to case CHealth to IEntity. yes we may if there isn't any other way
 4. Shouldn't CGun be part of CSoldier?
+	- CSoldier ? the AI Component or ??
 	
 Just in case you need me, i'll probably available after 01:00 PM in your skype time
+	- Missing Calculation, i'm back a little to earlier

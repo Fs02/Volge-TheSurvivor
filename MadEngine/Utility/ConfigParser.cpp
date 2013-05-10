@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "../../stdafx.h"
 #include "ConfigParser.hpp"
 
 Mad::Utility::ConfigParser::ConfigParser(const std::string& fileName)

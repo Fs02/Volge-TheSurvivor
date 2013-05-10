@@ -2,9 +2,6 @@
 
 #include "stdafx.h"
 #include "MadEngine/MadEngine.hpp"
-#include "CEntity/CWeapon/CBullet.hpp"
-#include "Entity/Human/Soldier.hpp"
-#include "Entity/Zombie/Zombie.hpp"
 
 class PhysicsSystem 
 	: b2ContactListener,
@@ -16,6 +13,4 @@ public:
 
 	void BeginContact(b2Contact* contact);
 	void EndContact(b2Contact* contact);
-
-	Entity::IEntity* rayCast(const b2Vec2& start, const b2Vec2& end);
 };

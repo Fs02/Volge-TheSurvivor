@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "../../stdafx.h"
 #include "Controller.hpp"
 
 Mad::Manager::Controller::Controller()

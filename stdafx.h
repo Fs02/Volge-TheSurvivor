@@ -11,7 +11,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <Box2D/Box2D.h>
-//#include <stdio.h>
+#include <cmath>
 #include <fstream>
 #include <iostream>
 #include <string>

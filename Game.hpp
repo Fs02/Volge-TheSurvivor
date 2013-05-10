@@ -4,8 +4,9 @@
 
 #include "MadEngine/MadEngine.hpp"
 #include "PhysicsSystem.hpp"
-#include "Entity/Human/Soldier.hpp"
-#include "Entity/Zombie/Zombie.hpp"
+#include "Entity/Components/HealthComponent.hpp"
+#include "Entity/Components/SpriteComponent.hpp"
+#include "Entity/Components/TransformableComponent.hpp"
 
 class Game :
 	public Mad::Interface::IGame
@@ -17,8 +18,7 @@ private:
 
 	PhysicsSystem *m_PhysicsManager;
 
-	Entity::Soldier*			m_Player;
-	Entity::Zombie*				m_Zombie;
+	Entity*			m_Player;
 
 public:
 	void initialize();

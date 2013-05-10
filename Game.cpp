@@ -99,8 +99,17 @@ void Game::load()
 			Controller->setKeyboardControl("throw",sf::Keyboard::G);
 			Controller->setKeyboardControl("delete",sf::Keyboard::Delete);
 	
-			m_Player		= new Entity::Soldier(m_PhysicsManager);
-			m_Zombie		= new Entity::Zombie(m_PhysicsManager);
+			m_Player		= new Entity();
+
+			TransformableComponent* tr=new TransformableComponent();
+			tr->setPosition(sf::Vector2f(250, 250));
+			m_Player->addComponent(tr);
+
+			SpriteComponent* sp=new SpriteComponent();
+			sp->setSprite("soldier");
+			m_Player->addComponent(sp);
+
+			m_Player->initialise();
 		}break;
 	}
 }
@@ -120,7 +129,6 @@ void Game::unLoad()
 	case GSTATE::Play:
 		{
 			delete m_Player;
-			delete m_Zombie;
 			delete m_PhysicsManager;
 			m_PhysicsManager=nullptr;
 		} break;
@@ -138,10 +146,6 @@ void Game::play()
 	DrawBatch->drawText("another test text",sf::Vector2f(100,100), 32, 15, sf::Color::Red, sf::Text::Underlined);
 	
 	m_Player->update(deltaTime);
-	m_Player->draw();
-
-	m_Zombie->update(deltaTime);
-	m_Zombie->draw();
 	//if (Controller->getControl("delete"))
 	//	delete m_Player;
 	if (Controller->getControl("exit"))

@@ -1,5 +1,4 @@
 #include "stdafx.h"
-
 #include "DrawBatch.hpp"
 
 Mad::Utility::DrawBatch::DrawBatch()

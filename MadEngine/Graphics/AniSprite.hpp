@@ -11,7 +11,7 @@ namespace Mad
 			public Mad::Graphics::Sprite
 		{
 		private:
-			sf::Clock m_Clock;
+			float m_TotalTime;
 			int m_Fps;
 			bool m_IsPlaying;
 			bool m_IsInvert;
@@ -43,7 +43,7 @@ namespace Mad
 
 			void stop();
 
-			void update();
+			void update(float deltaTime);
 		};
 	}
 }

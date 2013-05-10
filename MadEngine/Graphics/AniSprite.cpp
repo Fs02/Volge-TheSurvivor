@@ -4,6 +4,7 @@
 Mad::Graphics::AniSprite::AniSprite()
 	: Mad::Graphics::Sprite()
 {
+	m_TotalTime		= 0;
 	m_Fps			= 1;
 	m_CurrentFrame	= 0;
 	m_IsPlaying		= false;
@@ -15,6 +16,7 @@ Mad::Graphics::AniSprite::AniSprite()
 Mad::Graphics::AniSprite::AniSprite(const std::string& textureId, int frameWidth, int frameHeight)
 	: Mad::Graphics::Sprite(textureId)
 {
+	m_TotalTime		= 0;
 	m_Fps			= 1;
 	m_CurrentFrame	= 0;
 	m_IsPlaying		= false;
@@ -85,11 +87,11 @@ void Mad::Graphics::AniSprite::play()
 
 void Mad::Graphics::AniSprite::play(int start, int end)
 {
+	m_TotalTime			= 0;
 	m_LoopStart			= start;
 	m_LoopEnd			= end;
 	m_IsPlaying			= true;
 	m_CurrentFrame		= start;
-	m_Clock.restart();
 }
 
 bool Mad::Graphics::AniSprite::isPlaying()
@@ -109,15 +111,16 @@ void Mad::Graphics::AniSprite::stop()
 	m_IsPlaying			= false;
 }
 
-void Mad::Graphics::AniSprite::update()
+void Mad::Graphics::AniSprite::update(float deltaTime)
 {
+	m_TotalTime			+= deltaTime;
 	if (m_IsInvert)
 		m_Angle			+= 180;
 	if (m_IsPlaying)
 	{
 		int frameCount		= (m_LoopEnd + 1) - m_LoopStart;
 
-		float timePosition	= m_Clock.getElapsedTime().asSeconds() * m_Fps;
+		float timePosition	= m_TotalTime * m_Fps;
 
 		m_CurrentFrame		= m_LoopStart + ((int)timePosition % frameCount);
 

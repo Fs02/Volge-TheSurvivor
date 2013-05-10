@@ -84,7 +84,7 @@ void CEntity::CSkeleton::Human::setSpeed(float speed)
 	m_Speed				= speed;
 }
 
-void CEntity::CSkeleton::Human::setState(int state)
+void CEntity::CSkeleton::Human::setParams(int state)
 {
 	m_State				= state;
 }

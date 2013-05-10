@@ -109,7 +109,10 @@ void Game::unLoad()
 void Game::play()
 {
 	float deltaTime		= clock.getElapsedTime().asSeconds();
-
+	
+	m_PhysicsManager->drawDebugData();
+	m_PhysicsManager->update(deltaTime);
+	
 	DrawBatch->drawText("Test Text");
 	DrawBatch->drawText("another test text",sf::Vector2f(100,100), 32, 15, sf::Color::Red, sf::Text::Underlined);
 	
@@ -123,7 +126,5 @@ void Game::play()
 	if (Controller->getControl("exit"))
 		quit();
 
-	m_PhysicsManager->drawDebugData();
-	m_PhysicsManager->update(clock.getElapsedTime().asSeconds());
 	clock.restart();
 }

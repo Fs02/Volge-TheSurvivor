@@ -7,6 +7,7 @@
 #include "../../CEntity/CAI/Player.hpp"
 #include "../../CEntity/CWeapon/CGun.hpp"
 #include "../../CEntity/CHealth/CHealth.hpp"
+#include "../../CEntity/CGraphics/CGSoldier.hpp"
 
 namespace Entity
 {
@@ -14,11 +15,11 @@ namespace Entity
 		public virtual Entity::IEntity,
 		public virtual CEntity::CSkeleton::Human,
 		public virtual CEntity::CAI::Player,
-		public virtual CEntity::CHealth
+		public virtual CEntity::CHealth,
+		public virtual CEntity::CGraphics::CGSoldier
 	{
 	private:
 		Mad::Manager::Controller* m_Controller;
-		Mad::Graphics::AniSprite m_AniSprite;
 		CEntity::CWeapon::CGun* m_Waepon;
 
 		sf::Sound m_FootSteps;
@@ -30,6 +31,6 @@ namespace Entity
 		void update(float deltaTime);
 		void onCollisionBegin(Entity::IEntity* other);
 		void onCollisionEnd(Entity::IEntity* other);
-		void draw();
+		void onDamage(Entity::IEntity* other, int damage);
 	};
 }

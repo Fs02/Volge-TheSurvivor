@@ -18,7 +18,7 @@ namespace Entity
 		virtual void update(float deltaTime) = 0;
 		virtual void onCollisionBegin(IEntity* other) = 0;
 		virtual void onCollisionEnd(IEntity* other) = 0;
-		virtual void draw() = 0;
+		virtual void onDamage(Entity::IEntity* other, int damage);
 
 		const std::string& getName() const;
 		const std::string& getFamilyName() const;

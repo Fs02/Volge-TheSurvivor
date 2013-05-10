@@ -11,6 +11,10 @@ Entity::IEntity::~IEntity()
 {
 }
 
+void Entity::IEntity::onDamage(Entity::IEntity* other, int damage)
+{
+}
+
 const std::string& Entity::IEntity::getName() const
 {
 	return m_Name;

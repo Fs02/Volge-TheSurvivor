@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "PhysicsSystem.hpp"
 #include "CEntity/ICEntity.hpp"
 

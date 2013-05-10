@@ -26,7 +26,7 @@ namespace CEntity
 			void onCollisionEnd(Entity::IEntity* other);
 
 			void setSpeed(float speed);
-			void setState(int state);
+			void setParams(int state);
 
 		public:
 			const b2Vec2& getPosition();

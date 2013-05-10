@@ -6,6 +6,7 @@
 #include "../../CEntity/CSkeleton/Human.hpp"
 #include "../../CEntity/CHealth/CHealth.hpp"
 #include "../../CEntity/CAI/AIZombie.hpp"
+#include "../../CEntity/CGraphics/CGZombie.hpp"
 
 namespace Entity
 {
@@ -13,7 +14,8 @@ namespace Entity
 		public virtual Entity::IEntity,
 		public virtual CEntity::CSkeleton::Human,
 		public virtual CEntity::CHealth,
-		public virtual CEntity::CAI::AIZombie
+		public virtual CEntity::CAI::AIZombie,
+		public virtual CEntity::CGraphics::CGZombie
 	{
 	private:
 		Mad::Graphics::AniSprite m_AniSprite;
@@ -27,6 +29,5 @@ namespace Entity
 		void onCollisionBegin(Entity::IEntity* other);
 		void onCollisionEnd(Entity::IEntity* other);
 		void onDamage(Entity::IEntity* other, int damage);
-		void draw();
 	};
 }

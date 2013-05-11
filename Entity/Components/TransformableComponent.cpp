@@ -1,16 +1,16 @@
 #include "TransformableComponent.hpp"
 
 TransformableComponent::TransformableComponent()
-	:m_Rotation(0)
+	:m_Position(0, 0), m_Rotation(0)
 {
 }
 
-void TransformableComponent::setPosition(const sf::Vector2f& pos)
+void TransformableComponent::setPosition(const b2Vec2& pos)
 {
 	m_Position=pos;
 }
 
-const sf::Vector2f& TransformableComponent::position() const
+const b2Vec2& TransformableComponent::position() const
 {
 	return m_Position;
 }

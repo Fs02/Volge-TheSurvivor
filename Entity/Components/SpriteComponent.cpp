@@ -32,7 +32,7 @@ void SpriteComponent::update(float dt)
 	if(!m_Transformable)
 		return;
 
-	sf::Vector2f pos=m_Transformable->position();
+	b2Vec2 pos=m_Transformable->position();
 	float rot=m_Transformable->rotation();
 	m_Sprite->setPosition(pos.x, pos.y);
 	m_Sprite->setRotation(rot);

@@ -102,7 +102,7 @@ void Game::load()
 			m_Player		= new Entity();
 
 			TransformableComponent* tr=new TransformableComponent();
-			tr->setPosition(sf::Vector2f(250, 250));
+			tr->setPosition(b2Vec2(250, 250));
 			m_Player->addComponent(tr);
 
 			SpriteComponent* sp=new SpriteComponent();

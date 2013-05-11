@@ -9,8 +9,8 @@ class TransformableComponent : public IComponent
 public:
 	TransformableComponent();
 
-	void setPosition(const sf::Vector2f& pos);
-	const sf::Vector2f& position() const;
+	void setPosition(const b2Vec2& pos);
+	const b2Vec2& position() const;
 	void setRotation(float rot);
 	float rotation() const;
 
@@ -18,6 +18,6 @@ public:
 	void update(float dt);
 
 private:
-	sf::Vector2f m_Position;
+	b2Vec2 m_Position;
 	float m_Rotation;
 };

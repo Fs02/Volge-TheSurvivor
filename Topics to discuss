@@ -1,15 +1,1 @@
-1. adding generic events for less used event types (by event I mean things like onCollisionBegin, onDamage etc.)
-	- Not to understand what do you mean, we'll talk about this later
-2. Why do we have that RATIO constant in DebugDraw?
-	- Just to avoiding include conflict
-3. Problem with multiple inheritance - we cannot cast e.g. CHealth to IEntity and back easily. Should we stick with inheritance-based 
-   component system or switch to aggregation based one?
-   - in what case do we need to case CHealth to IEntity. yes we may if there isn't any other way
-4. Shouldn't CGun be part of CSoldier?
-	- CSoldier ? the AI Component or ??
-	
-5. The way transformable component work may conflict with how Box2D works, i'm planning to change setPosition with move and rotation with turn maybe, what do you think ?
-7. Also, are you making the component to be general ?
-8. if yes, we may need more than one constructor for physics component for each primitives(Box, Circle etc)
-9. I think we should stickin b2Vec2 for gameplay aspect, it'll be better then using two vector, let's sf::vector2f only for engine usage
-10.I will start working on this tonight(my time), i have assingment to finish before class
+//

@@ -19,7 +19,6 @@ void Game::initialize()
 	create(std::stoi(width),std::stoi(height),std::stoi(depth),title);
 	//setFrameLimit(60);
 	setVerticalSyncEnabled(true);
-	setUseSmoothTexture(false);
 	setDisplayStatistics(true);
 	time = 0;
 
@@ -66,7 +65,7 @@ void Game::load()
 	{
 	case GSTATE::Splash:
 		{
-			ResourceProvider->loadTextureFromFile("volge","volge.png");
+			ResourceProvider->load<Mad::Graphics::Texture>("volge","volge.png");
 
 			m_Splash.setTexture("volge");
 			m_Splash.setOrigin(m_Splash.getSize().x/2.f, m_Splash.getSize().y/2.f);
@@ -81,13 +80,13 @@ void Game::load()
 			m_PhysicsManager	= new PhysicsSystem();
 			m_PhysicsManager->enableDebugDraw(m_Window);
 	
-			ResourceProvider->loadTextureFromFile("soldier","soldier.png");
-			ResourceProvider->loadTextureFromFile("zombie","zombie.png");
-			ResourceProvider->loadSoundBufferFromFile("gun_m16_reload","gun_m16_reload.ogg");
-			ResourceProvider->loadSoundBufferFromFile("gun_cock","gun_cock.ogg");
-			ResourceProvider->loadSoundBufferFromFile("gun_shoot","gun_shoot.ogg");
-			ResourceProvider->loadSoundBufferFromFile("gun_noammo","gun_noammo.ogg");
-			ResourceProvider->loadSoundBufferFromFile("footsteps","footsteps.ogg");
+			ResourceProvider->load<Mad::Graphics::Texture>("soldier","soldier.png");
+			ResourceProvider->load<Mad::Graphics::Texture>("zombie","zombie.png");
+			ResourceProvider->load<Mad::Sound::SoundBuffer>("gun_m16_reload","gun_m16_reload.ogg");
+			ResourceProvider->load<Mad::Sound::SoundBuffer>("gun_cock","gun_cock.ogg");
+			ResourceProvider->load<Mad::Sound::SoundBuffer>("gun_shoot","gun_shoot.ogg");
+			ResourceProvider->load<Mad::Sound::SoundBuffer>("gun_noammo","gun_noammo.ogg");
+			ResourceProvider->load<Mad::Sound::SoundBuffer>("footsteps","footsteps.ogg");
 	
 			Controller->setKeyboardControl("forward",sf::Keyboard::Up);
 			Controller->setKeyboardControl("backward",sf::Keyboard::Down);

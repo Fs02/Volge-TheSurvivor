@@ -19,8 +19,7 @@ Mad::Graphics::Sprite::Sprite(const std::string& textureId)
 
 	m_TextureId		= textureId;
 	m_Angle			= 0.f;
-	m_Size.x		= Mad::Manager::Resource::getTexture(textureId)->getSize().x;
-	m_Size.y		= Mad::Manager::Resource::getTexture(textureId)->getSize().y;
+	m_Size			= (sf::Vector2f)Mad::Manager::Resource::get<Mad::Graphics::Texture>(m_TextureId)->getSize();
 
 	m_Rect.height	= 0;
 	m_Rect.width	= 0;
@@ -32,10 +31,8 @@ Mad::Graphics::Sprite::Sprite(const std::string& textureId, const sf::IntRect& r
 		DrawBatch		= Mad::Utility::DrawBatch::getSingleton();
 
 	m_TextureId		= textureId;
-	m_Angle			= 0.f;
-	
-	m_Size.x		= Mad::Manager::Resource::getTexture(textureId)->getSize().x;
-	m_Size.y		= Mad::Manager::Resource::getTexture(textureId)->getSize().y;
+	m_Angle			= 0.f;	
+	m_Size			= (sf::Vector2f)Mad::Manager::Resource::get<Mad::Graphics::Texture>(m_TextureId)->getSize();
 	m_Rect			= rectArea;
 }
 
@@ -45,7 +42,7 @@ Mad::Graphics::Sprite::~Sprite()
 
 sf::Texture& Mad::Graphics::Sprite::getTexture()
 {
-	return *Mad::Manager::Resource::getTexture(m_TextureId);
+	return Mad::Manager::Resource::get<Mad::Graphics::Texture>(m_TextureId)->getTexture();
 }
 
 void Mad::Graphics::Sprite::draw()
@@ -59,9 +56,7 @@ void Mad::Graphics::Sprite::draw()
 void Mad::Graphics::Sprite::setTexture(const std::string& textureId)
 {
 	m_TextureId		= textureId;
-	
-	m_Size.x		= Mad::Manager::Resource::getTexture(textureId)->getSize().x;
-	m_Size.y		= Mad::Manager::Resource::getTexture(textureId)->getSize().y;
+	m_Size			= (sf::Vector2f)Mad::Manager::Resource::get<Mad::Graphics::Texture>(m_TextureId)->getSize();
 }
 
 void Mad::Graphics::Sprite::setTextureRect(const sf::IntRect& rectArea)

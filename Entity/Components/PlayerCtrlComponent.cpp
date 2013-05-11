@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "PlayerCtrlComponent.hpp"
 #include "../../MadEngine/Manager/Controller.hpp"
 

@@ -44,11 +44,6 @@ void Mad::Interface::IGame::setDisplayStatistics(bool flag)
 	isDisplayFrameStats	= true;
 }
 
-void Mad::Interface::IGame::setUseSmoothTexture(bool flag)
-{
-	ResourceProvider->setSmoothTexture(flag);
-}
-
 void Mad::Interface::IGame::quit()
 {
 	isQuit				= true;
@@ -125,7 +120,7 @@ void Mad::Interface::IGame::initialize()
 
 void Mad::Interface::IGame::load()
 {
-	ResourceProvider->loadTextureFromFile("MadEngine","MadEngine.png");
+	ResourceProvider->load<Mad::Graphics::Texture>("MadEngine","MadEngine.png");
 	m_Logo.setTexture("MadEngine");
 	m_Logo.setOrigin(m_Logo.getSize().x/2, m_Logo.getSize().y);
 	m_Logo.setPosition(400,300);

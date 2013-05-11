@@ -109,6 +109,16 @@ void Game::load()
 			sp->setSprite("soldier");
 			m_Player->addComponent(sp);
 
+			PhysicsDef phDef;
+			phDef.shape=PhysicsShape::Circle;
+			phDef.friction=0.5f;
+			phDef.mass=80.0f;
+			phDef.circle.radius=10;
+
+			PhysicsComponent* ph=new PhysicsComponent(m_PhysicsManager, phDef, 0);
+			ph->setSpeed(b2Vec2(0, 100));
+			m_Player->addComponent(ph);
+
 			m_Player->initialise();
 		}break;
 	}

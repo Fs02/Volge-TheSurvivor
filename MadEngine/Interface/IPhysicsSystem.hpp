@@ -36,6 +36,7 @@ namespace Mad
 			void singleStep(float dt);
 
 			b2Body* createBody(const b2BodyDef& bd);
+			void destroyBody(b2Body* bd);
 		};
 	}
 }

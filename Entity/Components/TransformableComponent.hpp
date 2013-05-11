@@ -3,9 +3,15 @@
 #include "../../stdafx.h"
 #include "../Entity.hpp"
 
-// rotation is given in degrees!
+/*
+ * This class allows to change b2Body's position
+ * (if there is PhysicsComponent in the object),
+ * but changing it may cause bugs. Use it wisely!
+ */
 class TransformableComponent : public IComponent
 {
+	friend class PhysicsComponent;
+
 public:
 	TransformableComponent();
 
@@ -14,10 +20,14 @@ public:
 	void setRotation(float rot);
 	float rotation() const;
 
+	// for use by the physics component
+	bool hasChanged() const;
+
 	void initialise(Entity* owner);
 	void update(float dt);
 
 private:
+	bool m_HasChanged;
 	b2Vec2 m_Position;
 	float m_Rotation;
 };

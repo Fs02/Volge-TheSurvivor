@@ -202,3 +202,8 @@ b2Body* Mad::Interface::IPhysicsSystem::createBody(const b2BodyDef& bd)
 {
 	return m_World->CreateBody(&bd);
 }
+
+void Mad::Interface::IPhysicsSystem::destroyBody(b2Body* bd)
+{
+	m_World->DestroyBody(bd);
+}

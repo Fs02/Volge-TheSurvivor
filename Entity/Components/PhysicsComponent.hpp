@@ -42,7 +42,7 @@ public:
 	PhysicsComponent(Mad::Interface::IPhysicsSystem* physics, const PhysicsDef& def, int categoryBits);
 	~PhysicsComponent();
 
-	void setSpeed(const b2Vec2& speed);
+	void applyVelocity(const b2Vec2& appVel);
 
 	void initialise(Entity* owner);
 	void update(float dt);

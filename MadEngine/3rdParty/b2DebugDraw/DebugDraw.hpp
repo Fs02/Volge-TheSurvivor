@@ -38,7 +38,6 @@ class DebugDraw : public b2Draw
 
     private:
         sf::RenderWindow *window;
-        static const float RATIO;
 };
 
 #endif // DEBUGDRAW_H

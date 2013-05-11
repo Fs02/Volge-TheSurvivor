@@ -16,8 +16,6 @@
 #include "stdafx.h"
 #include "DebugDraw.hpp"
 
-const float DebugDraw::RATIO	= 30.f;
-
 DebugDraw::DebugDraw(sf::RenderWindow &window)
 {
     this->window = &window;
@@ -39,10 +37,10 @@ void DebugDraw::DrawAABB(b2AABB* aabb, const b2Color& color)
 {
 	sf::ConvexShape polygon(4);
 
-    polygon.setPoint(0, sf::Vector2f(aabb->lowerBound.x*RATIO, aabb->lowerBound.y*RATIO));
-    polygon.setPoint(1, sf::Vector2f(aabb->upperBound.x*RATIO, aabb->lowerBound.y*RATIO));
-    polygon.setPoint(2, sf::Vector2f(aabb->upperBound.x*RATIO, aabb->upperBound.y*RATIO));
-    polygon.setPoint(3, sf::Vector2f(aabb->lowerBound.x*RATIO, aabb->upperBound.y*RATIO));
+    polygon.setPoint(0, sf::Vector2f(aabb->lowerBound.x, aabb->lowerBound.y));
+    polygon.setPoint(1, sf::Vector2f(aabb->upperBound.x, aabb->lowerBound.y));
+    polygon.setPoint(2, sf::Vector2f(aabb->upperBound.x, aabb->upperBound.y));
+    polygon.setPoint(3, sf::Vector2f(aabb->lowerBound.x, aabb->upperBound.y));
 
     polygon.setFillColor(this->B2SFColor(color, 50));
     polygon.setOutlineColor(this->B2SFColor(color, 255));
@@ -67,8 +65,8 @@ void DebugDraw::DrawTransform(const b2Transform& xf)
 void DebugDraw::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& color)
 {
     sf::VertexArray line;
-    line.append(sf::Vertex(sf::Vector2f(p1.x*RATIO, p1.y*RATIO), this->B2SFColor(color, 255)));
-    line.append(sf::Vertex(sf::Vector2f(p2.x*RATIO, p2.y*RATIO), this->B2SFColor(color, 255)));
+    line.append(sf::Vertex(sf::Vector2f(p1.x, p1.y), this->B2SFColor(color, 255)));
+    line.append(sf::Vertex(sf::Vector2f(p2.x, p2.y), this->B2SFColor(color, 255)));
     line.setPrimitiveType(sf::Lines);
     
     this->window->draw(line);
@@ -77,8 +75,8 @@ void DebugDraw::DrawSegment(const b2Vec2& p1, const b2Vec2& p2, const b2Color& c
 void DebugDraw::DrawSolidCircle(const b2Vec2& center, float32 radius, const b2Vec2& axis, const b2Color& color)
 {
     //no converion in cordinates of center and upper left corner, Circle in sfml is managed by default with the center
-    sf::CircleShape circle(radius*RATIO);
-    circle.setPosition(center.x*RATIO - radius*RATIO, center.y*RATIO - radius*RATIO);
+    sf::CircleShape circle(radius);
+    circle.setPosition(center.x - radius, center.y - radius);
     circle.setFillColor(this->B2SFColor(color, 50));
     circle.setOutlineColor(this->B2SFColor(color, 255));
     circle.setOutlineThickness(1.f);
@@ -92,8 +90,8 @@ void DebugDraw::DrawSolidCircle(const b2Vec2& center, float32 radius, const b2Ve
 
 void DebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color& color)
 {
-    sf::CircleShape circle((radius*RATIO));
-    circle.setPosition(center.x*RATIO-radius*RATIO, center.y*RATIO-radius*RATIO);
+    sf::CircleShape circle((radius));
+    circle.setPosition(center.x-radius, center.y-radius);
     circle.setFillColor(sf::Color::Transparent);
     circle.setOutlineColor(this->B2SFColor(color, 255));
     circle.setOutlineThickness(1.f);
@@ -106,7 +104,7 @@ void DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, cons
 	for (int32 i=0; i<vertexCount; i++)
 	{
 		b2Vec2 vertex = vertices[i];
-		polygon.setPoint(i, sf::Vector2f(vertex.x*RATIO, vertex.y*RATIO));
+		polygon.setPoint(i, sf::Vector2f(vertex.x, vertex.y));
 	}
     polygon.setFillColor(this->B2SFColor(color, 50));
     polygon.setOutlineColor(this->B2SFColor(color, 255));
@@ -120,7 +118,7 @@ void DebugDraw::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2C
 	for (int32 i=0; i<vertexCount; i++)
 	{
 		b2Vec2 vertex = vertices[i];
-		polygon.setPoint(i, sf::Vector2f(vertex.x*RATIO, vertex.y*RATIO));
+		polygon.setPoint(i, sf::Vector2f(vertex.x, vertex.y));
 	}
     polygon.setFillColor(sf::Color::Transparent);
     polygon.setOutlineColor(this->B2SFColor(color, 255));

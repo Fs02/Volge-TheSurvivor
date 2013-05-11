@@ -71,9 +71,11 @@ PhysicsComponent::~PhysicsComponent()
 	m_Physics->destroyBody(m_Body);
 }
 
-void PhysicsComponent::setSpeed(const b2Vec2& speed)
+void PhysicsComponent::applyVelocity(const b2Vec2& appVel)
 {
-	m_Body->SetLinearVelocity(speed);
+	b2Vec2 vel=m_Body->GetLinearVelocity();
+	vel+=appVel;
+	m_Body->SetLinearVelocity(vel);
 }
 
 void PhysicsComponent::initialise(Entity* owner)

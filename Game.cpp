@@ -116,7 +116,7 @@ void Game::load()
 			phDef.circle.radius=10;
 
 			PhysicsComponent* ph=new PhysicsComponent(m_PhysicsManager, phDef, ~0);
-			ph->setSpeed(b2Vec2(0, 100));
+			ph->applyVelocity(b2Vec2(0, 100));
 			m_Player->addComponent(ph);
 
 			m_Player->initialise();

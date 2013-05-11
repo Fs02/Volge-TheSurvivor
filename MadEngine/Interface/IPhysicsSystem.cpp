@@ -85,7 +85,7 @@ void Mad::Interface::IPhysicsSystem::enableDebugDraw(sf::RenderWindow& wnd)
 		return;
 
 	m_dbgDraw=new DebugDraw(wnd);
-	m_dbgDraw->SetFlags(~0);
+	m_dbgDraw->SetFlags(0xffffffff);
 	m_World->SetDebugDraw(m_dbgDraw);
 }
 

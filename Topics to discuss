@@ -8,5 +8,8 @@
 4. Shouldn't CGun be part of CSoldier?
 	- CSoldier ? the AI Component or ??
 	
-Just in case you need me, i'll probably available after 01:00 PM in your skype time
-	- Missing Calculation, i'm back a little to earlier
+5. The way transformable component work may conflict with how Box2D works, i'm planning to change setPosition with move and rotation with turn maybe, what do you think ?
+7. Also, are you making the component to be general ?
+8. if yes, we may need more than one constructor for physics component for each primitives(Box, Circle etc)
+9. I think we should stickin b2Vec2 for gameplay aspect, it'll be better then using two vector, let's sf::vector2f only for engine usage
+10.I will start working on this tonight(my time), i have assingment to finish before class

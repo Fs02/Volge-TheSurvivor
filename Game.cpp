@@ -115,11 +115,27 @@ void Game::load()
 			phDef.mass=80.0f;
 			phDef.circle.radius=10;
 
-			PhysicsComponent* ph=new PhysicsComponent(m_PhysicsManager, phDef, 0);
+			PhysicsComponent* ph=new PhysicsComponent(m_PhysicsManager, phDef, ~0);
 			ph->setSpeed(b2Vec2(0, 100));
 			m_Player->addComponent(ph);
 
 			m_Player->initialise();
+
+			m_Obstacle		=new Entity();
+
+			tr=new TransformableComponent();
+			tr->setPosition(b2Vec2(250, 350));
+			m_Obstacle->addComponent(tr);
+
+			phDef.shape=PhysicsShape::Box;
+			phDef.friction=0.5f;
+			phDef.mass=0;
+			phDef.box.size.Set(20, 20);
+
+			ph=new PhysicsComponent(m_PhysicsManager, phDef, ~0);
+			m_Obstacle->addComponent(ph);
+
+			m_Obstacle->initialise();
 		}break;
 	}
 }
@@ -149,13 +165,14 @@ void Game::play()
 {
 	float deltaTime		= clock.getElapsedTime().asSeconds();
 	
-	m_PhysicsManager->drawDebugData();
 	m_PhysicsManager->update(deltaTime);
+	m_PhysicsManager->drawDebugData();
 	
 	DrawBatch->drawText("Test Text");
 	DrawBatch->drawText("another test text",sf::Vector2f(100,100), 32, 15, sf::Color::Red, sf::Text::Underlined);
 	
 	m_Player->update(deltaTime);
+	m_Obstacle->update(deltaTime);
 	//if (Controller->getControl("delete"))
 	//	delete m_Player;
 	if (Controller->getControl("exit"))

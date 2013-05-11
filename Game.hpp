@@ -20,6 +20,7 @@ private:
 	PhysicsSystem *m_PhysicsManager;
 
 	Entity*			m_Player;
+	Entity*			m_Obstacle;
 
 public:
 	void initialize();

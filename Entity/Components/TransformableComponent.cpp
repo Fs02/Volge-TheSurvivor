@@ -27,11 +27,6 @@ float TransformableComponent::rotation() const
 	return m_Rotation;
 }
 
-bool TransformableComponent::hasChanged() const
-{
-	return m_HasChanged;
-}
-
 void TransformableComponent::initialise(Entity* owner)
 {
 }

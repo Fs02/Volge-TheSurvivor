@@ -42,7 +42,9 @@ public:
 	PhysicsComponent(Mad::Interface::IPhysicsSystem* physics, const PhysicsDef& def, int categoryBits);
 	~PhysicsComponent();
 
-	void applyVelocity(const b2Vec2& appVel);
+	void setSpeed(float speed);
+	void setMovementDirection(const b2Vec2& dir);
+	void setAngle(float angle);
 
 	void initialise(Entity* owner);
 	void update(float dt);
@@ -51,6 +53,8 @@ private:
 	Mad::Interface::IPhysicsSystem* m_Physics;
 	TransformableComponent* m_Transform;
 	b2Body* m_Body;
+	float m_Speed, m_Angle;
+	b2Vec2 m_Direction;
 };
 
 #endif /* _PHYSICSCOMPONENT_HPP_ */

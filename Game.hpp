@@ -8,6 +8,7 @@
 #include "Entity/Components/SpriteComponent.hpp"
 #include "Entity/Components/TransformableComponent.hpp"
 #include "Entity/Components/PhysicsComponent.hpp"
+#include "Entity/Components/PlayerCtrlComponent.hpp"
 
 class Game :
 	public Mad::Interface::IGame

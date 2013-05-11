@@ -20,9 +20,6 @@ public:
 	void setRotation(float rot);
 	float rotation() const;
 
-	// for use by the physics component
-	bool hasChanged() const;
-
 	void initialise(Entity* owner);
 	void update(float dt);
 

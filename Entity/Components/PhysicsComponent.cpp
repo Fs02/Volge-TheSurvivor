@@ -31,7 +31,7 @@ float PhysicsDef::surface() const
 
 PhysicsComponent::PhysicsComponent(Mad::Interface::IPhysicsSystem* physics,
 		const PhysicsDef& def, int categoryBits)
-	:m_Physics(physics), m_Transform(nullptr), m_Body(nullptr)
+	:m_Physics(physics), m_Transform(nullptr), m_Body(nullptr), m_Speed(0), m_Angle(0), m_Direction(0, 0)
 {
 	float surf=def.surface();
 	float dens=0;
@@ -71,18 +71,24 @@ PhysicsComponent::~PhysicsComponent()
 	m_Physics->destroyBody(m_Body);
 }
 
-void PhysicsComponent::applyVelocity(const b2Vec2& appVel)
+void PhysicsComponent::setSpeed(float speed)
 {
-	b2Vec2 vel=m_Body->GetLinearVelocity();
-	vel+=appVel;
-	m_Body->SetLinearVelocity(vel);
+	m_Speed=speed;
+}
+
+void PhysicsComponent::setMovementDirection(const b2Vec2& dir)
+{
+	m_Direction=dir;
+}
+
+void PhysicsComponent::setAngle(float angle)
+{
+	m_Angle=angle;
 }
 
 void PhysicsComponent::initialise(Entity* owner)
 {
 	m_Transform=owner->component<TransformableComponent>();
-	m_Body->SetUserData((void*)owner);
-	m_Body->SetTransform(m_Transform->position(), m_Transform->rotation());
 }
 
 void PhysicsComponent::update(float dt)
@@ -90,13 +96,22 @@ void PhysicsComponent::update(float dt)
 	if(!m_Transform)
 		return;
 
-	if(m_Transform->hasChanged())
+	if(m_Transform->m_HasChanged)
 	{
 		m_Body->SetTransform(m_Transform->position(), m_Transform->rotation());
 		m_Transform->m_HasChanged=false;
 	}
 
-	const b2Transform& tr=m_Body->GetTransform();
-	m_Transform->m_Position=tr.p;
-	m_Transform->m_Rotation=tr.q.GetAngle();
+	b2Vec2 dir=m_Body->GetWorldVector(m_Direction);
+	m_Body->ApplyLinearImpulse(m_Speed*m_Body->GetMass()*dir, m_Body->GetWorldCenter());
+	m_Body->ApplyLinearImpulse(-0.2f*m_Body->GetMass()*m_Body->GetLinearVelocity(), m_Body->GetWorldCenter());
+
+	float nextAngle=m_Body->GetAngle() + m_Body->GetAngularVelocity()/ 60;
+	float rotation=m_Angle-nextAngle;
+
+	float angVel=rotation*60.0f;
+	m_Body->ApplyAngularImpulse(angVel*m_Body->GetMass());
+
+	m_Transform->m_Position=m_Body->GetPosition();
+	m_Transform->m_Rotation=m_Body->GetAngle();
 }

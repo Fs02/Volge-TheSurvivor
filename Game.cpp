@@ -101,6 +101,8 @@ void Game::load()
 	
 			m_Player		= new Entity();
 
+			m_Player->addComponent(new PlayerCtrlComponent());
+
 			TransformableComponent* tr=new TransformableComponent();
 			tr->setPosition(b2Vec2(250, 250));
 			m_Player->addComponent(tr);
@@ -115,8 +117,7 @@ void Game::load()
 			phDef.mass=80.0f;
 			phDef.circle.radius=10;
 
-			PhysicsComponent* ph=new PhysicsComponent(m_PhysicsManager, phDef, ~0);
-			ph->applyVelocity(b2Vec2(0, 100));
+			PhysicsComponent* ph=new PhysicsComponent(m_PhysicsManager, phDef, 0xffffffff);
 			m_Player->addComponent(ph);
 
 			m_Player->initialise();

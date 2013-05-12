@@ -105,12 +105,11 @@ void PhysicsComponent::update(float dt)
 	b2Vec2 dir=m_Body->GetWorldVector(m_Direction);
 	m_Body->ApplyLinearImpulse(m_Speed*m_Body->GetMass()*dir, m_Body->GetWorldCenter());
 	m_Body->ApplyLinearImpulse(-0.2f*m_Body->GetMass()*m_Body->GetLinearVelocity(), m_Body->GetWorldCenter());
-
+	
 	float nextAngle=m_Body->GetAngle() + m_Body->GetAngularVelocity()/ 60;
 	float rotation=m_Angle-nextAngle;
-
 	float angVel=rotation*60.0f;
-	m_Body->ApplyAngularImpulse(angVel*m_Body->GetMass());
+	m_Body->ApplyAngularImpulse(angVel*m_Body->GetInertia());
 
 	m_Transform->m_Position=m_Body->GetPosition();
 	m_Transform->m_Rotation=m_Body->GetAngle();

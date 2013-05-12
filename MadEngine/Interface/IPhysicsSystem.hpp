@@ -37,6 +37,9 @@ namespace Mad
 
 			b2Body* createBody(const b2BodyDef& bd);
 			void destroyBody(b2Body* bd);
+			
+			b2Joint* createJoint(const b2JointDef* def);
+			void destroyJoint(b2Joint* joint);
 		};
 	}
 }

@@ -207,3 +207,13 @@ void Mad::Interface::IPhysicsSystem::destroyBody(b2Body* bd)
 {
 	m_World->DestroyBody(bd);
 }
+
+b2Joint* Mad::Interface::IPhysicsSystem::createJoint(const b2JointDef* def)
+{
+	return m_World->CreateJoint(def);
+}
+
+void Mad::Interface::IPhysicsSystem::destroyJoint(b2Joint* joint)
+{
+	m_World->DestroyJoint(joint);
+}

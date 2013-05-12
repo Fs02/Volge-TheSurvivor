@@ -24,8 +24,6 @@ namespace Mad
 			bool isQuit;
 			bool isDisplayFrameStats;
 
-			Mad::Graphics::Sprite m_Logo;
-
 			IGame();
 			virtual ~IGame();
 

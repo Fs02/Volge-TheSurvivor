@@ -12,14 +12,9 @@ SpriteComponent::~SpriteComponent()
 
 void SpriteComponent::setSprite(const std::string& name)
 {
-	Mad::Graphics::AniSprite* as=new Mad::Graphics::AniSprite();
-	as->setTexture(name);
-	as->setFrameSize(128, 128);
-	as->setLoopSpeed(10);
-	as->setOrigin(64, 80);
-	as->setInvertSprite(true);
-	as->play();
-	m_Sprite=as;
+	delete m_Sprite;
+
+	m_Sprite=new Mad::Graphics::Sprite();
 }
 
 void SpriteComponent::initialise(Entity* owner)
@@ -34,8 +29,7 @@ void SpriteComponent::update(float dt)
 
 	b2Vec2 pos=m_Transformable->position();
 	float rot=m_Transformable->rotation();
-	m_Sprite->setPosition(pos.x, pos.y);
+	m_Sprite->setPosition(pos);
 	m_Sprite->setRotation(rot*180.0f/b2_pi);
-	m_Sprite->update(dt);
-	m_Sprite->draw();
+	m_Sprite->draw(dt);
 }

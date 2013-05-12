@@ -1,7 +1,7 @@
 #pragma once
 
 #include "TransformableComponent.hpp"
-#include "../../MadEngine/Graphics/AniSprite.hpp"
+#include "../../MadEngine/Graphics/Sprite.hpp"
 
 class SpriteComponent : public IComponent
 {
@@ -16,5 +16,5 @@ public:
 
 private:
 	TransformableComponent* m_Transformable;
-	Mad::Graphics::AniSprite* m_Sprite;
+	Mad::Graphics::Sprite* m_Sprite;
 };

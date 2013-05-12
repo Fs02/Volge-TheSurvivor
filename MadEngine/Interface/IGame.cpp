@@ -125,10 +125,6 @@ void Mad::Interface::IGame::initialize()
 
 void Mad::Interface::IGame::load()
 {
-	ResourceProvider->loadTextureFromFile("MadEngine","MadEngine.png");
-	m_Logo.setTexture("MadEngine");
-	m_Logo.setOrigin(m_Logo.getSize().x/2, m_Logo.getSize().y);
-	m_Logo.setPosition(400,300);
 }
 
 void Mad::Interface::IGame::update()
@@ -138,7 +134,6 @@ void Mad::Interface::IGame::update()
 	//Start Drawing to window
 	DrawBatch->begin();
 	//Draw Stuff Here
-	m_Logo.draw();
 
 	DrawBatch->end();
 }

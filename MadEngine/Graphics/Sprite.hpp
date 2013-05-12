@@ -26,7 +26,7 @@ namespace Mad
 			std::vector<sf::Rect<int> > m_Frames;
 		};
 
-		class SpriteData
+		class SpriteData : public Mad::Interface::IResource
 		{
 		public:
 			SpriteData();
@@ -72,9 +72,11 @@ namespace Mad
 			void setPosition(const b2Vec2& pos);
 			b2Vec2 getPosition() const;
 			void setOrigin(const b2Vec2& org);
+			void setDefaultOrigin();
 			b2Vec2 getOrigin() const;
 			void setSize(const b2Vec2& size);
-			const b2Vec2& getSize() const;
+			void setDefaultSize();
+			b2Vec2 getSize() const;
 			void setRotation(float rot);
 			float getRotation() const;
 
@@ -86,6 +88,7 @@ namespace Mad
 			bool m_Looped;
 			float m_Time;
 			sf::Sprite m_Sprite;
+			bool m_defOrigin;
 			b2Vec2 m_Size;
 		};
 	}

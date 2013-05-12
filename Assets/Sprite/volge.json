@@ -1,9 +1,9 @@
 {
-	"Texture" : "soldier.png",
+	"Texture" : "volge.png",
 	"Texture division" : {
 		"Type" : "Matrix-column",
-		"Width" : 128,
-		"Height" : 128
+		"Width" : 644,
+		"Height" : 122
 	},
 	"Animations" : {
 		"Idle" : {

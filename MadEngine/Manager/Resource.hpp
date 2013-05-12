@@ -4,6 +4,7 @@
 #include "Exceptions.hpp"
 #include "../Interface/IResource.hpp"
 #include "../Graphics/Texture.hpp"
+#include "../Graphics/Sprite.hpp"
 #include "../Sound/SoundBuffer.hpp"
 #include "../Sound/Music.hpp"
 
@@ -22,7 +23,7 @@ namespace Mad
 			static std::map<std::string, std::string>		m_Properties;
 			static std::map<std::string, Mad::Interface::IResource*> m_ResourceDB;
 
-			static std::string& getProperties(const std::string& propertyId);
+			static std::string getProperties(const std::string& propertyId);
 
 		public:
 			static Resource* getSingleton();
@@ -54,6 +55,13 @@ inline void Mad::Manager::Resource::load(const std::string& id, const std::strin
 		path		= getProperties("TexturePath");
 		Mad::Graphics::Texture* mT	= new Mad::Graphics::Texture(path+fileName);
 		res			= mT;
+	}
+	else if(typeid(T) == typeid(Mad::Graphics::SpriteData))
+	{
+		path		= getProperties("SpritePath");
+		Mad::Graphics::SpriteData* sd=new Mad::Graphics::SpriteData();
+		sd->loadFromJSON(path+fileName);
+		res			=sd;
 	}
 	else if(typeid(T) == typeid(Mad::Sound::SoundBuffer))
 	{

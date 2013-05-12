@@ -64,16 +64,10 @@ void Game::load()
 	case GSTATE::Splash:
 		{
 			ResourceProvider->load<Mad::Graphics::Texture>("volge","volge.png");
-			ResourceProvider->load<Mad::Graphics::Texture>("soldierTexture.png", "soldierTexture.png");
+			ResourceProvider->load<Mad::Graphics::Texture>("soldier.png", "soldier.png");
+			ResourceProvider->load<Mad::Graphics::SpriteData>("soldier.json", "soldier.json");
 
-			Mad::Graphics::SpriteData* sd=new Mad::Graphics::SpriteData();
-			sd->loadFromJSON("Assets/Sprite/soldier.json");
-
-			m_Splash.setSource(sd);
-			m_Splash.setLooped(true);
-			m_Splash.setAnimation("Idle");
-			m_Splash.setSize(b2Vec2(100, 100));
-			m_Splash.setOrigin(b2Vec2(64, 64));
+			m_Splash.setSource("soldier.json");
 			m_Splash.setPosition(b2Vec2(getSFWindow()->getSize().x/2.f,getSFWindow()->getSize().y/2.f));
 			time += clock.getElapsedTime().asSeconds();
 		}break;

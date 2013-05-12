@@ -4,6 +4,7 @@
 Mad::Manager::Resource::Resource()
 {
 	m_Properties["TexturePath"] = "Assets/Texture/";
+	m_Properties["SpritePath"]	= "Assets/Sprite/";
 	m_Properties["SFXPath"]		= "Assets/SFX/";
 	m_Properties["AudioPath"]	= "Assets/Audio/";
 }
@@ -12,13 +13,14 @@ Mad::Manager::Resource::~Resource()
 {
 }
 
-std::string &Mad::Manager::Resource::getProperties(const std::string& name)
+std::string Mad::Manager::Resource::getProperties(const std::string& name)
 {
 	auto it		= m_Properties.find(name);
 	if (it != m_Properties.end())
 		return it->second;
 
 	std::cout<<"ERROR : "<<name<<" not reconigzed by system !"<<std::endl;
+	return std::string();	// to make Eclipse happy
 }
 
 Mad::Manager::Resource *Mad::Manager::Resource::getSingleton()
@@ -31,7 +33,7 @@ Mad::Manager::Resource *Mad::Manager::Resource::getSingleton()
 
 void Mad::Manager::Resource::setProperties(const std::string &name, const std::string &value)
 {
-	//asdasd
+	m_Properties[name]=value;
 }
 
 void Mad::Manager::Resource::loadXMLData(const std::string& filepath)

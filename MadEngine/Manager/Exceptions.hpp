@@ -48,6 +48,14 @@ namespace Mad
 				DuplicateKey(const std::string& location = "index !", const std::string& message = "Duplicate key in ")
 					: runtime_error(message + location) {}
 			};
+
+			class Error
+				: public std::runtime_error
+			{
+			public:
+				Error(const std::string& message)
+					: runtime_error(message) {}
+			};
 		}
 	}
 }

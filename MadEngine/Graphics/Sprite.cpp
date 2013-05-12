@@ -1,4 +1,6 @@
+#include "stdafx.h"
 #include "Sprite.hpp"
+#include "../Utility/DrawBatch.hpp"
 
 /*
  * Mad::Graphics::Animation
@@ -19,29 +21,22 @@ void Mad::Graphics::Animation::addFrame(int index)
 	m_Frames.push_back(m_Data.getFrameArea(index));
 }
 
-void Mad::Graphics::Animation::draw(sf::RenderTarget& rt, const b2Vec2& pos,
-		const b2Vec2& org, const b2Vec2& size, float time, bool looped) const
+void Mad::Graphics::Animation::draw(sf::Sprite& sp, const b2Vec2& size, float time, bool looped) const
 {
-	if (time > m_Length)
-	{
-		while (looped && time > m_Length)
-			time -= m_Length;
+	if(m_Length <= 0)
+		return;
 
-		if (!looped)
-			time = m_Length;
-	}
+	if(time < 0)
+		time=0;
 
-	int index = (int) std::round(((float) m_Frames.size()) * time / m_Length);
+	while(looped && time > m_Length)
+		time-=m_Length;
+	if(!looped && time > m_Length)
+		time=m_Length;
 
-	sf::Texture& tex = *m_Data.getTexture();
-	sf::Sprite sprt;
-	sprt.setTexture(tex);
-	sprt.setTextureRect(m_Frames[index]);
-	sprt.setPosition(pos.x, pos.y);
-	sprt.setOrigin(org.x, org.y);
-	sprt.setScale((float) tex.getSize().x / size.x,
-			(float) tex.getSize().y / size.y);
-	rt.draw(sprt);
+	int frame=(int)std::round((float)(m_Frames.size()-1)*time/m_Length);
+	sp.setTexture(*m_Data.getTexture());
+	sp.setTextureRect(m_Frames[frame]);
 }
 
 /*
@@ -131,16 +126,25 @@ sf::Rect<int> Mad::Graphics::SpriteData::getFrameArea(int frameIndex) const
  * Mad::Graphics::Sprite
  */
 
-Mad::Graphics::Sprite::Sprite(const std::string& spriteDataName)
-		: m_Data(nullptr), m_Anim(nullptr), m_Looped(true), m_Time(0), m_Pos(0,
-				0), m_Origin(0, 0), m_Size(0, 0)
+Mad::Graphics::Sprite::Sprite()
+	:m_Data(nullptr), m_Anim(nullptr), m_Looped(true), m_Time(0)
 {
 }
 
-Mad::Graphics::Sprite::Sprite(const SpriteData* sd)
-		: m_Data(sd), m_Anim(nullptr), m_Looped(true), m_Time(0), m_Pos(0, 0), m_Origin(
-				0, 0), m_Size(0, 0)
+Mad::Graphics::Sprite::Sprite(const std::string& spriteDataName)
+		: m_Data(nullptr), m_Anim(nullptr), m_Looped(true), m_Time(0)
 {
+	// TODO
+}
+
+Mad::Graphics::Sprite::Sprite(const SpriteData* sd)
+		: m_Data(sd), m_Anim(nullptr), m_Looped(true), m_Time(0)
+{
+}
+
+void Mad::Graphics::Sprite::setSource(const std::string& spriteDataName)
+{
+	// TODO
 }
 
 void Mad::Graphics::Sprite::setAnimation(const std::string& name)
@@ -170,27 +174,29 @@ const Mad::Graphics::Animation* Mad::Graphics::Sprite::getAnimation() const
 
 void Mad::Graphics::Sprite::setPosition(const b2Vec2& pos)
 {
-	m_Pos = pos;
+	m_Sprite.setPosition(pos.x, pos.y);
 }
 
-const b2Vec2& Mad::Graphics::Sprite::getPosition() const
+b2Vec2 Mad::Graphics::Sprite::getPosition() const
 {
-	return m_Pos;
+	sf::Vector2f pos=m_Sprite.getPosition();
+	return b2Vec2(pos.x, pos.y);
 }
 
 void Mad::Graphics::Sprite::setOrigin(const b2Vec2& org)
 {
-	m_Origin = org;
+	m_Sprite.setOrigin(org.x, org.y);
 }
 
-const b2Vec2& Mad::Graphics::Sprite::getOrigin() const
+b2Vec2 Mad::Graphics::Sprite::getOrigin() const
 {
-	return m_Origin;
+	sf::Vector2f org=m_Sprite.getOrigin();
+	return b2Vec2(org.x, org.y);
 }
 
 void Mad::Graphics::Sprite::setSize(const b2Vec2& size)
 {
-	m_Size = size;
+	m_Size=size;
 }
 
 const b2Vec2& Mad::Graphics::Sprite::getSize() const
@@ -198,9 +204,19 @@ const b2Vec2& Mad::Graphics::Sprite::getSize() const
 	return m_Size;
 }
 
-void Mad::Graphics::Sprite::draw(sf::RenderTarget& rt, float dt)
+void Mad::Graphics::Sprite::setRotation(float rot)
+{
+	m_Sprite.setRotation(rot*180.0f/b2_pi);
+}
+
+float Mad::Graphics::Sprite::getRotation() const
+{
+	return m_Sprite.getRotation()*b2_pi/180.0f;
+}
+
+void Mad::Graphics::Sprite::draw(float dt)
 {
 	if (m_Anim)
-		m_Anim->draw(rt, m_Pos, m_Origin, m_Size, m_Time, m_Looped);
+		m_Anim->draw(m_Sprite, m_Size, m_Time, m_Looped);
 	m_Time += dt;
 }

@@ -34,6 +34,7 @@ namespace Mad
 			static void drawText(const std::string& text, const sf::Vector2f& pos = sf::Vector2f(0,0), float rot = 0.f, int size =30, const sf::Color& color = sf::Color::Black, sf::Text::Style style = sf::Text::Regular);
 			//primitive shape drawing
 			
+			static void drawSprite(const sf::Sprite& sprite);
 			static void drawSprite(const std::string& textureId, const sf::Vector2f& pos, float rot = 0.f, const sf::Vector2f& origin = sf::Vector2f(0,0));
 			static void drawSprite(const std::string& textureId, const sf::IntRect& area, const sf::Vector2f& pos, float rot = 0.f, const sf::Vector2f& origin = sf::Vector2f(0,0));
 		};

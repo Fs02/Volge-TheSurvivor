@@ -1,4 +1,4 @@
-#include "../../stdafx.h"
+#include "stdafx.h"
 #include "DrawBatch.hpp"
 
 Mad::Utility::DrawBatch::DrawBatch()
@@ -68,11 +68,17 @@ void Mad::Utility::DrawBatch::drawText(const std::string& text, const sf::Vector
 
 ///
 
+void Mad::Utility::DrawBatch::drawSprite(const sf::Sprite& sprite)
+{
+	m_TargetWindow->draw(sprite);
+}
+
 void Mad::Utility::DrawBatch::drawSprite(const std::string& textureId, const sf::Vector2f& pos, float rot, const sf::Vector2f& origin)
 {
 	if (m_Sprite == nullptr)	m_Sprite	= new sf::Sprite;
 
-	m_Sprite->setTexture(*m_ResourceMan->getTexture(textureId));
+	m_Sprite->setTexture(Mad::Manager::Resource::get<Mad::Graphics::Texture>(textureId)->getTexture());
+
 	m_Sprite->setTextureRect(sf::IntRect(0,0,m_Sprite->getTexture()->getSize().x, m_Sprite->getTexture()->getSize().y));
 	m_Sprite->setPosition(pos);
 	m_Sprite->setRotation(rot);
@@ -84,7 +90,7 @@ void Mad::Utility::DrawBatch::drawSprite(const std::string& textureId, const sf:
 {
 	if (m_Sprite == nullptr)	m_Sprite	= new sf::Sprite;
 
-	m_Sprite->setTexture(*m_ResourceMan->getTexture(textureId));
+	m_Sprite->setTexture(Mad::Manager::Resource::get<Mad::Graphics::Texture>(textureId)->getTexture());
 	m_Sprite->setTextureRect(area);
 	m_Sprite->setPosition(pos);
 	m_Sprite->setRotation(rot);

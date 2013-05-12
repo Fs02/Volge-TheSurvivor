@@ -14,7 +14,6 @@
 #include "Utility/DrawBatch.hpp"
 
 #include "Graphics/Sprite.hpp"
-#include "Graphics/AniSprite.hpp"
 
 #include "3rdParty/FrameClock/FrameClock.hpp"
 #include "3rdParty/FrameClock/ClockHUD.hpp"

@@ -17,7 +17,7 @@ namespace Mad
 			void setLength(float time);
 			void addFrame(int index);
 
-			void draw(sf::RenderTarget& rt, const b2Vec2& pos, const b2Vec2& org, const b2Vec2& size, float time, bool looped) const;
+			void draw(sf::Sprite& sp, const b2Vec2& size, float time, bool looped) const;
 
 		private:
 			SpriteData& m_Data;
@@ -52,8 +52,11 @@ namespace Mad
 		class Sprite
 		{
 		public:
+			Sprite();
 			explicit Sprite(const std::string& spriteDataName);
 			explicit Sprite(const SpriteData* sd);
+
+			void setSource(const std::string& spriteDataName);
 
 			void setAnimation(const std::string& name);
 			void setLooped(bool looped);
@@ -63,13 +66,15 @@ namespace Mad
 			const Animation* getAnimation() const;
 
 			void setPosition(const b2Vec2& pos);
-			const b2Vec2& getPosition() const;
+			b2Vec2 getPosition() const;
 			void setOrigin(const b2Vec2& org);
-			const b2Vec2& getOrigin() const;
+			b2Vec2 getOrigin() const;
 			void setSize(const b2Vec2& size);
 			const b2Vec2& getSize() const;
+			void setRotation(float rot);
+			float getRotation() const;
 
-			void draw(sf::RenderTarget& rt, float time);
+			void draw(float time);
 
 		private:
 			const SpriteData* m_Data;
@@ -77,7 +82,7 @@ namespace Mad
 			bool m_Looped;
 			float m_Time;
 			sf::Sprite m_Sprite;
-			b2Vec2 m_Pos, m_Origin, m_Size;
+			b2Vec2 m_Size;
 		};
 	}
 }

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "TransformableComponent.hpp"
 
 TransformableComponent::TransformableComponent()

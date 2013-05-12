@@ -44,11 +44,6 @@ void Mad::Interface::IGame::setDisplayStatistics(bool flag)
 	isDisplayFrameStats	= true;
 }
 
-void Mad::Interface::IGame::setUseSmoothTexture(bool flag)
-{
-	ResourceProvider->setSmoothTexture(flag);
-}
-
 void Mad::Interface::IGame::quit()
 {
 	isQuit				= true;

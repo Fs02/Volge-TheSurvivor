@@ -37,7 +37,6 @@ namespace Mad
 			void setVerticalSyncEnabled(bool flag);
 			void setMouseCursorVisible(bool flag);
 			void setDisplayStatistics(bool flag);
-			void setUseSmoothTexture(bool flag);
 			void quit();
 			void cleanUp();
 

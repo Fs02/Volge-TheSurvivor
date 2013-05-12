@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "SpriteComponent.hpp"
 
 SpriteComponent::SpriteComponent()
@@ -13,8 +14,7 @@ SpriteComponent::~SpriteComponent()
 void SpriteComponent::setSprite(const std::string& name)
 {
 	delete m_Sprite;
-
-	m_Sprite=new Mad::Graphics::Sprite();
+	m_Sprite=new Mad::Graphics::Sprite(name);
 }
 
 void SpriteComponent::initialise(Entity* owner)

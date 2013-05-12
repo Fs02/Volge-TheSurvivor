@@ -2,6 +2,7 @@
 #define _SPRITE_HPP_
 
 #include "stdafx.h"
+#include "Texture.hpp"
 
 namespace Mad
 {
@@ -31,18 +32,20 @@ namespace Mad
 			SpriteData();
 			~SpriteData();
 
-			void setTexture(sf::Texture* tex);
+			void setTexture(Texture* tex);
 			void divideIntoFrames(int frameW, int frameH);
 
+			void loadFromJSON(const std::string& name);
 			void unload();
 
-			sf::Texture* getTexture();
+			Texture* getTexture();
+			Animation* addAnimation(const std::string& name);
 			Animation* getAnimation(const std::string& name);
 			const Animation* getAnimation(const std::string& name) const;
 			sf::Rect<int> getFrameArea(int frameIndex) const;
 
 		private:
-			sf::Texture* m_Texture;
+			Texture* m_Texture;
 			std::map<std::string, Animation*> m_Animations;
 			std::vector<sf::Rect<int> > m_Frames;
 
@@ -57,6 +60,7 @@ namespace Mad
 			explicit Sprite(const SpriteData* sd);
 
 			void setSource(const std::string& spriteDataName);
+			void setSource(const SpriteData* sd);
 
 			void setAnimation(const std::string& name);
 			void setLooped(bool looped);

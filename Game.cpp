@@ -48,9 +48,7 @@ void Game::update()
 }
 
 void Game::splash()
-{	
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-	//if (time >100.f)
+{	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		GameState->changeState(GSTATE::Menu);
 }
 
@@ -66,9 +64,16 @@ void Game::load()
 	case GSTATE::Splash:
 		{
 			ResourceProvider->load<Mad::Graphics::Texture>("volge","volge.png");
+			ResourceProvider->load<Mad::Graphics::Texture>("soldierTexture.png", "soldierTexture.png");
 
-			m_Splash.setSource("volge");
-			m_Splash.setOrigin(b2Vec2(m_Splash.getSize().x/2.f, m_Splash.getSize().y/2.f));
+			Mad::Graphics::SpriteData* sd=new Mad::Graphics::SpriteData();
+			sd->loadFromJSON("Assets/Sprite/soldier.json");
+
+			m_Splash.setSource(sd);
+			m_Splash.setLooped(true);
+			m_Splash.setAnimation("Idle");
+			m_Splash.setSize(b2Vec2(100, 100));
+			m_Splash.setOrigin(b2Vec2(64, 64));
 			m_Splash.setPosition(b2Vec2(getSFWindow()->getSize().x/2.f,getSFWindow()->getSize().y/2.f));
 			time += clock.getElapsedTime().asSeconds();
 		}break;

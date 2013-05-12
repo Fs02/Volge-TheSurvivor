@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include "Sprite.hpp"
+#include "../Manager/Resource.hpp"
 #include "../Utility/DrawBatch.hpp"
+#include "../3rdParty/JSON/JSON.hpp"
+#include <fstream>
+#include <iostream>
 
 /*
  * Mad::Graphics::Animation
@@ -23,20 +27,29 @@ void Mad::Graphics::Animation::addFrame(int index)
 
 void Mad::Graphics::Animation::draw(sf::Sprite& sp, const b2Vec2& size, float time, bool looped) const
 {
-	if(m_Length <= 0)
+	if(m_Frames.size() == 0)
 		return;
 
 	if(time < 0)
 		time=0;
 
-	while(looped && time > m_Length)
+	while(m_Length > 0 && looped && time > m_Length)
 		time-=m_Length;
 	if(!looped && time > m_Length)
 		time=m_Length;
 
-	int frame=(int)std::round((float)(m_Frames.size()-1)*time/m_Length);
-	sp.setTexture(*m_Data.getTexture());
+	int frame=0;
+	if(m_Length > 0)
+		frame=(int)std::round((float)(m_Frames.size()-1)*time/m_Length);
+
+	float rw=sp.getTextureRect().width;
+	float rh=sp.getTextureRect().height;
+
+	sf::Vector2f scale(size.x/rw, size.y/rh);
+	sp.setScale(scale);
+	sp.setTexture(m_Data.getTexture()->getTexture());
 	sp.setTextureRect(m_Frames[frame]);
+	Utility::DrawBatch::drawSprite(sp);
 }
 
 /*
@@ -53,7 +66,7 @@ Mad::Graphics::SpriteData::~SpriteData()
 	this->unload();
 }
 
-void Mad::Graphics::SpriteData::setTexture(sf::Texture* tex)
+void Mad::Graphics::SpriteData::setTexture(Texture* tex)
 {
 	delete m_Texture;
 	m_Texture = tex;
@@ -82,6 +95,69 @@ void Mad::Graphics::SpriteData::divideIntoFrames(int frameW, int frameH)
 	}
 }
 
+void Mad::Graphics::SpriteData::loadFromJSON(const std::string& name)
+{
+	json::Document doc;
+
+	std::ifstream file(name.c_str());
+	json::StdTokenStream tokenStr(file);
+	json::StdErrorCallback errorCb(std::clog, name);
+
+	if(!doc.load(&tokenStr, &errorCb))
+		return;
+
+	json::ValueHandle hRoot=doc.root();
+	json::ValueHandle vh;
+
+	vh=hRoot.childPair("Texture").value();
+	std::string tex=vh.string();
+	this->setTexture(Manager::Resource::get<Mad::Graphics::Texture>(tex));
+
+	vh=hRoot.childPair("Texture division").value();
+	{
+		std::string tp=vh.childPair("Type").value().string();
+		if(tp != "Matrix-column")
+		{
+			std::clog<<"Error while loading a sprite from "<<name<<": invalid texture division type!\n";
+			return;
+		}
+
+		if(tp == "Matrix-column")
+		{
+			int w=vh.childPair("Width").value().integer(-1);
+			int h=vh.childPair("Height").value().integer(-1);
+			if(w <= 0 && h <= 0)
+			{
+				std::clog<<"Error while loading a sprite from "<<name<<": invalid frame size!\n";
+				return;
+			}
+			this->divideIntoFrames(w, h);
+		}
+	}
+
+	vh=hRoot.childPair("Animations").value();
+	for(unsigned int anmIdx=0; anmIdx < vh.numChildren(); ++anmIdx)
+	{
+		json::ValueHandle hAnm=vh.childPair(anmIdx).value();
+		Animation* anm=this->addAnimation(vh.childPair(anmIdx).name());
+
+		double len=hAnm.childPair("Length").value().number(1);
+		anm->setLength(len);
+
+		json::ValueHandle hFrames=hAnm.childPair("Frames").value();
+		for(unsigned int fi=0; fi < hFrames.numChildren(); ++fi)
+		{
+			int frame=hFrames.childValue(fi).integer(-1);
+			if(frame < 0)
+			{
+				std::cout<<"Error while loading a sprite from "<<name<<": invalid frame index!\n";
+				return;
+			}
+			anm->addFrame(fi);
+		}
+	}
+}
+
 void Mad::Graphics::SpriteData::unload()
 {
 	delete m_Texture;
@@ -92,9 +168,19 @@ void Mad::Graphics::SpriteData::unload()
 	m_Frames.clear();
 }
 
-sf::Texture* Mad::Graphics::SpriteData::getTexture()
+Mad::Graphics::Texture* Mad::Graphics::SpriteData::getTexture()
 {
 	return m_Texture;
+}
+
+Mad::Graphics::Animation* Mad::Graphics::SpriteData::addAnimation(const std::string& name)
+{
+	if(m_Animations.count(name))
+		return nullptr;
+
+	Animation* anm=new Animation(*this);
+	m_Animations[name]=anm;
+	return anm;
 }
 
 Mad::Graphics::Animation* Mad::Graphics::SpriteData::getAnimation(
@@ -127,24 +213,34 @@ sf::Rect<int> Mad::Graphics::SpriteData::getFrameArea(int frameIndex) const
  */
 
 Mad::Graphics::Sprite::Sprite()
-	:m_Data(nullptr), m_Anim(nullptr), m_Looped(true), m_Time(0)
+	:m_Data(nullptr), m_Anim(nullptr), m_Looped(true), m_Time(0), m_Size(1, 1)
 {
 }
 
 Mad::Graphics::Sprite::Sprite(const std::string& spriteDataName)
-		: m_Data(nullptr), m_Anim(nullptr), m_Looped(true), m_Time(0)
+		: m_Data(nullptr), m_Anim(nullptr), m_Looped(true), m_Time(0), m_Size(1, 1)
 {
 	// TODO
 }
 
 Mad::Graphics::Sprite::Sprite(const SpriteData* sd)
-		: m_Data(sd), m_Anim(nullptr), m_Looped(true), m_Time(0)
+		: m_Data(sd), m_Anim(nullptr), m_Looped(true), m_Time(0), m_Size(1, 1)
 {
+	m_Anim=m_Data->getAnimation("idle");
 }
 
 void Mad::Graphics::Sprite::setSource(const std::string& spriteDataName)
 {
 	// TODO
+}
+
+void Mad::Graphics::Sprite::setSource(const SpriteData* sd)
+{
+	m_Data=sd;
+	m_Anim=m_Data->getAnimation("idle");
+	m_Looped=true;
+	m_Time=0;
+	m_Size.Set(0, 0);
 }
 
 void Mad::Graphics::Sprite::setAnimation(const std::string& name)

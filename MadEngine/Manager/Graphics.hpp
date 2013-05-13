@@ -31,7 +31,7 @@ namespace Mad
 			void endRendering();
 
 			static Graphics* getSingleton();
-			static void initialise();
+			static Graphics* initialise();
 			static void deinitialise();
 
 		private:

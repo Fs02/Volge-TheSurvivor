@@ -186,8 +186,8 @@ void Game::play()
 	m_PhysicsManager->update(deltaTime);
 	m_PhysicsManager->drawDebugData();
 	
-	DrawBatch->drawText("Test Text");
-	DrawBatch->drawText("another test text",sf::Vector2f(100,100), 32, 15, sf::Color::Red, sf::Text::Underlined);
+	Graphics->getDrawBatch().drawText("Test Text");
+	Graphics->getDrawBatch().drawText("another test text",sf::Vector2f(100,100), 32, 15, sf::Color::Red, sf::Text::Underlined);
 
 	m_Player->update(deltaTime);
 	m_Obstacle->update(deltaTime);

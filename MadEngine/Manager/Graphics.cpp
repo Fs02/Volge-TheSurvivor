@@ -77,10 +77,11 @@ Mad::Manager::Graphics* Mad::Manager::Graphics::getSingleton()
 	return ms_Singleton;
 }
 
-void Mad::Manager::Graphics::initialise()
+Mad::Manager::Graphics* Mad::Manager::Graphics::initialise()
 {
 	assert(!ms_Singleton);
 	ms_Singleton=new Graphics();
+	return ms_Singleton;
 }
 
 void Mad::Manager::Graphics::deinitialise()

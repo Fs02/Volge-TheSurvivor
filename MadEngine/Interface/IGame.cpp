@@ -6,7 +6,7 @@ Mad::Interface::IGame::IGame()
 	GameState		= Mad::Manager::GameState::initialise();
 	ResourceProvider= Mad::Manager::Resource::initialise();
 	Controller		= Mad::Manager::Controller::initialise();
-	DrawBatch		= Mad::Utility::DrawBatch::initialise();
+	Graphics		= Mad::Manager::Graphics::initialise();
 
 	isDisplayFrameStats		= false;
 	isQuit					= false;
@@ -17,7 +17,7 @@ Mad::Interface::IGame::~IGame()
 	GameState->deinitialise();
 	ResourceProvider->deinitialise();
 	Controller->deinitialise();
-	DrawBatch->deinitialise();
+	Graphics->deinitialise();
 }
 
 void Mad::Interface::IGame::create(unsigned int windowWidth, unsigned int windowHeight, unsigned int BitsPerPixel, const std::string& title, bool fullScreen)
@@ -60,7 +60,7 @@ sf::RenderWindow* Mad::Interface::IGame::getSFWindow()
 
 void Mad::Interface::IGame::start()
 {
-	DrawBatch->setDrawTarget(m_Window);
+	Graphics->getDrawBatch().setDrawTarget(m_Window);
 
 	initialize();
 
@@ -113,7 +113,7 @@ void Mad::Interface::IGame::start()
 
 void Mad::Interface::IGame::cleanUp()
 {
-	DrawBatch->cleanUp();
+	Graphics->getDrawBatch().cleanUp();
 	m_Window.close();
 }
 
@@ -129,12 +129,6 @@ void Mad::Interface::IGame::load()
 void Mad::Interface::IGame::update()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) quit();
-
-	//Start Drawing to window
-	DrawBatch->begin();
-	//Draw Stuff Here
-
-	DrawBatch->end();
 }
 
 void Mad::Interface::IGame::unLoad()

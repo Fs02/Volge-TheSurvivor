@@ -1,5 +1,11 @@
 #include "stdafx.h"
 #include "Game.hpp"
+#include "Entity/Components/HealthComponent.hpp"
+#include "Entity/Components/SpriteComponent.hpp"
+#include "Entity/Components/TransformableComponent.hpp"
+#include "Entity/Components/PhysicsComponent.hpp"
+#include "Entity/Components/PlayerCtrlComponent.hpp"
+#include "Entity/Components/CameraComponent.hpp"
 
 namespace GSTATE
 {
@@ -23,6 +29,7 @@ void Game::initialize()
 	time = 0;
 
 	GameState->changeState(GSTATE::Splash);
+	Controller=Mad::Manager::Controller::getSingleton();
 
 	m_PhysicsManager = nullptr;
 }
@@ -63,11 +70,12 @@ void Game::load()
 	{
 	case GSTATE::Splash:
 		{
-			ResourceProvider->load<Mad::Graphics::Texture>("volge","volge.png");
+			ResourceProvider->load<Mad::Graphics::Texture>("volge.png","volge.png");
 			ResourceProvider->load<Mad::Graphics::Texture>("soldier.png", "soldier.png");
+			ResourceProvider->load<Mad::Graphics::SpriteData>("volge.json", "volge.json");
 			ResourceProvider->load<Mad::Graphics::SpriteData>("soldier.json", "soldier.json");
 
-			m_Splash.setSource("soldier.json");
+			m_Splash.setSource("volge.json");
 			m_Splash.setPosition(b2Vec2(getSFWindow()->getSize().x/2.f,getSFWindow()->getSize().y/2.f));
 			time += clock.getElapsedTime().asSeconds();
 		}break;
@@ -106,8 +114,13 @@ void Game::load()
 			m_Player->addComponent(tr);
 
 			SpriteComponent* sp=new SpriteComponent();
-			sp->setSprite("soldier");
+			sp->setSprite("soldier.json");
 			m_Player->addComponent(sp);
+
+//			CameraComponent* cam=new CameraComponent();
+//			cam->setVirtualSize(b2Vec2(10, 10));
+//			cam->makeActive();
+//			m_Player->addComponent(cam);
 
 			PhysicsDef phDef;
 			phDef.shape=PhysicsShape::Circle;
@@ -172,10 +185,11 @@ void Game::play()
 	
 	m_Player->update(deltaTime);
 	m_Obstacle->update(deltaTime);
+	// TODO whats wrong in the following line???
 	//if (Controller->getControl("delete"))
 	//	delete m_Player;
-	if (Controller->getControl("exit"))
-		quit();
+//	if (Controller->getControl("exit"))
+//		quit();
 
 	clock.restart();
 }

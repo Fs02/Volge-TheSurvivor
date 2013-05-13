@@ -24,6 +24,11 @@ void Mad::Utility::DrawBatch::setDrawTarget(sf::RenderWindow& targetWindow)
 	m_TargetWindow	= &targetWindow;
 }
 
+sf::RenderTarget& Mad::Utility::DrawBatch::getRenderTarget()
+{
+	return *(sf::RenderTarget*)&m_TargetWindow;
+}
+
 void Mad::Utility::DrawBatch::begin()
 {
 	m_TargetWindow->pushGLStates();

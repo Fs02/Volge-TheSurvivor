@@ -30,6 +30,6 @@ void SpriteComponent::update(float dt)
 	b2Vec2 pos=m_Transformable->position();
 	float rot=m_Transformable->rotation();
 	m_Sprite->setPosition(pos);
-	m_Sprite->setRotation(rot*180.0f/b2_pi);
+	m_Sprite->setRotation(rot);
 	m_Sprite->draw(dt);
 }

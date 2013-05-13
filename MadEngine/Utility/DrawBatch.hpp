@@ -26,6 +26,7 @@ namespace Mad
 		public:
 			static DrawBatch* getSingleton();
 			static void setDrawTarget(sf::RenderWindow& targetWindow);
+			static sf::RenderTarget& getRenderTarget();
 
 			static void begin();
 			static void end();

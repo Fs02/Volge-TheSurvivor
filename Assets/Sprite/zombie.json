@@ -1,0 +1,14 @@
+{
+	"Texture" : "zombie.png",
+	"Texture division" : {
+		"Type" : "Matrix-column",
+		"Width" : 128,
+		"Height" : 128
+	},
+	"Animations" : {
+		"Idle" : {
+			"Length" : 1,
+			"Frames" : [ 0 ]
+		}
+	}
+}

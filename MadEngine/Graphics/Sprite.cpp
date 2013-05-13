@@ -73,14 +73,18 @@ Mad::Graphics::SpriteData::~SpriteData()
 
 void Mad::Graphics::SpriteData::setTexture(Texture* tex)
 {
-	delete m_Texture;
 	m_Texture = tex;
 }
 
 void Mad::Graphics::SpriteData::divideIntoFrames(int frameW, int frameH)
 {
-	int nHor = m_Texture->getSize().x / frameW;
-	int nVer = m_Texture->getSize().y / frameH;
+	int tw=m_Texture->getSize().x;
+	int th=m_Texture->getSize().y;
+	frameW=std::min(frameW, tw);
+	frameH=std::min(frameH, th);
+
+	int nHor = tw / frameW;
+	int nVer = th / frameH;
 
 	int x = 0, y = 0;
 	for (int i = 0; i < nHor; ++i)
@@ -226,8 +230,11 @@ Mad::Graphics::Sprite::Sprite(const std::string& spriteDataName)
 		: m_Data(nullptr), m_Anim(nullptr), m_Looped(true), m_Time(0), m_defOrigin(true), m_Size(1, 1)
 {
 	m_Data=Manager::Resource::get<SpriteData>(spriteDataName);
-	m_Anim=m_Data->getAnimation("Idle");
-	this->setDefaultSize();
+	if(m_Data)
+	{
+		m_Anim=m_Data->getAnimation("Idle");
+		this->setDefaultSize();
+	}
 }
 
 Mad::Graphics::Sprite::Sprite(const SpriteData* sd)

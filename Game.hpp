@@ -4,11 +4,7 @@
 
 #include "MadEngine/MadEngine.hpp"
 #include "PhysicsSystem.hpp"
-#include "Entity/Components/HealthComponent.hpp"
-#include "Entity/Components/SpriteComponent.hpp"
-#include "Entity/Components/TransformableComponent.hpp"
-#include "Entity/Components/PhysicsComponent.hpp"
-#include "Entity/Components/PlayerCtrlComponent.hpp"
+#include "Entity/Entity.hpp"
 
 class Game :
 	public Mad::Interface::IGame

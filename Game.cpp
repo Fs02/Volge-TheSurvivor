@@ -6,6 +6,7 @@
 #include "Entity/Components/PhysicsComponent.hpp"
 #include "Entity/Components/PlayerCtrlComponent.hpp"
 #include "Entity/Components/CameraComponent.hpp"
+#include "Entity/Components/SoundComponent.hpp"
 
 namespace GSTATE
 {
@@ -103,7 +104,6 @@ void Game::load()
 			Controller->setKeyboardControl("attack",sf::Keyboard::LControl);
 			Controller->setKeyboardControl("reload",sf::Keyboard::LShift);
 			Controller->setKeyboardControl("throw",sf::Keyboard::G);
-			Controller->setKeyboardControl("delete",sf::Keyboard::Delete);
 	
 			m_Player		= new Entity();
 
@@ -131,7 +131,12 @@ void Game::load()
 			PhysicsComponent* ph=new PhysicsComponent(m_PhysicsManager, phDef, 0xffffffff);
 			m_Player->addComponent(ph);
 
+			SoundComponent* sc = new SoundComponent();
+			sc->addSound("Idle", "gun_noammo", true);
+			m_Player->addComponent(sc);
+
 			m_Player->initialise();
+			m_Player->onGenericEvent("Idle");
 
 			m_Obstacle		=new Entity();
 
@@ -185,11 +190,9 @@ void Game::play()
 	
 	m_Player->update(deltaTime);
 	m_Obstacle->update(deltaTime);
-	// TODO whats wrong in the following line???
-	//if (Controller->getControl("delete"))
-	//	delete m_Player;
-//	if (Controller->getControl("exit"))
-//		quit();
+	
+	if (Controller->getControl("exit"))
+		quit();
 
 	clock.restart();
 }

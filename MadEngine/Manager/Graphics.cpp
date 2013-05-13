@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "Graphics.hpp"
 #include "Exceptions.hpp"
 #include <cassert>

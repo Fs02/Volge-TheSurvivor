@@ -11,6 +11,17 @@ Mad::Utility::DrawBatch::~DrawBatch()
 {
 }
 
+Mad::Utility::DrawBatch* Mad::Utility::DrawBatch::initialise()
+{
+	return getSingleton();
+}
+
+void Mad::Utility::DrawBatch::deinitialise()
+{
+	delete instance;
+	instance		= nullptr;
+}
+
 Mad::Utility::DrawBatch *Mad::Utility::DrawBatch::getSingleton()
 {
 	if (instance == nullptr)

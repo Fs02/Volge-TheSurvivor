@@ -1,6 +1,16 @@
 #include "stdafx.h"
-
 #include "GameState.hpp"
+
+Mad::Manager::GameState* Mad::Manager::GameState::initialise()
+{
+	return getSingleton();
+}
+
+void Mad::Manager::GameState::deinitialise()
+{
+	delete instance;
+	instance	= nullptr;
+}
 
 Mad::Manager::GameState* Mad::Manager::GameState::getSingleton()
 {

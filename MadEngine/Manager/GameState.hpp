@@ -9,6 +9,8 @@ namespace Mad
 		class GameState
 		{
 		public:
+			static GameState* initialise();
+			static void deinitialise();
 			static GameState *getSingleton();
 			static int getCurrentState();
 			static void changeState(int state);

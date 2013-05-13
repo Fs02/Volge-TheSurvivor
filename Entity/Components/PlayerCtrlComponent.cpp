@@ -28,9 +28,9 @@ void PlayerCtrlComponent::update(float dt)
 	float angle=m_Transform->rotation();
 
 	if(ctrl->getControl("forward"))
-		dir+=b2Vec2(0, 1);
-	if(ctrl->getControl("backward"))
 		dir+=b2Vec2(0, -1);
+	if(ctrl->getControl("backward"))
+		dir+=b2Vec2(0, 1);
 
 	//SFML have inverted y axis, the same applies with angle
 	if(ctrl->getControl("left"))
@@ -38,7 +38,7 @@ void PlayerCtrlComponent::update(float dt)
 	if(ctrl->getControl("right"))
 		angle+=10.0f*DEGTORAD;
 
-	m_Physics->setSpeed(25);
+	m_Physics->setSpeed(1.5f);
 	m_Physics->setMovementDirection(dir);
 	m_Physics->setAngle(angle);
 }

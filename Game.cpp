@@ -115,18 +115,19 @@ void Game::load()
 
 			SpriteComponent* sp=new SpriteComponent();
 			sp->setSprite("soldier.json");
+			sp->setSize(b2Vec2(1, 1));
 			m_Player->addComponent(sp);
 
-//			CameraComponent* cam=new CameraComponent();
-//			cam->setVirtualSize(b2Vec2(10, 10));
-//			cam->makeActive();
-//			m_Player->addComponent(cam);
+			CameraComponent* cam=new CameraComponent();
+			cam->setVirtualSize(b2Vec2(10, 10));
+			cam->makeActive();
+			m_Player->addComponent(cam);
 
 			PhysicsDef phDef;
 			phDef.shape=PhysicsShape::Circle;
 			phDef.friction=0.5f;
 			phDef.mass=80.0f;
-			phDef.circle.radius=10;
+			phDef.circle.radius=0.5f;
 
 			PhysicsComponent* ph=new PhysicsComponent(m_PhysicsManager, phDef, 0xffffffff);
 			m_Player->addComponent(ph);
@@ -136,13 +137,13 @@ void Game::load()
 			m_Obstacle		=new Entity();
 
 			tr=new TransformableComponent();
-			tr->setPosition(b2Vec2(250, 350));
+			tr->setPosition(b2Vec2(250, 270));
 			m_Obstacle->addComponent(tr);
 
 			phDef.shape=PhysicsShape::Box;
 			phDef.friction=0.5f;
 			phDef.mass=0;
-			phDef.box.size.Set(20, 20);
+			phDef.box.size.Set(2, 2);
 
 			ph=new PhysicsComponent(m_PhysicsManager, phDef, ~0);
 			m_Obstacle->addComponent(ph);
@@ -182,7 +183,7 @@ void Game::play()
 	
 	DrawBatch->drawText("Test Text");
 	DrawBatch->drawText("another test text",sf::Vector2f(100,100), 32, 15, sf::Color::Red, sf::Text::Underlined);
-	
+
 	m_Player->update(deltaTime);
 	m_Obstacle->update(deltaTime);
 	// TODO whats wrong in the following line???

@@ -17,6 +17,11 @@ void SpriteComponent::setSprite(const std::string& name)
 	m_Sprite=new Mad::Graphics::Sprite(name);
 }
 
+void SpriteComponent::setSize(const b2Vec2& size)
+{
+	m_Sprite->setSize(size);
+}
+
 void SpriteComponent::initialise(Entity* owner)
 {
 	m_Transformable=owner->component<TransformableComponent>();

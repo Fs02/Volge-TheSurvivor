@@ -10,6 +10,7 @@ public:
 	~SpriteComponent();
 
 	void setSprite(const std::string& name);
+	void setSize(const b2Vec2& size);
 
 	void initialise(Entity* owner);
 	void update(float dt);

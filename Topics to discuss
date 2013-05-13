@@ -1,2 +1,1 @@
-*Maybe let's implement some kind of GraphicsManager, which would manage current render target, DrawBatch instance and would be 
- responsible for setting a camera?
+//

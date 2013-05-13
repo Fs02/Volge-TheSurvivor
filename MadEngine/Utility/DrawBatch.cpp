@@ -26,7 +26,7 @@ void Mad::Utility::DrawBatch::setDrawTarget(sf::RenderWindow& targetWindow)
 
 sf::RenderTarget& Mad::Utility::DrawBatch::getRenderTarget()
 {
-	return *(sf::RenderTarget*)&m_TargetWindow;
+	return *dynamic_cast<sf::RenderTarget*>(m_TargetWindow);
 }
 
 void Mad::Utility::DrawBatch::begin()

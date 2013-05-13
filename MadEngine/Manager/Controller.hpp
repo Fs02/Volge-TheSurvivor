@@ -14,6 +14,8 @@ namespace Mad
 				Keyboard,
 				Mouse
 			};
+			static Controller* initialise();
+			static void deinitialise();
 
 			static Controller* getSingleton();
 			static bool getControl(const std::string& name);

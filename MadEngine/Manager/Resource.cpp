@@ -1,6 +1,17 @@
 #include "stdafx.h"
 #include "Resource.hpp"
 
+Mad::Manager::Resource* Mad::Manager::Resource::initialise()
+{
+	return getSingleton();
+}
+
+void Mad::Manager::Resource::deinitialise()
+{
+	delete instance;
+	instance	= nullptr;
+}
+
 Mad::Manager::Resource::Resource()
 {
 	m_Properties["TexturePath"] = "Assets/Texture/";

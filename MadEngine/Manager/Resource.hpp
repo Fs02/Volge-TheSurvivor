@@ -26,6 +26,9 @@ namespace Mad
 			static std::string getProperties(const std::string& propertyId);
 
 		public:
+			static Resource* initialise();
+			static void deinitialise();
+
 			static Resource* getSingleton();
 
 			static void setProperties(const std::string &name, const std::string &value);

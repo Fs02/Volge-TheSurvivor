@@ -3,8 +3,16 @@
 #include "../Manager/Resource.hpp"
 #include "../Utility/DrawBatch.hpp"
 #include "../3rdParty/JSON/JSON.hpp"
-#include <fstream>
-#include <iostream>
+
+#if (_MSC_VER == 1700)
+namespace std
+{
+	int round(double number)
+	{
+		return (number > 0) ? (int)(number + 0.5) : (int)(number - 0.5);
+	}
+}
+#endif
 
 /*
  * Mad::Graphics::Animation

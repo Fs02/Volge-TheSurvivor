@@ -10,6 +10,17 @@ Mad::Manager::Controller::~Controller()
 	m_KeyMap.clear();
 }
 
+Mad::Manager::Controller *Mad::Manager::Controller::initialise()
+{
+	return getSingleton();
+}
+
+void Mad::Manager::Controller::deinitialise()
+{
+	delete instance;
+	instance		= nullptr;
+}
+
 Mad::Manager::Controller *Mad::Manager::Controller::getSingleton()
 {
 	if (instance == nullptr)

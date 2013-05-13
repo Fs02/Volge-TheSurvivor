@@ -3,10 +3,10 @@
 
 Mad::Interface::IGame::IGame()
 {
-	GameState		= Mad::Manager::GameState::getSingleton();
-	ResourceProvider= Mad::Manager::Resource::getSingleton();
-	Controller		= Mad::Manager::Controller::getSingleton();
-	DrawBatch		= Mad::Utility::DrawBatch::getSingleton();
+	GameState		= Mad::Manager::GameState::initialise();
+	ResourceProvider= Mad::Manager::Resource::initialise();
+	Controller		= Mad::Manager::Controller::initialise();
+	DrawBatch		= Mad::Utility::DrawBatch::initialise();
 
 	isDisplayFrameStats		= false;
 	isQuit					= false;
@@ -14,6 +14,10 @@ Mad::Interface::IGame::IGame()
 
 Mad::Interface::IGame::~IGame()
 {
+	GameState->deinitialise();
+	ResourceProvider->deinitialise();
+	Controller->deinitialise();
+	DrawBatch->deinitialise();
 }
 
 void Mad::Interface::IGame::create(unsigned int windowWidth, unsigned int windowHeight, unsigned int BitsPerPixel, const std::string& title, bool fullScreen)

@@ -24,6 +24,9 @@ namespace Mad
 			static sf::CircleShape *m_CircleShape;
 
 		public:
+			static DrawBatch* initialise();
+			static void deinitialise();
+
 			static DrawBatch* getSingleton();
 			static void setDrawTarget(sf::RenderWindow& targetWindow);
 			static sf::RenderTarget& getRenderTarget();

@@ -25,10 +25,8 @@ void Game::initialize()
 	cfg.getValue("height", height);
 	cfg.getValue("depth", depth);
 	cfg.getValue("title", title);
+	Graphics->createWindow(title, std::stoi(width), std::stoi(height));
 
-	create(std::stoi(width), std::stoi(height), std::stoi(depth), title);
-	//setFrameLimit(60);
-	setVerticalSyncEnabled(true);
 	setDisplayStatistics(true);
 	time = 0;
 
@@ -66,7 +64,7 @@ void Game::splash()
 		GameState->changeState(GSTATE::Menu);
 
 	Graphics->beginRendering();
-		m_Splash.draw(0);
+	m_Splash.draw(0);
 	Graphics->endRendering();
 }
 
@@ -90,10 +88,9 @@ void Game::load()
 		ResourceProvider->load<Mad::Graphics::SpriteData>("soldier.json",
 				"soldier.json");
 
+		sf::Vector2u ws = Graphics->getRenderWindow().getSize();
 		m_Splash.setSource("volge.json");
-		m_Splash.setPosition(
-				b2Vec2(getSFWindow()->getSize().x / 2.f,
-						getSFWindow()->getSize().y / 2.f));
+		m_Splash.setPosition(b2Vec2(ws.x / 2.f, ws.y / 2.f));
 		time += clock.getElapsedTime().asSeconds();
 	}
 		break;
@@ -104,7 +101,7 @@ void Game::load()
 	case GSTATE::Play:
 	{
 		m_PhysicsManager = new PhysicsSystem();
-		m_PhysicsManager->enableDebugDraw(m_Window);
+		m_PhysicsManager->enableDebugDraw(Graphics->getRenderWindow());
 
 		ResourceProvider->load<Mad::Graphics::Texture>("soldier",
 				"soldier.png");
@@ -216,16 +213,16 @@ void Game::play()
 	m_PhysicsManager->update(deltaTime);
 
 	Graphics->beginRendering();
-		Graphics->getDrawBatch().drawText("Test Text");
-		Graphics->getDrawBatch().drawText("another test text",
-				sf::Vector2f(100, 100), 32, 15, sf::Color::Red,
-				sf::Text::Underlined);
+	Graphics->getDrawBatch().drawText("Test Text");
+	Graphics->getDrawBatch().drawText("another test text",
+			sf::Vector2f(100, 100), 32, 15, sf::Color::Red,
+			sf::Text::Underlined);
 	Graphics->endRendering();
 
 	Graphics->beginGameRendering();
-		m_PhysicsManager->drawDebugData();
-		m_Player->update(deltaTime);
-		m_Obstacle->update(deltaTime);
+	m_PhysicsManager->drawDebugData();
+	m_Player->update(deltaTime);
+	m_Obstacle->update(deltaTime);
 	Graphics->endGameRendering();
 
 	if (Controller->getControl("exit"))

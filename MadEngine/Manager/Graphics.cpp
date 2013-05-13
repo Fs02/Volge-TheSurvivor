@@ -8,7 +8,8 @@ void Mad::Manager::Graphics::createWindow(const std::string& title, int w,
 		int h)
 {
 	m_Window.create(sf::VideoMode(w, h), title);
-	m_GameView=m_DefView=m_Window.getView();
+	m_GameView=m_Window.getView();
+	Utility::DrawBatch::getSingleton()->setDrawTarget(m_Window);
 }
 
 sf::RenderTarget& Mad::Manager::Graphics::getRenderTarget()
@@ -27,14 +28,14 @@ float Mad::Manager::Graphics::getAspectRatio() const
 	return (float)s.x/s.y;
 }
 
+void Mad::Manager::Graphics::setGameView(const sf::View& view)
+{
+	m_GameView=view;
+}
+
 sf::View& Mad::Manager::Graphics::getGameView()
 {
 	return m_GameView;
-}
-
-sf::View& Mad::Manager::Graphics::getDefaultView()
-{
-	return m_DefView;
 }
 
 Mad::Utility::DrawBatch& Mad::Manager::Graphics::getDrawBatch()
@@ -49,12 +50,14 @@ void Mad::Manager::Graphics::beginGameRendering()
 	m_InsideBeginEnd=true;
 
 	m_Window.setActive(true);
+//	Utility::DrawBatch::begin();
 	m_Window.setView(m_GameView);
 }
 
 void Mad::Manager::Graphics::endGameRendering()
 {
 	m_InsideBeginEnd=false;
+//	Utility::DrawBatch::end();
 }
 
 void Mad::Manager::Graphics::beginRendering()
@@ -64,12 +67,14 @@ void Mad::Manager::Graphics::beginRendering()
 	m_InsideBeginEnd=true;
 
 	m_Window.setActive(true);
-	m_Window.setView(m_DefView);
+//	Utility::DrawBatch::begin();
+	m_Window.setView(m_Window.getDefaultView());
 }
 
 void Mad::Manager::Graphics::endRendering()
 {
 	m_InsideBeginEnd=false;
+//	Utility::DrawBatch::end();
 }
 
 Mad::Manager::Graphics* Mad::Manager::Graphics::getSingleton()

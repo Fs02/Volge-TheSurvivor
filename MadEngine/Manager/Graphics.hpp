@@ -17,8 +17,8 @@ namespace Mad
 			sf::RenderWindow& getRenderWindow();
 			float getAspectRatio() const;
 
+			void setGameView(const sf::View& view);
 			sf::View& getGameView();
-			sf::View& getDefaultView();
 
 			Utility::DrawBatch& getDrawBatch();
 
@@ -36,7 +36,7 @@ namespace Mad
 
 		private:
 			sf::RenderWindow m_Window;
-			sf::View m_GameView, m_DefView;
+			sf::View m_GameView;
 			bool m_InsideBeginEnd;
 //			Utility::DrawBatch m_DrawBatch;
 

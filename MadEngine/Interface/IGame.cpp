@@ -20,29 +20,6 @@ Mad::Interface::IGame::~IGame()
 	Graphics->deinitialise();
 }
 
-void Mad::Interface::IGame::create(unsigned int windowWidth, unsigned int windowHeight, unsigned int BitsPerPixel, const std::string& title, bool fullScreen)
-{
-	if (fullScreen)
-		m_Window.create(sf::VideoMode(windowWidth, windowHeight, BitsPerPixel), title, sf::Style::Fullscreen);
-	else
-		m_Window.create(sf::VideoMode(windowWidth, windowHeight, BitsPerPixel), title, sf::Style::Close);
-}
-
-void Mad::Interface::IGame::setFrameLimit(unsigned int limit)
-{
-	m_Window.setFramerateLimit(limit);
-}
-
-void Mad::Interface::IGame::setVerticalSyncEnabled(bool flag)
-{
-	m_Window.setVerticalSyncEnabled(flag);
-}
-
-void Mad::Interface::IGame::setMouseCursorVisible(bool flag)
-{
-	m_Window.setMouseCursorVisible(flag);
-}
-
 void Mad::Interface::IGame::setDisplayStatistics(bool flag)
 {
 	isDisplayFrameStats	= true;
@@ -53,15 +30,8 @@ void Mad::Interface::IGame::quit()
 	isQuit				= true;
 }
 
-sf::RenderWindow* Mad::Interface::IGame::getSFWindow()
-{
-	return &m_Window;
-}
-
 void Mad::Interface::IGame::start()
 {
-	Graphics->getDrawBatch().setDrawTarget(m_Window);
-
 	initialize();
 
 	sf::Font hudFont;
@@ -83,23 +53,23 @@ void Mad::Interface::IGame::start()
 			if (isDisplayFrameStats)
 				frameStats.beginFrame();
 			
-			m_Window.pollEvent(m_Event);
+			Graphics->getRenderWindow().pollEvent(m_Event);
 			
 			if (m_Event.type == sf::Event::Closed) 
 				quit();
 		
-			m_Window.clear();
+			Graphics->getRenderWindow().clear();
 			
 			update();
 
 			if (isDisplayFrameStats)
 			{
 				//m_Window.pushGLStates();
-				m_Window.draw(*StatsHUD);
+				Graphics->getRenderWindow().draw(*StatsHUD);
 				//m_Window.popGLStates();
 				frameStats.endFrame();
 			}
-			m_Window.display();
+			Graphics->getRenderWindow().display();
 
 			if (GameState->getCurrentState() != gstate)
 				loaded	= false;
@@ -114,12 +84,11 @@ void Mad::Interface::IGame::start()
 void Mad::Interface::IGame::cleanUp()
 {
 	Graphics->getDrawBatch().cleanUp();
-	m_Window.close();
+	Graphics->getRenderWindow().close();
 }
 
 void Mad::Interface::IGame::initialize()
 {
-	create(800,600,32,"MadEngine SDK");
 }
 
 void Mad::Interface::IGame::load()

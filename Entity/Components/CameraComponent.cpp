@@ -1,5 +1,4 @@
 #include "CameraComponent.hpp"
-#include "../../MadEngine/Utility/DrawBatch.hpp"
 
 CameraComponent* CameraComponent::ms_Active=nullptr;
 
@@ -37,6 +36,6 @@ void CameraComponent::update(float dt)
 		b2Vec2 pos=m_Transform->position();
 		m_View.setCenter(pos.x, pos.y);
 		m_View.setSize(m_Size.x, m_Size.y);
-		Mad::Utility::DrawBatch::getRenderTarget().setView(m_View);
+		Mad::Manager::Graphics::getSingleton()->setGameView(m_View);
 	}
 }

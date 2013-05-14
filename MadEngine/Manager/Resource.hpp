@@ -92,7 +92,7 @@ template<class T>
 inline T* Mad::Manager::Resource::get(const std::string& fileName)
 {
 	if (m_ResourceDB.find(fileName) == m_ResourceDB.end())
-		Mad::Manager::Exceptions::InvalidKey("Resource index!");
+		load<T>(fileName);
 
 	return dynamic_cast<T*>(m_ResourceDB[fileName]);
 }

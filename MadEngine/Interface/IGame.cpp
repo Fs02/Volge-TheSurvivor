@@ -13,10 +13,10 @@ Mad::Interface::IGame::IGame()
 
 Mad::Interface::IGame::~IGame()
 {
+	GameState->deinitialise();
+	ResourceProvider->deinitialise();
 	Graphics->deinitialise();
 	Controller->deinitialise();
-	ResourceProvider->deinitialise();
-	GameState->deinitialise();
 }
 
 void Mad::Interface::IGame::setDisplayStatistics(bool flag)

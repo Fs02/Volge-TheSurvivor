@@ -22,7 +22,7 @@ Mad::Manager::Resource::Resource()
 
 Mad::Manager::Resource::~Resource()
 {
-	for(auto iter=m_ResourceDB.begin(); iter != m_ResourceDB.end(); )
+	for(auto iter=m_ResourceDB.begin(); iter != m_ResourceDB.end(); ++iter)
 	{
 		delete iter->second;
 		iter = m_ResourceDB.erase(iter);

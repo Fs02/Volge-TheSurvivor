@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "PlayerCtrlComponent.hpp"
 #include "Manager/Controller.hpp"
 

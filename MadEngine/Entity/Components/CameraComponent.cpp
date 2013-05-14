@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include "CameraComponent.hpp"
+#include "../../Manager/Graphics.hpp"
 
 CameraComponent* CameraComponent::ms_Active=nullptr;
 

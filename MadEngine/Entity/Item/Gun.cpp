@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Gun.hpp"
 
 Item::Gun::Gun(const std::string& name, int damage, int magCap,

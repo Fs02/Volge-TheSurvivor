@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include "WeaponComponent.hpp"
+#include "../../Manager/Controller.hpp"
 #include <iostream>
 
 WeaponComponent::WeaponComponent(PhysicsSystem* physics)

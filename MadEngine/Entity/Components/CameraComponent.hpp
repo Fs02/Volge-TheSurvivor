@@ -3,6 +3,8 @@
 
 #include "../Entity.hpp"
 #include "TransformableComponent.hpp"
+#include <SFML/Graphics.hpp>
+#include <Box2D/Box2D.h>
 
 class CameraComponent : public IComponent
 {

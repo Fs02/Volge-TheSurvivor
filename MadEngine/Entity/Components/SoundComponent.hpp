@@ -1,7 +1,9 @@
 #pragma once
 
-#include "../../stdafx.h"
 #include "../Entity.hpp"
+#include <SFML/Audio.hpp>
+#include <string>
+#include <map>
 
 class SoundComponent : public IComponent
 {

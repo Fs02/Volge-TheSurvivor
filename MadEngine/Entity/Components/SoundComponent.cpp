@@ -1,5 +1,6 @@
-#include "stdafx.h"
 #include "SoundComponent.hpp"
+#include "../../Sound/SoundBuffer.hpp"
+#include "../../Manager/Resource.hpp"
 
 SoundComponent::SoundComponent()
 {

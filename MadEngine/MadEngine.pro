@@ -19,7 +19,20 @@ SOURCES += \
     Sound/SoundBuffer.cpp \
     Sound/Music.cpp \
     Utility/DrawBatch.cpp \
-    Utility/ConfigParser.cpp
+    Utility/ConfigParser.cpp \
+    Entity/Property.cpp \
+    Entity/EntityManager.cpp \
+    Entity/Entity.cpp \
+    Entity/Item/Gun.cpp \
+    Entity/Components/WeaponComponent.cpp \
+    Entity/Components/TransformableComponent.cpp \
+    Entity/Components/SpriteComponent.cpp \
+    Entity/Components/SoundComponent.cpp \
+    Entity/Components/PlayerCtrlComponent.cpp \
+    Entity/Components/PhysicsComponent.cpp \
+    Entity/Components/HealthComponent.cpp \
+    Entity/Components/CameraComponent.cpp \
+    Entity/PhysicsSystem.cpp
 
 HEADERS += \
     3rdParty/b2DebugDraw/DebugDraw.hpp \
@@ -39,5 +52,19 @@ HEADERS += \
     Sound/SoundBuffer.hpp \
     Sound/Music.hpp \
     Utility/DrawBatch.hpp \
-    Utility/ConfigParser.hpp
+    Utility/ConfigParser.hpp \
+    Entity/Property.hpp \
+    Entity/EntityManager.hpp \
+    Entity/Entity.hpp \
+    Entity/Item/IItem.hpp \
+    Entity/Item/Gun.hpp \
+    Entity/Components/WeaponComponent.hpp \
+    Entity/Components/TransformableComponent.hpp \
+    Entity/Components/SpriteComponent.hpp \
+    Entity/Components/SoundComponent.hpp \
+    Entity/Components/PlayerCtrlComponent.hpp \
+    Entity/Components/PhysicsComponent.hpp \
+    Entity/Components/HealthComponent.hpp \
+    Entity/Components/CameraComponent.hpp \
+    Entity/PhysicsSystem.hpp
 

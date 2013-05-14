@@ -2,7 +2,7 @@
 
 #include "stdafx.h"
 
-#include "PhysicsSystem.hpp"
+#include "Entity/PhysicsSystem.hpp"
 #include "Entity/Entity.hpp"
 
 class Game :

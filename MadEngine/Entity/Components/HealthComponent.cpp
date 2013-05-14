@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "HealthComponent.hpp"
 
 HealthComponent::HealthComponent(int maxHP, int initHP, float recoveryTime)

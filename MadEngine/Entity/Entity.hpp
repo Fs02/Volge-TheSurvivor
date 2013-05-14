@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../stdafx.h"
 #include "Property.hpp"
 #include <list>
 

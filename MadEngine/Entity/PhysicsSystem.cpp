@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "PhysicsSystem.hpp"
 #include "Entity/Entity.hpp"
 

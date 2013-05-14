@@ -1,7 +1,8 @@
 #ifndef _PROPERTY_HPP_
 #define _PROPERTY_HPP_
 
-#include "../stdafx.h"
+#include <Box2D/Box2D.h>
+#include <string>
 
 struct _IPropData;
 

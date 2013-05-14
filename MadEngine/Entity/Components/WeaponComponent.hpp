@@ -3,8 +3,8 @@
 
 #include "../Entity.hpp"
 #include "TransformableComponent.hpp"
-#include "../../Item/Gun.hpp"
-#include "../../PhysicsSystem.hpp"
+#include "../Item/Gun.hpp"
+#include "../PhysicsSystem.hpp"
 
 class WeaponComponent : public IComponent
 {

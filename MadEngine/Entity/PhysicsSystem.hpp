@@ -1,6 +1,7 @@
 #pragma once
 
-#include "stdafx.h"
+#include <Box2D/Box2D.h>
+#include "../Interface/IPhysicsSystem.hpp"
 #include "Entity/Entity.hpp"
 
 class PhysicsSystem 

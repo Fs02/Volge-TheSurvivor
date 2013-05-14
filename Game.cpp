@@ -20,7 +20,7 @@ namespace GSTATE
 
 namespace
 {
-	class DamageListenerComponent : public IComponent
+	class DamageListenerComponent: public IComponent
 	{
 	public:
 		void initialise(Entity* owner)
@@ -33,7 +33,8 @@ namespace
 
 		void onDamage(Entity* other, int damage)
 		{
-			std::cout<<"Hit by "<<other<<", lost "<<damage<<" health points!\n";
+			std::cout << "Hit by " << other << ", lost " << damage
+					<< " health points!\n";
 		}
 	};
 }
@@ -101,14 +102,10 @@ void Game::load()
 	{
 	case GSTATE::Splash:
 	{
-		ResourceProvider->load<Mad::Graphics::Texture>("volge.png",
-				"volge.png");
-		ResourceProvider->load<Mad::Graphics::Texture>("soldier.png",
-				"soldier.png");
-		ResourceProvider->load<Mad::Graphics::SpriteData>("volge.json",
-				"volge.json");
-		ResourceProvider->load<Mad::Graphics::SpriteData>("soldier.json",
-				"soldier.json");
+		ResourceProvider->load<Mad::Graphics::Texture>("volge.png");
+		ResourceProvider->load<Mad::Graphics::Texture>("soldier.png");
+		ResourceProvider->load<Mad::Graphics::SpriteData>("volge.json");
+		ResourceProvider->load<Mad::Graphics::SpriteData>("soldier.json");
 
 		sf::Vector2u ws = Graphics->getRenderWindow().getSize();
 		m_Splash.setSource("volge.json");
@@ -125,19 +122,13 @@ void Game::load()
 		m_PhysicsManager = new PhysicsSystem();
 		m_PhysicsManager->enableDebugDraw(Graphics->getRenderWindow());
 
-		ResourceProvider->load<Mad::Graphics::Texture>("soldier",
-				"soldier.png");
-		ResourceProvider->load<Mad::Graphics::Texture>("zombie", "zombie.png");
-		ResourceProvider->load<Mad::Sound::SoundBuffer>("gun_m16_reload",
-				"gun_m16_reload.ogg");
-		ResourceProvider->load<Mad::Sound::SoundBuffer>("gun_cock",
-				"gun_cock.ogg");
-		ResourceProvider->load<Mad::Sound::SoundBuffer>("gun_shoot",
-				"gun_shoot.ogg");
-		ResourceProvider->load<Mad::Sound::SoundBuffer>("gun_noammo",
-				"gun_noammo.ogg");
-		ResourceProvider->load<Mad::Sound::SoundBuffer>("footsteps",
-				"footsteps.ogg");
+		ResourceProvider->load<Mad::Graphics::Texture>("soldier.png");
+		ResourceProvider->load<Mad::Graphics::Texture>("zombie.png");
+		ResourceProvider->load<Mad::Sound::SoundBuffer>("gun_m16_reload.ogg");
+		ResourceProvider->load<Mad::Sound::SoundBuffer>("gun_cock.ogg");
+		ResourceProvider->load<Mad::Sound::SoundBuffer>("gun_shoot.ogg");
+		ResourceProvider->load<Mad::Sound::SoundBuffer>("gun_noammo.ogg");
+		ResourceProvider->load<Mad::Sound::SoundBuffer>("footsteps.ogg");
 
 		Controller->setKeyboardControl("forward", sf::Keyboard::Up);
 		Controller->setKeyboardControl("backward", sf::Keyboard::Down);
@@ -166,8 +157,8 @@ void Game::load()
 		cam->makeActive();
 		m_Player->addComponent(cam);
 
-		WeaponComponent* wp=new WeaponComponent(m_PhysicsManager);
-		Item::Gun* gun=new Item::Gun("M16", 20, 30, 30, 0.5f, 0.1f);
+		WeaponComponent* wp = new WeaponComponent(m_PhysicsManager);
+		Item::Gun* gun = new Item::Gun("M16", 20, 30, 30, 0.5f, 0.1f);
 		wp->setGun(gun);
 		m_Player->addComponent(wp);
 
@@ -182,7 +173,7 @@ void Game::load()
 		m_Player->addComponent(ph);
 
 		SoundComponent* sc = new SoundComponent();
-		sc->addSound("Idle", "gun_noammo", true);
+		sc->addSound("Idle", "gun_noammo.ogg", true);
 		m_Player->addComponent(sc);
 
 		m_Player->initialise();
@@ -190,7 +181,7 @@ void Game::load()
 
 		m_Obstacle = new Entity();
 
-		DamageListenerComponent* dmgList=new DamageListenerComponent();
+		DamageListenerComponent* dmgList = new DamageListenerComponent();
 		m_Obstacle->addComponent(dmgList);
 
 		tr = new TransformableComponent();
@@ -243,16 +234,16 @@ void Game::play()
 	m_PhysicsManager->update(deltaTime);
 
 	Graphics->beginGameRendering();
-		m_PhysicsManager->drawDebugData();
-		m_Player->update(deltaTime);
-		m_Obstacle->update(deltaTime);
+	m_PhysicsManager->drawDebugData();
+	m_Player->update(deltaTime);
+	m_Obstacle->update(deltaTime);
 	Graphics->endGameRendering();
 
 	Graphics->beginRendering();
-		Graphics->getDrawBatch().drawText("Test Text");
-		Graphics->getDrawBatch().drawText("another test text",
-				sf::Vector2f(100, 100), 32, 15, sf::Color::Red,
-				sf::Text::Underlined);
+	Graphics->getDrawBatch().drawText("Test Text");
+	Graphics->getDrawBatch().drawText("another test text",
+			sf::Vector2f(100, 100), 32, 15, sf::Color::Red,
+			sf::Text::Underlined);
 	Graphics->endRendering();
 
 	if (Controller->getControl("exit"))

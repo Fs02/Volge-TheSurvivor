@@ -35,9 +35,9 @@ namespace Mad
 			static void loadXMLData(const std::string& filepath);
 			
 			template<class T>
-			static inline void load(const std::string& id, const std::string& fileName);
+			static inline void load(const std::string& fileName);
 			template<class T>
-			static inline T* get(const std::string& id);
+			static inline T* get(const std::string& fileName);
 		};
 	}
 }
@@ -48,8 +48,12 @@ namespace Mad
  */
 
 template<class T>
-inline void Mad::Manager::Resource::load(const std::string& id, const std::string& fileName)
+inline void Mad::Manager::Resource::load(const std::string& fileName)
 {
+	// check if a resource already exists
+	if(m_ResourceDB.count(fileName))
+		return;
+
 	std::string path;
 	Mad::Interface::IResource* res;
 	
@@ -82,14 +86,14 @@ inline void Mad::Manager::Resource::load(const std::string& id, const std::strin
 	{
 		throw Mad::Manager::Exceptions::Error("Invalid Resource Type !");
 	}
-	m_ResourceDB.insert(std::pair<std::string, Mad::Interface::IResource*>(id,res));
+	m_ResourceDB.insert(std::pair<std::string, Mad::Interface::IResource*>(fileName,res));
 }
 
 template<class T>
-inline T* Mad::Manager::Resource::get(const std::string& id)
+inline T* Mad::Manager::Resource::get(const std::string& fileName)
 {
-	if (m_ResourceDB.find(id) == m_ResourceDB.end())
+	if (m_ResourceDB.find(fileName) == m_ResourceDB.end())
 		Mad::Manager::Exceptions::InvalidKey("Resource index!");
 
-	return dynamic_cast<T*>(m_ResourceDB[id]);
+	return dynamic_cast<T*>(m_ResourceDB[fileName]);
 }

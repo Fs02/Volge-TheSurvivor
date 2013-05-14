@@ -7,6 +7,7 @@
 #include "../Graphics/Sprite.hpp"
 #include "../Sound/SoundBuffer.hpp"
 #include "../Sound/Music.hpp"
+#include <typeinfo>
 
 namespace Mad
 {

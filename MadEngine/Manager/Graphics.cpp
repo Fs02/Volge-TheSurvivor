@@ -12,6 +12,13 @@ void Mad::Manager::Graphics::createWindow(const std::string& title, int w,
 	m_DrawBatch.setDrawTarget(m_Window);
 }
 
+void Mad::Manager::Graphics::initialiseWithWindow(sf::WindowHandle windowHandle)
+{
+    m_Window.create(windowHandle);
+    m_GameView=m_Window.getView();
+    m_DrawBatch.setDrawTarget(m_Window);
+}
+
 sf::RenderTarget& Mad::Manager::Graphics::getRenderTarget()
 {
 	return dynamic_cast<sf::RenderTarget&>(m_Window);

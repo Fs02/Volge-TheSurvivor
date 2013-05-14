@@ -8,34 +8,39 @@ EntityManager::~EntityManager()
 {
 }
 
-Entity *EntityManager::createEntity(const std::string& fileName)
+Entity *EntityManager::createEntity(const std::string& name)
 {
-	return nullptr;
+    Entity* ent=new Entity();
+    m_Entities[name]=ent;
+    return ent;
 }
 
-void EntityManager::addEntity(Entity* entity)
+Entity* EntityManager::getEntity(const std::string &name)
 {
-	m_Entities.push_back(entity);
+    auto iter=m_Entities.find(name);
+    if(iter == m_Entities.end())
+        return nullptr;
+    return iter->second;
 }
 
-void EntityManager::destroyEntity(Entity* entity)
+const Entity* EntityManager::getEntity(const std::string &name) const
 {
-	m_Entities.erase(std::find(m_Entities.begin(), m_Entities.end(), entity));
-	delete entity;
+    auto iter=m_Entities.find(name);
+    if(iter == m_Entities.end())
+        return nullptr;
+    return iter->second;
+}
+
+std::list<std::string> EntityManager::listEntities() const
+{
+    std::list<std::string> result;
+    for(auto iter=m_Entities.begin(); iter != m_Entities.end(); ++iter)
+        result.push_back(iter->first);
+    return result;
 }
 
 void EntityManager::update(float deltaTime)
 {
-	for (auto it = m_Entities.begin(); it != m_Entities.end(); )
-	{
-		if (*it)
-		{
-			(*it)->update(deltaTime);
-			++it;
-		}
-		else
-		{
-			it = m_Entities.erase(it);
-		}
-	}
+    for(auto iter=m_Entities.begin(); iter != m_Entities.end(); ++iter)
+        iter->second->update(deltaTime);
 }

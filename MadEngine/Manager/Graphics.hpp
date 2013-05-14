@@ -11,6 +11,7 @@ namespace Mad
 		{
 		public:
 			void createWindow(const std::string& title, int w, int h);
+            void initialiseWithWindow(sf::WindowHandle windodHandle);
 
 			sf::RenderTarget& getRenderTarget();
 			sf::RenderWindow& getRenderWindow();

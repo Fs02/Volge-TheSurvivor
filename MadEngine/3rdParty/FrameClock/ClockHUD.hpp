@@ -43,8 +43,7 @@ class ClockHUD : public sf::Drawable
 public:
 
     ClockHUD(const sfx::FrameClock& clock, const sf::Font& font)
-        : m_clock (&clock)
-        , m_font  (&font)
+        : m_font  (&font), m_clock (&clock)
     {}
 
 private:

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "CameraComponent.hpp"
 
 CameraComponent* CameraComponent::ms_Active=nullptr;

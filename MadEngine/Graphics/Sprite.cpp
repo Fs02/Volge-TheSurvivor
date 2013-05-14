@@ -33,31 +33,33 @@ void Mad::Graphics::Animation::addFrame(int index)
 	m_Frames.push_back(m_Data.getFrameArea(index));
 }
 
-void Mad::Graphics::Animation::draw(sf::Sprite& sp, const b2Vec2& size, float time, bool looped) const
+void Mad::Graphics::Animation::draw(sf::Sprite& sp, const b2Vec2& size,
+		float time, bool looped) const
 {
-	if(m_Frames.size() == 0)
+	if (m_Frames.size() == 0)
 		return;
 
-	if(time < 0)
-		time=0;
+	if (time < 0)
+		time = 0;
 
-	while(m_Length > 0 && looped && time > m_Length)
-		time-=m_Length;
-	if(!looped && time > m_Length)
-		time=m_Length;
+	while (m_Length > 0 && looped && time > m_Length)
+		time -= m_Length;
+	if (!looped && time > m_Length)
+		time = m_Length;
 
-	int frame=0;
-	if(m_Length > 0)
-		frame=(int)std::round((float)(m_Frames.size()-1)*time/m_Length);
+	int frame = 0;
+	if (m_Length > 0)
+		frame = (int) std::round(
+				(float) (m_Frames.size() - 1) * time / m_Length);
 
-	float rw=sp.getTextureRect().width;
-	float rh=sp.getTextureRect().height;
+	float rw = sp.getTextureRect().width;
+	float rh = sp.getTextureRect().height;
 
-	if(size.x == 0 && size.y == 0)
+	if (size.x == 0 && size.y == 0)
 		sp.setScale(1, 1);
 	else
 	{
-		sf::Vector2f scale(size.x/rw, size.y/rh);
+		sf::Vector2f scale(size.x / rw, size.y / rh);
 		sp.setScale(scale);
 	}
 	sp.setTexture(m_Data.getTexture()->getTexture());
@@ -84,12 +86,12 @@ void Mad::Graphics::SpriteData::setTexture(Texture* tex)
 	m_Texture = tex;
 }
 
-void Mad::Graphics::SpriteData::divideIntoFrames(int frameW, int frameH)
+void Mad::Graphics::SpriteData::divideIntoFramesColumn(int frameW, int frameH)
 {
-	int tw=m_Texture->getSize().x;
-	int th=m_Texture->getSize().y;
-	frameW=std::min(frameW, tw);
-	frameH=std::min(frameH, th);
+	int tw = m_Texture->getSize().x;
+	int th = m_Texture->getSize().y;
+	frameW = std::min(frameW, tw);
+	frameH = std::min(frameH, th);
 
 	int nHor = tw / frameW;
 	int nVer = th / frameH;
@@ -105,10 +107,40 @@ void Mad::Graphics::SpriteData::divideIntoFrames(int frameW, int frameH)
 			fr.width = frameW;
 			fr.height = frameH;
 			m_Frames.push_back(fr);
+			y += frameH;
 		}
 
 		x += frameW;
 		y = 0;
+	}
+}
+
+void Mad::Graphics::SpriteData::divideIntoFramesRow(int frameW, int frameH)
+{
+	int tw = m_Texture->getSize().x;
+	int th = m_Texture->getSize().y;
+	frameW = std::min(frameW, tw);
+	frameH = std::min(frameH, th);
+
+	int nHor = tw / frameW;
+	int nVer = th / frameH;
+
+	int x = 0, y = 0;
+	for (int i = 0; i < nVer; ++i)
+	{
+		for (int j = 0; j < nHor; ++j)
+		{
+			sf::Rect<int> fr;
+			fr.left = x;
+			fr.top = y;
+			fr.width = frameW;
+			fr.height = frameH;
+			m_Frames.push_back(fr);
+			x += frameW;
+		}
+
+		x = 0;
+		y += frameH;
 	}
 }
 
@@ -120,57 +152,71 @@ void Mad::Graphics::SpriteData::loadFromJSON(const std::string& name)
 	json::StdTokenStream tokenStr(file);
 	json::StdErrorCallback errorCb(std::clog, name);
 
-	if(!doc.load(&tokenStr, &errorCb))
+	if (!doc.load(&tokenStr, &errorCb))
 		return;
 
-	json::ValueHandle hRoot=doc.root();
+	json::ValueHandle hRoot = doc.root();
 	json::ValueHandle vh;
 
-	vh=hRoot.childPair("Texture").value();
-	std::string tex=vh.string();
+	vh = hRoot.childPair("Texture").value();
+	std::string tex = vh.string();
 	this->setTexture(Manager::Resource::get<Mad::Graphics::Texture>(tex));
 
-	vh=hRoot.childPair("Texture division").value();
+	vh = hRoot.childPair("Texture division").value();
 	{
-		std::string tp=vh.childPair("Type").value().string();
-		if(tp != "Matrix-column")
+		std::string tp = vh.childPair("Type").value().string();
+		if (tp != "Matrix-column" && tp != "Matrix-row")
 		{
-			std::clog<<"Error while loading a sprite from "<<name<<": invalid texture division type!\n";
+			std::clog << "Error while loading a sprite from " << name
+					<< ": invalid texture division type!\n";
 			return;
 		}
 
-		if(tp == "Matrix-column")
+		if (tp == "Matrix-column")
 		{
-			int w=vh.childPair("Width").value().integer(-1);
-			int h=vh.childPair("Height").value().integer(-1);
-			if(w <= 0 && h <= 0)
+			int w = vh.childPair("Width").value().integer(-1);
+			int h = vh.childPair("Height").value().integer(-1);
+			if (w <= 0 && h <= 0)
 			{
-				std::clog<<"Error while loading a sprite from "<<name<<": invalid frame size!\n";
+				std::clog << "Error while loading a sprite from " << name
+						<< ": invalid frame size!\n";
 				return;
 			}
-			this->divideIntoFrames(w, h);
+			this->divideIntoFramesColumn(w, h);
+		} else if (tp == "Matrix-row")
+		{
+			int w = vh.childPair("Width").value().integer(-1);
+			int h = vh.childPair("Height").value().integer(-1);
+			if (w <= 0 && h <= 0)
+			{
+				std::clog << "Error while loading a sprite from " << name
+						<< ": invalid frame size!\n";
+				return;
+			}
+			this->divideIntoFramesRow(w, h);
 		}
 	}
 
-	vh=hRoot.childPair("Animations").value();
-	for(unsigned int anmIdx=0; anmIdx < vh.numChildren(); ++anmIdx)
+	vh = hRoot.childPair("Animations").value();
+	for (unsigned int anmIdx = 0; anmIdx < vh.numChildren(); ++anmIdx)
 	{
-		json::ValueHandle hAnm=vh.childPair(anmIdx).value();
-		Animation* anm=this->addAnimation(vh.childPair(anmIdx).name());
+		json::ValueHandle hAnm = vh.childPair(anmIdx).value();
+		Animation* anm = this->addAnimation(vh.childPair(anmIdx).name());
 
-		double len=hAnm.childPair("Length").value().number(1);
+		double len = hAnm.childPair("Length").value().number(1);
 		anm->setLength(len);
 
-		json::ValueHandle hFrames=hAnm.childPair("Frames").value();
-		for(unsigned int fi=0; fi < hFrames.numChildren(); ++fi)
+		json::ValueHandle hFrames = hAnm.childPair("Frames").value();
+		for (unsigned int fi = 0; fi < hFrames.numChildren(); ++fi)
 		{
-			int frame=hFrames.childValue(fi).integer(-1);
-			if(frame < 0)
+			int frame = hFrames.childValue(fi).integer(-1);
+			if (frame < 0)
 			{
-				std::cout<<"Error while loading a sprite from "<<name<<": invalid frame index!\n";
+				std::cout << "Error while loading a sprite from " << name
+						<< ": invalid frame index!\n";
 				return;
 			}
-			anm->addFrame(fi);
+			anm->addFrame(frame);
 		}
 	}
 }
@@ -190,13 +236,14 @@ Mad::Graphics::Texture* Mad::Graphics::SpriteData::getTexture()
 	return m_Texture;
 }
 
-Mad::Graphics::Animation* Mad::Graphics::SpriteData::addAnimation(const std::string& name)
+Mad::Graphics::Animation* Mad::Graphics::SpriteData::addAnimation(
+		const std::string& name)
 {
-	if(m_Animations.count(name))
+	if (m_Animations.count(name))
 		return nullptr;
 
-	Animation* anm=new Animation(*this);
-	m_Animations[name]=anm;
+	Animation* anm = new Animation(*this);
+	m_Animations[name] = anm;
 	return anm;
 }
 
@@ -230,44 +277,47 @@ sf::Rect<int> Mad::Graphics::SpriteData::getFrameArea(int frameIndex) const
  */
 
 Mad::Graphics::Sprite::Sprite()
-	:m_Data(nullptr), m_Anim(nullptr), m_Looped(true), m_Time(0), m_defOrigin(true), m_Size(1, 1)
+		: m_Data(nullptr), m_Anim(nullptr), m_Looped(true), m_Time(0), m_defOrigin(
+				true), m_Size(1, 1)
 {
 }
 
 Mad::Graphics::Sprite::Sprite(const std::string& spriteDataName)
-		: m_Data(nullptr), m_Anim(nullptr), m_Looped(true), m_Time(0), m_defOrigin(true), m_Size(1, 1)
+		: m_Data(nullptr), m_Anim(nullptr), m_Looped(true), m_Time(0), m_defOrigin(
+				true), m_Size(1, 1)
 {
-	m_Data=Manager::Resource::get<SpriteData>(spriteDataName);
-	if(m_Data)
+	m_Data = Manager::Resource::get<SpriteData>(spriteDataName);
+	if (m_Data)
 	{
-		m_Anim=m_Data->getAnimation("Idle");
+		m_Anim = m_Data->getAnimation("Idle");
 		this->setDefaultSize();
 	}
 }
 
 Mad::Graphics::Sprite::Sprite(const SpriteData* sd)
-		: m_Data(sd), m_Anim(nullptr), m_Looped(true), m_Time(0), m_defOrigin(true), m_Size(1, 1)
+		: m_Data(sd), m_Anim(nullptr), m_Looped(true), m_Time(0), m_defOrigin(
+				true), m_Size(1, 1)
 {
-	m_Anim=m_Data->getAnimation("Idle");
+	m_Anim = m_Data->getAnimation("Idle");
 	this->setDefaultSize();
 }
 
 void Mad::Graphics::Sprite::setSource(const std::string& spriteDataName)
 {
-	m_Data=Manager::Resource::get<SpriteData>(spriteDataName);
-	m_Anim=m_Data->getAnimation("Idle");
-	m_Looped=true;
-	m_Time=0;
+	m_Data = Manager::Resource::get<SpriteData>(spriteDataName);
+	m_Anim = m_Data->getAnimation("Idle");
+	m_Looped = true;
+	m_Time = 0;
 	m_Size.Set(0, 0);
 	this->setDefaultSize();
 }
 
 void Mad::Graphics::Sprite::setSource(const SpriteData* sd)
 {
-	m_Data=sd;
-	m_Anim=m_Data->getAnimation("Idle");
-	m_Looped=true;
-	m_Time=0;
+	m_Data = sd;
+	m_Anim = m_Data->getAnimation("Idle");
+	m_Looped = true;
+	m_Time = 0;
 	m_Size.Set(0, 0);
 	this->setDefaultSize();
 }
@@ -304,32 +354,35 @@ void Mad::Graphics::Sprite::setPosition(const b2Vec2& pos)
 
 b2Vec2 Mad::Graphics::Sprite::getPosition() const
 {
-	sf::Vector2f pos=m_Sprite.getPosition();
+	sf::Vector2f pos = m_Sprite.getPosition();
 	return b2Vec2(pos.x, pos.y);
 }
 
 void Mad::Graphics::Sprite::setOrigin(const b2Vec2& org)
 {
 	m_Sprite.setOrigin(org.x, org.y);
-	m_defOrigin=false;
+	m_defOrigin = false;
 }
 
 void Mad::Graphics::Sprite::setDefaultOrigin()
 {
-	m_defOrigin=true;
+	m_defOrigin = true;
 }
 
 b2Vec2 Mad::Graphics::Sprite::getOrigin() const
 {
-	if(m_defOrigin)
-		return 0.5f*this->getSize();
-	sf::Vector2f org=m_Sprite.getOrigin();
+	if (m_defOrigin)
+	{
+		sf::IntRect ir = m_Sprite.getTextureRect();
+		return b2Vec2(ir.width / 2, ir.height / 2);
+	}
+	sf::Vector2f org = m_Sprite.getOrigin();
 	return b2Vec2(org.x, org.y);
 }
 
 void Mad::Graphics::Sprite::setSize(const b2Vec2& size)
 {
-	m_Size=size;
+	m_Size = size;
 }
 
 void Mad::Graphics::Sprite::setDefaultSize()
@@ -339,24 +392,25 @@ void Mad::Graphics::Sprite::setDefaultSize()
 
 b2Vec2 Mad::Graphics::Sprite::getSize() const
 {
-	if(m_Size.x == 0 && m_Size.y == 0)
-		return b2Vec2(m_Sprite.getTextureRect().width, m_Sprite.getTextureRect().height);
+	if (m_Size.x == 0 && m_Size.y == 0)
+		return b2Vec2(m_Sprite.getTextureRect().width,
+				m_Sprite.getTextureRect().height);
 	return m_Size;
 }
 
 void Mad::Graphics::Sprite::setRotation(float rot)
 {
-	m_Sprite.setRotation(rot*180.0f/b2_pi);
+	m_Sprite.setRotation(rot * 180.0f / b2_pi);
 }
 
 float Mad::Graphics::Sprite::getRotation() const
 {
-	return m_Sprite.getRotation()*b2_pi/180.0f;
+	return m_Sprite.getRotation() * b2_pi / 180.0f;
 }
 
 void Mad::Graphics::Sprite::draw(float dt)
 {
-	b2Vec2 org=this->getOrigin();
+	b2Vec2 org = this->getOrigin();
 	m_Sprite.setOrigin(org.x, org.y);
 	if (m_Anim)
 		m_Anim->draw(m_Sprite, m_Size, m_Time, m_Looped);

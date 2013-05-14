@@ -15,6 +15,7 @@ void SpriteComponent::setSprite(const std::string& name)
 {
 	delete m_Sprite;
 	m_Sprite=new Mad::Graphics::Sprite(name);
+	m_Sprite->setAnimation("Walk");
 }
 
 void SpriteComponent::setSize(const b2Vec2& size)

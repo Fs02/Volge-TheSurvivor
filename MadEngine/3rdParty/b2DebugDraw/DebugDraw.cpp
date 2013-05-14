@@ -79,7 +79,7 @@ void DebugDraw::DrawSolidCircle(const b2Vec2& center, float32 radius, const b2Ve
     circle.setPosition(center.x - radius, center.y - radius);
     circle.setFillColor(this->B2SFColor(color, 50));
     circle.setOutlineColor(this->B2SFColor(color, 255));
-    circle.setOutlineThickness(1.f);
+    circle.setOutlineThickness(0.05f);
 
     // line of the circle wich shows the angle
     b2Vec2 p = center + (radius * axis);
@@ -94,7 +94,7 @@ void DebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color& 
     circle.setPosition(center.x-radius, center.y-radius);
     circle.setFillColor(sf::Color::Transparent);
     circle.setOutlineColor(this->B2SFColor(color, 255));
-    circle.setOutlineThickness(1.f);
+    circle.setOutlineThickness(0.05f);
     this->window->draw(circle);
 }
 
@@ -108,7 +108,7 @@ void DebugDraw::DrawSolidPolygon(const b2Vec2* vertices, int32 vertexCount, cons
 	}
     polygon.setFillColor(this->B2SFColor(color, 50));
     polygon.setOutlineColor(this->B2SFColor(color, 255));
-	polygon.setOutlineThickness(1.0f);
+	polygon.setOutlineThickness(0.05f);
 	this->window->draw(polygon);
 }
 
@@ -122,6 +122,6 @@ void DebugDraw::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2C
 	}
     polygon.setFillColor(sf::Color::Transparent);
     polygon.setOutlineColor(this->B2SFColor(color, 255));
-	polygon.setOutlineThickness(1.0f);
+	polygon.setOutlineThickness(0.05f);
 	this->window->draw(polygon);
 }

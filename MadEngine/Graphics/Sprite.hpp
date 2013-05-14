@@ -33,7 +33,8 @@ namespace Mad
 			~SpriteData();
 
 			void setTexture(Texture* tex);
-			void divideIntoFrames(int frameW, int frameH);
+			void divideIntoFramesColumn(int frameW, int frameH);
+			void divideIntoFramesRow(int frameW, int frameH);
 
 			void loadFromJSON(const std::string& name);
 			void unload();

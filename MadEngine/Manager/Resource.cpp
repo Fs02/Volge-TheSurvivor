@@ -22,6 +22,8 @@ Mad::Manager::Resource::Resource()
 
 Mad::Manager::Resource::~Resource()
 {
+	for(auto iter=m_ResourceDB.begin(); iter != m_ResourceDB.end(); ++iter)
+		delete iter->second;
 }
 
 std::string Mad::Manager::Resource::getProperties(const std::string& name)

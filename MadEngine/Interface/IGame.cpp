@@ -64,10 +64,10 @@ void Mad::Interface::IGame::start()
 
 			if (isDisplayFrameStats)
 			{
-				//m_Window.pushGLStates();
-				Graphics->getRenderWindow().draw(*StatsHUD);
-				//m_Window.popGLStates();
 				frameStats.endFrame();
+				Graphics->beginRendering();
+					Graphics->getRenderTarget().draw(*StatsHUD);
+				Graphics->endRendering();
 			}
 			Graphics->getRenderWindow().display();
 

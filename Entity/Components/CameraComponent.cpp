@@ -35,6 +35,7 @@ void CameraComponent::update(float dt)
 	{
 		b2Vec2 pos=m_Transform->position();
 		m_View.setCenter(pos.x, pos.y);
+		m_Size.x=m_Size.y*Mad::Manager::Graphics::getSingleton()->getAspectRatio();
 		m_View.setSize(m_Size.x, m_Size.y);
 		Mad::Manager::Graphics::getSingleton()->setGameView(m_View);
 	}

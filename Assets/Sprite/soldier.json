@@ -1,7 +1,7 @@
 {
 	"Texture" : "soldier.png",
 	"Texture division" : {
-		"Type" : "Matrix-column",
+		"Type" : "Matrix-row",
 		"Width" : 128,
 		"Height" : 128
 	},
@@ -9,6 +9,10 @@
 		"Idle" : {
 			"Length" : 1,
 			"Frames" : [ 0 ]
+		},
+		"Walk" : {
+			"Length" : 1,
+			"Frames" : [ 10, 11, 12, 13, 14, 15, 16, 17 ]
 		}
 	}
 }

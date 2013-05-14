@@ -136,7 +136,7 @@ void Game::load()
 
 		SpriteComponent* sp = new SpriteComponent();
 		sp->setSprite("soldier.json");
-		sp->setSize(b2Vec2(1, 1));
+		sp->setSize(b2Vec2(2, 2));
 		m_Player->addComponent(sp);
 
 		CameraComponent* cam = new CameraComponent();
@@ -212,18 +212,18 @@ void Game::play()
 
 	m_PhysicsManager->update(deltaTime);
 
-	Graphics->beginRendering();
-	Graphics->getDrawBatch().drawText("Test Text");
-	Graphics->getDrawBatch().drawText("another test text",
-			sf::Vector2f(100, 100), 32, 15, sf::Color::Red,
-			sf::Text::Underlined);
-	Graphics->endRendering();
-
 	Graphics->beginGameRendering();
-	m_PhysicsManager->drawDebugData();
-	m_Player->update(deltaTime);
-	m_Obstacle->update(deltaTime);
+		m_PhysicsManager->drawDebugData();
+		m_Player->update(deltaTime);
+		m_Obstacle->update(deltaTime);
 	Graphics->endGameRendering();
+
+	Graphics->beginRendering();
+		Graphics->getDrawBatch().drawText("Test Text");
+		Graphics->getDrawBatch().drawText("another test text",
+				sf::Vector2f(100, 100), 32, 15, sf::Color::Red,
+				sf::Text::Underlined);
+	Graphics->endRendering();
 
 	if (Controller->getControl("exit"))
 		quit();

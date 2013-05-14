@@ -42,6 +42,9 @@ public:
 	PhysicsComponent(Mad::Interface::IPhysicsSystem* physics, const PhysicsDef& def, int categoryBits);
 	~PhysicsComponent();
 
+	std::string getTypeName() const;
+	std::list<Property> listProperties() const;
+
 	void setSpeed(float speed);
 	void setMovementDirection(const b2Vec2& dir);
 	void setAngle(float angle);

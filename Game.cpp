@@ -23,6 +23,16 @@ namespace
 	class DamageListenerComponent: public IComponent
 	{
 	public:
+		std::string getTypeName() const
+		{
+			return "Damage listener";
+		}
+
+		std::list<Property> listProperties() const
+		{
+			return std::list<Property>();
+		}
+
 		void initialise(Entity* owner)
 		{
 		}

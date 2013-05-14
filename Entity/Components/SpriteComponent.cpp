@@ -11,6 +11,27 @@ SpriteComponent::~SpriteComponent()
 	delete m_Sprite;
 }
 
+std::string SpriteComponent::getTypeName() const
+{
+	return "Sprite";
+}
+
+std::list<Property> SpriteComponent::listProperties() const
+{
+	std::list<Property> props;
+	Property pr;
+
+	pr.setName("Sprite file");
+	if(m_Sprite)
+		pr.setPath(m_Sprite->getSource()->getFileName());
+	else
+		pr.setPath(std::string());
+	pr.setAsMutable(true);
+	props.push_back(pr);
+
+	return props;
+}
+
 void SpriteComponent::setSprite(const std::string& name)
 {
 	delete m_Sprite;

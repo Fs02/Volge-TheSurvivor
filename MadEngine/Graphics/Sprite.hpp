@@ -29,14 +29,16 @@ namespace Mad
 		class SpriteData : public Mad::Interface::IResource
 		{
 		public:
-			SpriteData();
+			explicit SpriteData(const std::string& fileName);
 			~SpriteData();
+
+			const std::string& getFileName() const;
 
 			void setTexture(Texture* tex);
 			void divideIntoFramesColumn(int frameW, int frameH);
 			void divideIntoFramesRow(int frameW, int frameH);
 
-			void loadFromJSON(const std::string& name);
+			void loadFromJSON();
 			void unload();
 
 			Texture* getTexture();
@@ -46,6 +48,7 @@ namespace Mad
 			sf::Rect<int> getFrameArea(int frameIndex) const;
 
 		private:
+			std::string m_FileName;
 			Texture* m_Texture;
 			std::map<std::string, Animation*> m_Animations;
 			std::vector<sf::Rect<int> > m_Frames;
@@ -62,6 +65,7 @@ namespace Mad
 
 			void setSource(const std::string& spriteDataName);
 			void setSource(const SpriteData* sd);
+			const SpriteData* getSource() const;
 
 			void setAnimation(const std::string& name);
 			void setLooped(bool looped);

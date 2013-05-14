@@ -14,6 +14,17 @@ SoundComponent::~SoundComponent()
 	}
 }
 
+std::string SoundComponent::getTypeName() const
+{
+	return "Sound";
+}
+
+std::list<Property> SoundComponent::listProperties() const
+{
+	// TODO
+	return std::list<Property>();
+}
+
 void SoundComponent::addSound(const std::string& eventName, const std::string& soundId, bool repeatPlay)
 {
 	Mad::Sound::SoundBuffer* sb	= Mad::Manager::Resource::get<Mad::Sound::SoundBuffer>(soundId);

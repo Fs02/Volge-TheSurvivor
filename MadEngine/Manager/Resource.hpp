@@ -66,8 +66,7 @@ inline void Mad::Manager::Resource::load(const std::string& fileName)
 	else if(typeid(T) == typeid(Mad::Graphics::SpriteData))
 	{
 		path		= getProperties("SpritePath");
-		Mad::Graphics::SpriteData* sd=new Mad::Graphics::SpriteData();
-		sd->loadFromJSON(path+fileName);
+		Mad::Graphics::SpriteData* sd=new Mad::Graphics::SpriteData(path+fileName);
 		res			=sd;
 	}
 	else if(typeid(T) == typeid(Mad::Sound::SoundBuffer))

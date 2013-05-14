@@ -31,6 +31,14 @@ void Entity::addComponent(IComponent* comp)
 	m_components.push_back(comp);
 }
 
+std::list<const IComponent*> Entity::listComponents() const
+{
+	std::list<const IComponent*> result;
+	for(size_t i=0; i < m_components.size(); ++i)
+		result.push_back(m_components[i]);
+	return result;
+}
+
 void Entity::update(float deltaTime)
 {
 	for(unsigned int i=0; i < m_components.size(); ++i)

@@ -12,6 +12,9 @@ public:
 	WeaponComponent(PhysicsSystem* physics);
 	~WeaponComponent();
 
+	std::string getTypeName() const;
+	std::list<Property> listProperties() const;
+
 	void setGun(Item::Gun* gun);
 
 	void initialise(Entity* ent);

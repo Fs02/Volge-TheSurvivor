@@ -6,6 +6,30 @@ HealthComponent::HealthComponent(int maxHP, int initHP, float recoveryTime)
 {
 }
 
+std::string HealthComponent::getTypeName() const
+{
+	return "Health";
+}
+
+std::list<Property> HealthComponent::listProperties() const
+{
+	std::list<Property> props;
+	Property pr;
+
+	pr.setName("Max. health");
+	pr.setFloat(m_MaxHP);
+	pr.setAsMutable(true);
+	props.push_back(pr);
+
+	pr.reset();
+	pr.setName("Recovery time");
+	pr.setFloat(m_RecoveryTime);
+	pr.setAsMutable(true);
+	props.push_back(pr);
+
+	return props;
+}
+
 void HealthComponent::initialise(Entity* owner)
 {
 	m_Owner=owner;

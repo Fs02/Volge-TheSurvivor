@@ -6,6 +6,30 @@ TransformableComponent::TransformableComponent()
 {
 }
 
+std::string TransformableComponent::getTypeName() const
+{
+	return "Transformable";
+}
+
+std::list<Property> TransformableComponent::listProperties() const
+{
+	std::list<Property> props;
+	Property pr;
+
+	pr.setName("Position");
+	pr.setVec2(m_Position);
+	pr.setAsMutable(true);
+	props.push_back(pr);
+
+	pr.reset();
+	pr.setName("Rotation");
+	pr.setFloat(m_Rotation);
+	pr.setAsMutable(true);
+	props.push_back(pr);
+
+	return props;
+}
+
 void TransformableComponent::setPosition(const b2Vec2& pos)
 {
 	m_Position=pos;

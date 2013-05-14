@@ -72,14 +72,20 @@ void Mad::Graphics::Animation::draw(sf::Sprite& sp, const b2Vec2& size,
  * Mad::Graphics::SpriteData
  */
 
-Mad::Graphics::SpriteData::SpriteData()
-		: m_Texture(nullptr)
+Mad::Graphics::SpriteData::SpriteData(const std::string& fileName)
+		: m_FileName(fileName), m_Texture(nullptr)
 {
+	this->loadFromJSON();
 }
 
 Mad::Graphics::SpriteData::~SpriteData()
 {
 	this->unload();
+}
+
+const std::string& Mad::Graphics::SpriteData::getFileName() const
+{
+	return m_FileName;
 }
 
 void Mad::Graphics::SpriteData::setTexture(Texture* tex)
@@ -145,13 +151,13 @@ void Mad::Graphics::SpriteData::divideIntoFramesRow(int frameW, int frameH)
 	}
 }
 
-void Mad::Graphics::SpriteData::loadFromJSON(const std::string& name)
+void Mad::Graphics::SpriteData::loadFromJSON()
 {
 	json::Document doc;
 
-	std::ifstream file(name.c_str());
+	std::ifstream file(m_FileName.c_str());
 	json::StdTokenStream tokenStr(file);
-	json::StdErrorCallback errorCb(std::clog, name);
+	json::StdErrorCallback errorCb(std::clog, m_FileName);
 
 	if (!doc.load(&tokenStr, &errorCb))
 		return;
@@ -168,7 +174,7 @@ void Mad::Graphics::SpriteData::loadFromJSON(const std::string& name)
 		std::string tp = vh.childPair("Type").value().string();
 		if (tp != "Matrix-column" && tp != "Matrix-row")
 		{
-			std::clog << "Error while loading a sprite from " << name
+			std::clog << "Error while loading a sprite from " << m_FileName
 					<< ": invalid texture division type!\n";
 			return;
 		}
@@ -179,7 +185,7 @@ void Mad::Graphics::SpriteData::loadFromJSON(const std::string& name)
 			int h = vh.childPair("Height").value().integer(-1);
 			if (w <= 0 && h <= 0)
 			{
-				std::clog << "Error while loading a sprite from " << name
+				std::clog << "Error while loading a sprite from " << m_FileName
 						<< ": invalid frame size!\n";
 				return;
 			}
@@ -190,7 +196,7 @@ void Mad::Graphics::SpriteData::loadFromJSON(const std::string& name)
 			int h = vh.childPair("Height").value().integer(-1);
 			if (w <= 0 && h <= 0)
 			{
-				std::clog << "Error while loading a sprite from " << name
+				std::clog << "Error while loading a sprite from " << m_FileName
 						<< ": invalid frame size!\n";
 				return;
 			}
@@ -213,7 +219,7 @@ void Mad::Graphics::SpriteData::loadFromJSON(const std::string& name)
 			int frame = hFrames.childValue(fi).integer(-1);
 			if (frame < 0)
 			{
-				std::cout << "Error while loading a sprite from " << name
+				std::cout << "Error while loading a sprite from " << m_FileName
 						<< ": invalid frame index!\n";
 				return;
 			}
@@ -321,6 +327,11 @@ void Mad::Graphics::Sprite::setSource(const SpriteData* sd)
 	m_Time = 0;
 	m_Size.Set(0, 0);
 	this->setDefaultSize();
+}
+
+const Mad::Graphics::SpriteData* Mad::Graphics::Sprite::getSource() const
+{
+	return m_Data;
 }
 
 void Mad::Graphics::Sprite::setAnimation(const std::string& name)

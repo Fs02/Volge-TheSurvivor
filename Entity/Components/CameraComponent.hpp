@@ -14,11 +14,14 @@ public:
 	void makeActive();
 	void setVirtualSize(const b2Vec2& size);
 
+	std::string getTypeName() const;
+	std::list<Property> listProperties() const;
+
 	void initialise(Entity* owner);
 	void update(float dt);
 
 private:
-	TransformableComponent* m_Transform;\
+	TransformableComponent* m_Transform;
 	b2Vec2 m_Size;
 	sf::View m_View;
 

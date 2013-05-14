@@ -7,6 +7,9 @@ class HealthComponent : public IComponent
 public:
 	HealthComponent(int maxHP, int initHP, float recoveryTime);
 
+	std::string getTypeName() const;
+	std::list<Property> listProperties() const;
+
 	void initialise(Entity* owner);
 	void update(float dt);
 	void onDamage(Entity* other, int damage);

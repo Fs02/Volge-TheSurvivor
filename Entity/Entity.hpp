@@ -1,6 +1,8 @@
 #pragma once
 
 #include "../stdafx.h"
+#include "Property.hpp"
+#include <list>
 
 class IComponent;
 
@@ -16,6 +18,7 @@ public:
 	inline T* component();
 	template<class T>
 	inline const T* component() const;
+	std::list<const IComponent*> listComponents() const;
 
 	void update(float deltaTime);
 	void onCollisionBegin(Entity* other);
@@ -33,6 +36,9 @@ class IComponent
 {
 public:
 	virtual ~IComponent();
+
+	virtual std::string getTypeName() const=0;
+	virtual std::list<Property> listProperties() const=0;
 
 	virtual void initialise(Entity* owner)=0;
 

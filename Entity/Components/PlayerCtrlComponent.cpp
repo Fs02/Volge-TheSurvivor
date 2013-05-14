@@ -7,6 +7,16 @@ PlayerCtrlComponent::PlayerCtrlComponent()
 {
 }
 
+std::string PlayerCtrlComponent::getTypeName() const
+{
+	return "Player controller";
+}
+
+std::list<Property> PlayerCtrlComponent::listProperties() const
+{
+	return std::list<Property>();
+}
+
 void PlayerCtrlComponent::initialise(Entity* owner)
 {
 	m_Physics=owner->component<PhysicsComponent>();
@@ -34,9 +44,9 @@ void PlayerCtrlComponent::update(float dt)
 
 	//SFML have inverted y axis, the same applies with angle
 	if(ctrl->getControl("left"))
-		angle-=10.0f*DEGTORAD;
+		angle-=10.0f*b2_pi/180.0f;
 	if(ctrl->getControl("right"))
-		angle+=10.0f*DEGTORAD;
+		angle+=10.0f*b2_pi/180.0f;
 
 	m_Physics->setSpeed(1.5f);
 	m_Physics->setMovementDirection(dir);

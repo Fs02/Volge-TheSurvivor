@@ -11,6 +11,9 @@ class PlayerCtrlComponent : public IComponent
 public:
 	PlayerCtrlComponent();
 
+	std::string getTypeName() const;
+	std::list<Property> listProperties() const;
+
 	void initialise(Entity* owner);
 	void update(float dt);
 

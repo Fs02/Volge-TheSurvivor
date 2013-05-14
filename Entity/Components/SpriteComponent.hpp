@@ -9,6 +9,9 @@ public:
 	SpriteComponent();
 	~SpriteComponent();
 
+	std::string getTypeName() const;
+	std::list<Property> listProperties() const;
+
 	void setSprite(const std::string& name);
 	void setSize(const b2Vec2& size);
 

@@ -15,6 +15,9 @@ class TransformableComponent : public IComponent
 public:
 	TransformableComponent();
 
+	std::string getTypeName() const;
+	std::list<Property> listProperties() const;
+
 	void setPosition(const b2Vec2& pos);
 	const b2Vec2& position() const;
 	void setRotation(float rot);

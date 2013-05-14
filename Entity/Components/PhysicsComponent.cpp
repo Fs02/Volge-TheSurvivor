@@ -71,6 +71,21 @@ PhysicsComponent::~PhysicsComponent()
 	m_Physics->destroyBody(m_Body);
 }
 
+std::string PhysicsComponent::getTypeName() const
+{
+	return "Physics";
+}
+
+std::list<Property> PhysicsComponent::listProperties() const
+{
+	std::list<Property> props;
+	Property pr;
+
+	// TODO
+
+	return props;
+}
+
 void PhysicsComponent::setSpeed(float speed)
 {
 	m_Speed=speed;

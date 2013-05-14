@@ -25,6 +25,30 @@ void CameraComponent::setVirtualSize(const b2Vec2& size)
 	m_Size=size;
 }
 
+std::string CameraComponent::getTypeName() const
+{
+	return "Camera";
+}
+
+std::list<Property> CameraComponent::listProperties() const
+{
+	std::list<Property> props;
+	Property pr;
+
+	pr.setName("Size");
+	pr.setVec2(m_Size);
+	pr.setAsMutable(true);
+	props.push_back(pr);
+
+	pr.reset();
+	pr.setName("Is active");
+	pr.setBool((ms_Active == this));
+	pr.setAsMutable(true);
+	props.push_back(pr);
+
+	return props;
+}
+
 void CameraComponent::initialise(Entity* owner)
 {
 	m_Transform=owner->component<TransformableComponent>();

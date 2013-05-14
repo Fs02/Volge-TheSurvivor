@@ -13,6 +13,16 @@ WeaponComponent::~WeaponComponent()
 	delete m_Gun;
 }
 
+std::string WeaponComponent::getTypeName() const
+{
+	return "Weapon";
+}
+
+std::list<Property> WeaponComponent::listProperties() const
+{
+	return std::list<Property>();
+}
+
 void WeaponComponent::setGun(Item::Gun* gun)
 {
 	delete m_Gun;

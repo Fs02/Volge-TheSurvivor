@@ -38,7 +38,7 @@ namespace Mad
 			sf::RenderWindow m_Window;
 			sf::View m_GameView;
 			bool m_InsideBeginEnd;
-//			Utility::DrawBatch m_DrawBatch;
+			Utility::DrawBatch m_DrawBatch;
 
 			static Graphics* ms_Singleton;
 

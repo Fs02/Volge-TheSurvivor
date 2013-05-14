@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Sprite.hpp"
 #include "../Manager/Resource.hpp"
+#include "../Manager/Graphics.hpp"
 #include "../Utility/DrawBatch.hpp"
 #include "../3rdParty/JSON/JSON.hpp"
 
@@ -64,7 +65,7 @@ void Mad::Graphics::Animation::draw(sf::Sprite& sp, const b2Vec2& size,
 	}
 	sp.setTexture(m_Data.getTexture()->getTexture());
 	sp.setTextureRect(m_Frames[frame]);
-	Utility::DrawBatch::drawSprite(sp);
+	Manager::Graphics::getSingleton()->getDrawBatch().drawSprite(sp);
 }
 
 /*

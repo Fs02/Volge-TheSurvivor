@@ -10,7 +10,7 @@ void Mad::Manager::Graphics::createWindow(const std::string& title, int w,
 {
 	m_Window.create(sf::VideoMode(w, h), title);
 	m_GameView=m_Window.getView();
-	Utility::DrawBatch::getSingleton()->setDrawTarget(m_Window);
+	m_DrawBatch.setDrawTarget(m_Window);
 }
 
 sf::RenderTarget& Mad::Manager::Graphics::getRenderTarget()
@@ -41,7 +41,7 @@ sf::View& Mad::Manager::Graphics::getGameView()
 
 Mad::Utility::DrawBatch& Mad::Manager::Graphics::getDrawBatch()
 {
-	return *Utility::DrawBatch::getSingleton();
+	return m_DrawBatch;
 }
 
 void Mad::Manager::Graphics::beginGameRendering()

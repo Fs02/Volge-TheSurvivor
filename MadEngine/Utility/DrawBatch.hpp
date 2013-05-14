@@ -10,37 +10,29 @@ namespace Mad
 		class DrawBatch
 		{
 		private:
+			 sf::RenderWindow* m_TargetWindow;
+
+			 sf::Font *m_Font;
+			 sf::Text *m_Text;
+			 sf::Sprite *m_Sprite;
+			 sf::RectangleShape *m_RectShape;
+			 sf::CircleShape *m_CircleShape;
+
+		public:
 			DrawBatch();
 			~DrawBatch();
 
-			static DrawBatch* instance;
-			static sf::RenderWindow* m_TargetWindow;
-			static Mad::Manager::Resource *m_ResourceMan;
+			 void setDrawTarget(sf::RenderWindow& targetWindow);
+			 sf::RenderTarget& getRenderTarget();
 
-			static sf::Font *m_Font;
-			static sf::Text *m_Text;
-			static sf::Sprite *m_Sprite;
-			static sf::RectangleShape *m_RectShape;
-			static sf::CircleShape *m_CircleShape;
+			 void begin();
+			 void end();
+			 void cleanUp();
 
-		public:
-			static DrawBatch* initialise();
-			static void deinitialise();
-
-			static DrawBatch* getSingleton();
-			static void setDrawTarget(sf::RenderWindow& targetWindow);
-			static sf::RenderTarget& getRenderTarget();
-
-			static void begin();
-			static void end();
-			static void cleanUp();
-
-			static void drawText(const std::string& text, const sf::Vector2f& pos = sf::Vector2f(0,0), float rot = 0.f, int size =30, const sf::Color& color = sf::Color::Black, sf::Text::Style style = sf::Text::Regular);
+			 void drawText(const std::string& text, const sf::Vector2f& pos = sf::Vector2f(0,0), float rot = 0.f, int size =30, const sf::Color& color = sf::Color::Black, sf::Text::Style style = sf::Text::Regular);
 			//primitive shape drawing
 			
-			static void drawSprite(const sf::Sprite& sprite);
-			static void drawSprite(const std::string& textureId, const sf::Vector2f& pos, float rot = 0.f, const sf::Vector2f& origin = sf::Vector2f(0,0));
-			static void drawSprite(const std::string& textureId, const sf::IntRect& area, const sf::Vector2f& pos, float rot = 0.f, const sf::Vector2f& origin = sf::Vector2f(0,0));
+			 void drawSprite(const sf::Sprite& sprite);
 		};
 	}
 }

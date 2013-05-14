@@ -17,9 +17,13 @@ LIBS += -L../Volge-TheSurvivor-Debug -L/usr/local/lib -lMadEngine -lsfml-audio -
 
 SOURCES += main.cpp\
         MainWindow.cpp \
-    GameWorld.cpp
+    GameWorld.cpp \
+    addobjectdlg.cpp
 
 HEADERS  += MainWindow.h \
-    GameWorld.hpp
+    GameWorld.hpp \
+    addobjectdlg.h \
+    iworldlistener.h
 
-FORMS    += MainWindow.ui
+FORMS    += MainWindow.ui \
+    addobjectdlg.ui

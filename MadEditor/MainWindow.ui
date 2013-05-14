@@ -92,7 +92,7 @@
    <widget class="QWidget" name="dockWidgetContents">
     <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QTreeWidget" name="treeWidget">
+      <widget class="QTreeWidget" name="worldTree">
        <attribute name="headerVisible">
         <bool>false</bool>
        </attribute>
@@ -113,7 +113,7 @@
    <widget class="QWidget" name="dockWidgetContents_2">
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
-      <widget class="QTreeWidget" name="treeWidget_2">
+      <widget class="QTreeWidget" name="objectTree">
        <attribute name="headerVisible">
         <bool>false</bool>
        </attribute>

@@ -8,10 +8,19 @@ EntityManager::~EntityManager()
 {
 }
 
+void EntityManager::setListener(IEntityMgrListener *listener)
+{
+    m_Listener=listener;
+}
+
 Entity *EntityManager::createEntity(const std::string& name)
 {
+    if(m_Entities.count(name) == 1)
+        return nullptr;
     Entity* ent=new Entity();
     m_Entities[name]=ent;
+    if(m_Listener)
+        m_Listener->onEntityAdded(name, ent);
     return ent;
 }
 
@@ -42,5 +51,30 @@ std::list<std::string> EntityManager::listEntities() const
 void EntityManager::update(float deltaTime)
 {
     for(auto iter=m_Entities.begin(); iter != m_Entities.end(); ++iter)
+    {
         iter->second->update(deltaTime);
+        if(iter->second->isRedundant())
+            m_Redundant.push_back(iter->second);
+    }
+
+    while(!m_Redundant.empty())
+    {
+        this->m_removeEntity(m_Redundant.front());
+        m_Redundant.pop_front();
+    }
+}
+
+void EntityManager::m_removeEntity(Entity *ent)
+{
+    for(auto iter=m_Entities.begin(); iter != m_Entities.end(); ++iter)
+    {
+        if(iter->second == ent)
+        {
+            if(m_Listener)
+                m_Listener->onEntityRemoved(iter->first, ent);
+            m_Entities.erase(iter);
+            delete ent;
+            return;
+        }
+    }
 }

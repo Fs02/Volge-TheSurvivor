@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../stdafx.h"
 #include "TransformableComponent.hpp"
+#include "Graphics/Sprite.hpp"
 
 class SpriteComponent : public IComponent
 {
@@ -17,6 +17,7 @@ public:
 
 	void initialise(Entity* owner);
 	void update(float dt);
+	void onStateChanged(const std::string& stateName);
 
 private:
 	TransformableComponent* m_Transformable;

@@ -6,6 +6,12 @@
 
 class IComponent;
 
+namespace CommonStates
+{
+	extern const std::string Idle;
+	extern const std::string Dead;
+}
+
 class Entity
 {
 public:
@@ -24,9 +30,14 @@ public:
 	void onCollisionBegin(Entity* other);
 	void onCollisionEnd(Entity* other);
 	void onDamage(Entity* other, int damage);
+	void onStateChanged(const std::string& stateName);
 	void onGenericEvent(const std::string& name);
 
+	void markAsRedundant();
+	bool isRedundant() const;
+
 private:
+	bool m_IsRedundant;
 	std::vector<IComponent*> m_components;
 
 	Entity(const Entity&);
@@ -46,6 +57,7 @@ public:
 	virtual void onCollisionBegin(Entity* other);
 	virtual void onCollisionEnd(Entity* other);
 	virtual void onDamage(Entity* other, int damage);
+	virtual void onStateChanged(const std::string& stateName);
 	virtual void onGenericEvent(const std::string& name);
 };
 

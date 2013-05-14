@@ -2,10 +2,18 @@
 #include "Entity.hpp"
 
 /*
+ * CommonStates
+ */
+
+const std::string CommonStates::Idle="Idle";
+const std::string CommonStates::Dead="Dead";
+
+/*
  * Entity
  */
 
 Entity::Entity()
+	:m_IsRedundant(false)
 {
 }
 
@@ -63,10 +71,26 @@ void Entity::onDamage(Entity* other, int damage)
 		m_components[i]->onDamage(other, damage);
 }
 
+void Entity::onStateChanged(const std::string& stateName)
+{
+	for(unsigned int i=0; i < m_components.size(); ++i)
+		m_components[i]->onStateChanged(stateName);
+}
+
 void Entity::onGenericEvent(const std::string& name)
 {
 	for(unsigned int i=0; i < m_components.size(); ++i)
 		m_components[i]->onGenericEvent(name);
+}
+
+void Entity::markAsRedundant()
+{
+	m_IsRedundant=true;
+}
+
+bool Entity::isRedundant() const
+{
+	return m_IsRedundant;
 }
 
 /*
@@ -86,6 +110,10 @@ void IComponent::onCollisionEnd(Entity* other)
 }
 
 void IComponent::onDamage(Entity* other, int damage)
+{
+}
+
+void IComponent::onStateChanged(const std::string& stateName)
 {
 }
 

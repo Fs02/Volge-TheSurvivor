@@ -60,3 +60,8 @@ void SpriteComponent::update(float dt)
 	m_Sprite->setRotation(rot);
 	m_Sprite->draw(dt);
 }
+
+void SpriteComponent::onStateChanged(const std::string& stateName)
+{
+	m_Sprite->setAnimation(stateName);
+}

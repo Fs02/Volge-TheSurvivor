@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "PlayerCtrlComponent.hpp"
+#include "Manager/Controller.hpp"
 
 PlayerCtrlComponent::PlayerCtrlComponent()
-	:m_Physics(nullptr), m_Transform(nullptr)
+	:m_Owner(nullptr), m_Physics(nullptr), m_Transform(nullptr)
 {
 }
 
@@ -18,6 +19,7 @@ std::list<Property> PlayerCtrlComponent::listProperties() const
 
 void PlayerCtrlComponent::initialise(Entity* owner)
 {
+	m_Owner=owner;
 	m_Physics=owner->component<PhysicsComponent>();
 	m_Transform=owner->component<TransformableComponent>();
 }
@@ -36,10 +38,27 @@ void PlayerCtrlComponent::update(float dt)
 	b2Vec2 dir(0, 0);
 	float angle=m_Transform->rotation();
 
+	int ydir=0;
+
 	if(ctrl->getControl("forward"))
-		dir+=b2Vec2(0, -1);
+		ydir-=1;
 	if(ctrl->getControl("backward"))
-		dir+=b2Vec2(0, 1);
+		ydir+=1;
+
+	dir.Set(0, ydir);
+
+	switch(ydir)
+	{
+	case -1:
+		m_Owner->onStateChanged("Walk forward");
+		break;
+	case 1:
+		m_Owner->onStateChanged("Walk backward");
+		break;
+	default:
+		m_Owner->onStateChanged(CommonStates::Idle);
+		break;
+	}
 
 	//SFML have inverted y axis, the same applies with angle
 	if(ctrl->getControl("left"))

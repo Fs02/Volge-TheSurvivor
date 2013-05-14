@@ -13,9 +13,12 @@ public:
 	void initialise(Entity* owner);
 	void update(float dt);
 	void onDamage(Entity* other, int damage);
+	void onStateChanged(const std::string& stateName);
+
+	bool isAlive() const;
 
 private:
 	Entity* m_Owner;
 	int m_MaxHP, m_HP;
-	float m_Time, m_LastDamageTime, m_RecoveryTime;
+	float m_Time, m_LastDamageTime, m_RecoveryTime, m_DeathTime;
 };

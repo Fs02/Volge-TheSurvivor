@@ -4,6 +4,7 @@
 #include "../Entity.hpp"
 #include "PhysicsComponent.hpp"
 #include "TransformableComponent.hpp"
+#include "MadEngine.hpp"
 
 class PlayerCtrlComponent : public IComponent
 {
@@ -17,6 +18,7 @@ public:
 	void update(float dt);
 
 private:
+	Entity* m_Owner;
 	PhysicsComponent* m_Physics;
 	TransformableComponent* m_Transform;
 };

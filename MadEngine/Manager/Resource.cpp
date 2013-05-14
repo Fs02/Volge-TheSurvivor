@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include "Resource.hpp"
+#include <iostream>
 
 Mad::Manager::Resource* Mad::Manager::Resource::initialise()
 {
@@ -22,8 +22,11 @@ Mad::Manager::Resource::Resource()
 
 Mad::Manager::Resource::~Resource()
 {
-	for(auto iter=m_ResourceDB.begin(); iter != m_ResourceDB.end(); ++iter)
+	for(auto iter=m_ResourceDB.begin(); iter != m_ResourceDB.end(); )
+	{
 		delete iter->second;
+		iter = m_ResourceDB.erase(iter);
+	}
 }
 
 std::string Mad::Manager::Resource::getProperties(const std::string& name)

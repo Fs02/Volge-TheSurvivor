@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../stdafx.h"
+#include <Box2D/Box2D.h>
 #include "../3rdParty/b2DebugDraw/DebugDraw.hpp"
 
 namespace Mad

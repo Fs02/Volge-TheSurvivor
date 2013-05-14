@@ -1,6 +1,6 @@
-#pragma once
+#ifndef _CONTROLLER_HPP_
+#define _CONTROLLER_HPP_
 
-#include "../../stdafx.h"
 #include "Exceptions.hpp"
 
 namespace Mad
@@ -37,3 +37,5 @@ namespace Mad
 		};
 	}
 }
+
+#endif

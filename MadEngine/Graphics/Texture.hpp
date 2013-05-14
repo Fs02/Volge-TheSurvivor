@@ -2,8 +2,10 @@
 // Wrapper class for sf::Texture
 //
 
-#pragma once
-#include "../../stdafx.h"
+#ifndef _TEXTURE_HPP_
+#define _TEXTURE_HPP_
+
+#include <SFML/Graphics.hpp>
 #include "../Interface/IResource.hpp"
 #include "../Manager/Exceptions.hpp"
 
@@ -35,3 +37,5 @@ namespace Mad
 		};
 	}
 }
+
+#endif

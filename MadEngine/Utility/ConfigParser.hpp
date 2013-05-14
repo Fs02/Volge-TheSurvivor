@@ -1,4 +1,10 @@
-#include "../../stdafx.h"
+#ifndef _CONFIGPARSER_HPP_
+#define _CONFIGPARSER_HPP_
+
+#include <iostream>
+#include <string>
+#include <map>
+#include <vector>
 
 namespace Mad
 {
@@ -35,3 +41,5 @@ namespace Mad
 		};
 	}
 }
+
+#endif

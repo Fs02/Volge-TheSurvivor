@@ -2,8 +2,10 @@
 // wrapper class for sf::soundbuffer
 //
 
-#pragma once
-#include "../../stdafx.h"
+#ifndef _SOUNDBUFFER_HPP_
+#define _SOUNDBUFFER_HPP_
+
+#include <SFML/Audio.hpp>
 #include "../Interface/IResource.hpp"
 #include "../Manager/Exceptions.hpp"
 
@@ -30,3 +32,5 @@ namespace Mad
 		};
 	}
 }
+
+#endif

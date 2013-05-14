@@ -1,7 +1,7 @@
 #ifndef _SPRITE_HPP_
 #define _SPRITE_HPP_
 
-#include "../../stdafx.h"
+#include <Box2D/Box2D.h>
 #include "Texture.hpp"
 
 namespace Mad

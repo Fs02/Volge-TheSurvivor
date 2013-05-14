@@ -1,6 +1,5 @@
-#pragma once
-
-#include "../stdafx.h"
+#ifndef _MADENGINE_HPP_
+#define _MADENGINE_HPP_
 
 #include "Interface/IGame.hpp"
 #include "Interface/IPhysicsSystem.hpp"
@@ -23,3 +22,5 @@
 #define RADTODEG (180.0f/b2_pi)
 #define RATIO 30.f
 #define UNRATIO (1.0f/30.f)
+
+#endif

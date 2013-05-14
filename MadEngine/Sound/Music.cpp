@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Music.hpp"
 
 Mad::Sound::Music::Music()

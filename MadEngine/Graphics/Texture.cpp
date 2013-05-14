@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "Texture.hpp"
 
 Mad::Graphics::Texture::Texture()

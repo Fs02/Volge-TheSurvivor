@@ -22,10 +22,13 @@
 //
 ////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef _CLOCKHUD_HPP_
+#define _CLOCKHUD_HPP_
 
-#include "../../../stdafx.h"
 #include "FrameClock.hpp"
+#include <fstream>
+#include <sstream>
+#include <iomanip>
 
 class ClockHUD : public sf::Drawable
 {
@@ -106,3 +109,5 @@ private:
     const sf::Font* m_font;
     const sfx::FrameClock* m_clock;
 };
+
+#endif

@@ -1,6 +1,6 @@
-#pragma once
+#ifndef _RESOURCE_HPP_
+#define _RESOURCE_HPP_
 
-#include "../../stdafx.h"
 #include "Exceptions.hpp"
 #include "../Interface/IResource.hpp"
 #include "../Graphics/Texture.hpp"
@@ -96,3 +96,6 @@ inline T* Mad::Manager::Resource::get(const std::string& fileName)
 
 	return dynamic_cast<T*>(m_ResourceDB[fileName]);
 }
+
+
+#endif

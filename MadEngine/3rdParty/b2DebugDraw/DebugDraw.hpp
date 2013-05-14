@@ -13,10 +13,11 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef DEBUGDRAW_H
-#define DEBUGDRAW_H
+#ifndef _DEBUGDRAW_HPP_
+#define _DEBUGDRAW_HPP_
 
-#include "../../../stdafx.h"
+#include <Box2D/Box2D.h>
+#include <SFML/Graphics.hpp>
 
 class DebugDraw : public b2Draw
 {

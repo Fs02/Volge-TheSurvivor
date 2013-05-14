@@ -2,8 +2,9 @@
 // Interface class for resource object
 //
 
-#include "../../stdafx.h"
-#pragma once
+#ifndef _IRESOURCE_HPP_
+#define _IRESOURCE_HPP_
+
 namespace Mad
 {
 	namespace Interface
@@ -16,3 +17,5 @@ namespace Mad
 		};
 	}
 }
+
+#endif

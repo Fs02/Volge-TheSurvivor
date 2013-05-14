@@ -2,8 +2,10 @@
 // wrapper for sf::Music
 //
 
-#pragma once
-#include "../../stdafx.h"
+#ifndef _MUSIC_HPP_
+#define _MUSIC_HPP_
+
+#include <SFML/Audio.hpp>
 #include "../Interface/IResource.hpp"
 #include "../Manager/Exceptions.hpp"
 
@@ -28,3 +30,5 @@ namespace Mad
 		};
 	}
 }
+
+#endif

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "../../stdafx.h"
+#include <SFML/Graphics.hpp>
+#include <Box2D/Box2D.h>
 #include "../Manager/GameState.hpp"
 #include "../Manager/Resource.hpp"
 #include "../Manager/Controller.hpp"

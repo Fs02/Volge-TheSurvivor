@@ -2,7 +2,6 @@
 
 #include "../../stdafx.h"
 #include "../Entity.hpp"
-#include "../../MadEngine/MadEngine.hpp"
 
 class SoundComponent : public IComponent
 {

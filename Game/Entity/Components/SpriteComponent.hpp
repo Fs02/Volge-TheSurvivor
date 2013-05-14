@@ -1,7 +1,7 @@
 #pragma once
 
+#include "../../stdafx.h"
 #include "TransformableComponent.hpp"
-#include "../../MadEngine/Graphics/Sprite.hpp"
 
 class SpriteComponent : public IComponent
 {

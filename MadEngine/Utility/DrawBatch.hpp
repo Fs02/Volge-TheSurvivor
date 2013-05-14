@@ -1,6 +1,8 @@
-#pragma once
+#ifndef _DRAWBATCH_HPP_
+#define _DRAWBATCH_HPP_
 
-#include "../../stdafx.h"
+#include <SFML/Graphics.hpp>
+#include <Box2D/Box2D.h>
 #include "../Manager/Resource.hpp"
 
 namespace Mad
@@ -37,3 +39,5 @@ namespace Mad
 		};
 	}
 }
+
+#endif

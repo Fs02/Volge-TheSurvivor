@@ -3,7 +3,6 @@
 
 #include "../Entity.hpp"
 #include "TransformableComponent.hpp"
-#include "../../MadEngine/Manager/Graphics.hpp"
 
 class CameraComponent : public IComponent
 {

@@ -22,9 +22,10 @@
 //
 ////////////////////////////////////////////////////////////
 
-#pragma once
+#ifndef _FRAMECLOCK_HPP_
+#define _FRAMECLOCK_HPP_
 
-#include "../../../stdafx.h"
+#include <SFML/Graphics.hpp>
 
 namespace sfx
 {
@@ -246,3 +247,5 @@ namespace sfx
         sf::Clock m_clock;
     };
 }	// namespace sfx
+
+#endif

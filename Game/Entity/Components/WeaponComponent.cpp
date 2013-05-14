@@ -1,6 +1,5 @@
+#include "stdafx.h"
 #include "WeaponComponent.hpp"
-#include "../../MadEngine/Manager/Controller.hpp"
-#include "../../MadEngine/Manager/Graphics.hpp"
 #include <iostream>
 
 WeaponComponent::WeaponComponent(PhysicsSystem* physics)

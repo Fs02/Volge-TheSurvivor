@@ -1,6 +1,5 @@
-#pragma once
-
-#include "../../stdafx.h"
+#ifndef _GAMESTATE_HPP_
+#define _GAMESTATE_HPP_
 
 namespace Mad
 {
@@ -24,3 +23,5 @@ namespace Mad
 		};
 	}
 }
+
+#endif

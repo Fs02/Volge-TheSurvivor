@@ -1,7 +1,6 @@
 #ifndef _GRAPHICS_HPP_
 #define _GRAPHICS_HPP_
 
-#include "../../stdafx.h"
 #include "../Utility/DrawBatch.hpp"
 
 namespace Mad

@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "PlayerCtrlComponent.hpp"
-#include "../../MadEngine/Manager/Controller.hpp"
 
 PlayerCtrlComponent::PlayerCtrlComponent()
 	:m_Physics(nullptr), m_Transform(nullptr)

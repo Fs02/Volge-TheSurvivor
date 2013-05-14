@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "SoundBuffer.hpp"
 
 Mad::Sound::SoundBuffer::SoundBuffer()

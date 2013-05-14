@@ -3,7 +3,6 @@
 
 #include "../Entity.hpp"
 #include "TransformableComponent.hpp"
-#include "../../MadEngine/Interface/IPhysicsSystem.hpp"
 
 namespace PhysicsShape
 {

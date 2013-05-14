@@ -1,7 +1,8 @@
-#pragma once
+#ifndef _EXCEPTIONS_HPP_
+#define _EXCEPTIONS_HPP_
 
-#include "../../stdafx.h"
 #include <stdexcept>
+#include <string>
 
 namespace Mad
 {
@@ -59,3 +60,5 @@ namespace Mad
 		}
 	}
 }
+
+#endif

@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "GameState.hpp"
 
 Mad::Manager::GameState* Mad::Manager::GameState::initialise()

@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include "ConfigParser.hpp"
+#include <fstream>
 
 Mad::Utility::ConfigParser::ConfigParser(const std::string& fileName)
 {

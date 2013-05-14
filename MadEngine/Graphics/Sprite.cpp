@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include "Sprite.hpp"
+#include <fstream>
 #include "../Manager/Resource.hpp"
 #include "../Manager/Graphics.hpp"
 #include "../Utility/DrawBatch.hpp"

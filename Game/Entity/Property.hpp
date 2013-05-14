@@ -1,7 +1,7 @@
 #ifndef _PROPERTY_HPP_
 #define _PROPERTY_HPP_
 
-#include "stdafx.h"
+#include "../stdafx.h"
 
 struct _IPropData;
 

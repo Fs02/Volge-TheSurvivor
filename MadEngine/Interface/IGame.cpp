@@ -1,12 +1,11 @@
-#include "stdafx.h"
 #include "IGame.hpp"
 
 Mad::Interface::IGame::IGame()
 {
 	GameState		= Mad::Manager::GameState::initialise();
 	ResourceProvider= Mad::Manager::Resource::initialise();
-	Controller		= Mad::Manager::Controller::initialise();
 	Graphics		= Mad::Manager::Graphics::initialise();
+	Controller		= Mad::Manager::Controller::initialise();
 
 	isDisplayFrameStats		= false;
 	isQuit					= false;
@@ -14,10 +13,10 @@ Mad::Interface::IGame::IGame()
 
 Mad::Interface::IGame::~IGame()
 {
-	GameState->deinitialise();
-	ResourceProvider->deinitialise();
-	Controller->deinitialise();
 	Graphics->deinitialise();
+	Controller->deinitialise();
+	ResourceProvider->deinitialise();
+	GameState->deinitialise();
 }
 
 void Mad::Interface::IGame::setDisplayStatistics(bool flag)

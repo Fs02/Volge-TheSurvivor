@@ -1,4 +1,5 @@
-#include "stdafx.h"
+#include <map>
+#include <SFML/Window.hpp>
 #include "Controller.hpp"
 
 Mad::Manager::Controller::Controller()

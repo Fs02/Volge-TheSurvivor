@@ -8,36 +8,20 @@ namespace
 	{
 	private:
 		b2Fixture* m_Fix;
-		b2Vec2 m_Origin;
 		b2Vec2 m_Pos, m_Norm;
 
 	public:
-		RayCastCallback(const b2Vec2& origin)
-			: m_Fix(nullptr), m_Origin(origin)
+		RayCastCallback()
+			: m_Fix(nullptr)
 		{
 		}
 
 		float32 ReportFixture(b2Fixture* fix, const b2Vec2& pt, const b2Vec2& norm, float32 fraction)
 		{
-			if(m_Fix == nullptr)
-			{
-				m_Fix=fix;
-				m_Pos=pt;
-				m_Norm=norm;
-				return 1;
-			}
-
-			float prevDist=(m_Origin-m_Pos).LengthSquared();
-			float newDist=(m_Origin-pt).LengthSquared();
-
-			if(prevDist > newDist)
-			{
-				m_Fix=fix;
-				m_Pos=pt;
-				m_Norm=norm;
-			}
-
-			return 1;
+			m_Fix=fix;
+			m_Pos=pt;
+			m_Norm=norm;
+			return fraction;
 		}
 
 		bool hit() const
@@ -144,7 +128,7 @@ void Mad::Interface::IPhysicsSystem::resetSmoothStates()
 b2Fixture* Mad::Interface::IPhysicsSystem::internalClosestRayCastResult(
 		const b2Vec2& start, const b2Vec2& end)
 {
-	RayCastCallback cb(start);
+	RayCastCallback cb;
 	m_World->RayCast(&cb, start, end);
 	return cb.hitFixture();
 }

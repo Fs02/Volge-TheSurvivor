@@ -70,6 +70,19 @@ void Mad::Utility::DrawBatch::drawText(const std::string& text,
 
 ///
 
+void Mad::Utility::DrawBatch::drawLine(const b2Vec2& a, const b2Vec2& b, const sf::Color& col)
+{
+	sf::Vertex verts[]=
+	{
+	 sf::Vertex(sf::Vector2f(a.x, a.y), col),
+	 sf::Vertex(sf::Vector2f(b.x, b.y), col)
+	};
+
+	m_TargetWindow->draw(verts, 2, sf::Lines);
+}
+
+///
+
 void Mad::Utility::DrawBatch::drawSprite(const sf::Sprite& sprite)
 {
 	m_TargetWindow->draw(sprite);

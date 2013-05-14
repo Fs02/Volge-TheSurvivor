@@ -45,3 +45,12 @@ void PhysicsSystem::EndContact(b2Contact* contact)
 		entB->onCollisionEnd(entA);
 	}
 }
+
+Entity* PhysicsSystem::rayCast(const b2Vec2& origin, const b2Vec2& end)
+{
+	b2Fixture* fix=this->internalClosestRayCastResult(origin, end);
+	if(!fix)
+		return nullptr;
+	Entity* ent=(Entity*)(fix->GetBody()->GetUserData());
+	return ent;
+}

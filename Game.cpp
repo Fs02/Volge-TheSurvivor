@@ -7,12 +7,34 @@
 #include "Entity/Components/PlayerCtrlComponent.hpp"
 #include "Entity/Components/CameraComponent.hpp"
 #include "Entity/Components/SoundComponent.hpp"
+#include "Entity/Components/WeaponComponent.hpp"
+#include <iostream>
 
 namespace GSTATE
 {
 	enum
 	{
 		Uninitialized, Splash, Menu, Play, Pause, Resume, Exit
+	};
+}
+
+namespace
+{
+	class DamageListenerComponent : public IComponent
+	{
+	public:
+		void initialise(Entity* owner)
+		{
+		}
+
+		void update(float dt)
+		{
+		}
+
+		void onDamage(Entity* other, int damage)
+		{
+			std::cout<<"Hit by "<<other<<", lost "<<damage<<" health points!\n";
+		}
 	};
 }
 
@@ -144,6 +166,11 @@ void Game::load()
 		cam->makeActive();
 		m_Player->addComponent(cam);
 
+		WeaponComponent* wp=new WeaponComponent(m_PhysicsManager);
+		Item::Gun* gun=new Item::Gun("M16", 20, 30, 30, 0.5f, 0.1f);
+		wp->setGun(gun);
+		m_Player->addComponent(wp);
+
 		PhysicsDef phDef;
 		phDef.shape = PhysicsShape::Circle;
 		phDef.friction = 0.5f;
@@ -162,6 +189,9 @@ void Game::load()
 		m_Player->onGenericEvent("Idle");
 
 		m_Obstacle = new Entity();
+
+		DamageListenerComponent* dmgList=new DamageListenerComponent();
+		m_Obstacle->addComponent(dmgList);
 
 		tr = new TransformableComponent();
 		tr->setPosition(b2Vec2(250, 270));

@@ -11,6 +11,7 @@ EntityManager::~EntityManager()
 
 Entity *EntityManager::createEntity(const std::string& fileName)
 {
+	return nullptr;
 }
 
 void EntityManager::addEntity(Entity* entity)

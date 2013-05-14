@@ -89,6 +89,7 @@ void PhysicsComponent::setAngle(float angle)
 void PhysicsComponent::initialise(Entity* owner)
 {
 	m_Transform=owner->component<TransformableComponent>();
+	m_Body->SetUserData((void*)owner);
 }
 
 void PhysicsComponent::update(float dt)

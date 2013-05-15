@@ -1,13 +1,5 @@
 #include "stdafx.h"
 #include "Game.hpp"
-#include "Entity/Components/HealthComponent.hpp"
-#include "Entity/Components/SpriteComponent.hpp"
-#include "Entity/Components/TransformableComponent.hpp"
-#include "Entity/Components/PhysicsComponent.hpp"
-#include "Entity/Components/PlayerCtrlComponent.hpp"
-#include "Entity/Components/CameraComponent.hpp"
-#include "Entity/Components/SoundComponent.hpp"
-#include "Entity/Components/WeaponComponent.hpp"
 #include <iostream>
 
 namespace GSTATE
@@ -129,8 +121,9 @@ void Game::load()
 		break;
 	case GSTATE::Play:
 	{
-		m_PhysicsManager = new PhysicsSystem();
+		m_PhysicsManager = PhysicsSystem::getSingleton();
 		m_PhysicsManager->enableDebugDraw(Graphics->getRenderWindow());
+		m_EntityManager = new EntityManager(m_PhysicsManager);
 
 		ResourceProvider->load<Mad::Graphics::Texture>("soldier.png");
 		ResourceProvider->load<Mad::Graphics::Texture>("zombie.png");
@@ -149,8 +142,10 @@ void Game::load()
 		Controller->setKeyboardControl("reload", sf::Keyboard::LShift);
 		Controller->setKeyboardControl("throw", sf::Keyboard::G);
 
-		m_Player = new Entity();
+		m_Player = m_EntityManager->createEntity("Player");
+		m_Player->loadComponent("Assets/Object/Soldier.xml");
 
+		/*
 		m_Player->addComponent(new PlayerCtrlComponent());
 
 		TransformableComponent* tr = new TransformableComponent();
@@ -186,24 +181,28 @@ void Game::load()
 		sc->addSound("Idle", "gun_noammo.ogg", true);
 		m_Player->addComponent(sc);
 
-		m_Player->initialise();
+		//m_Player->initialise();
+		m_EntityManager->createEntity(m_Player);
 		m_Player->onGenericEvent("Idle");
+		*/
+		//m_EntityManager->loadEntity("Assets/Object/Soldier.xml");
 
 		m_Obstacle = new Entity();
 
 		DamageListenerComponent* dmgList = new DamageListenerComponent();
 		m_Obstacle->addComponent(dmgList);
 
-		tr = new TransformableComponent();
+		TransformableComponent* tr = new TransformableComponent();
 		tr->setPosition(b2Vec2(250, 270));
 		m_Obstacle->addComponent(tr);
 
+		PhysicsDef phDef;
 		phDef.shape = PhysicsShape::Box;
 		phDef.friction = 0.5f;
 		phDef.mass = 0;
 		phDef.box.size.Set(2, 2);
 
-		ph = new PhysicsComponent(m_PhysicsManager, phDef, ~0);
+		PhysicsComponent* ph = new PhysicsComponent(m_PhysicsManager, phDef, ~0);
 		m_Obstacle->addComponent(ph);
 
 		m_Obstacle->initialise();
@@ -230,7 +229,6 @@ void Game::unLoad()
 	case GSTATE::Play:
 	{
 		delete m_Player;
-		delete m_PhysicsManager;
 		m_PhysicsManager = nullptr;
 	}
 		break;
@@ -245,8 +243,9 @@ void Game::play()
 
 	Graphics->beginGameRendering();
 	m_PhysicsManager->drawDebugData();
-	m_Player->update(deltaTime);
-	m_Obstacle->update(deltaTime);
+//	m_Player->update(deltaTime);
+//	m_Obstacle->update(deltaTime);
+	m_EntityManager->update(deltaTime);
 	Graphics->endGameRendering();
 
 	Graphics->beginRendering();

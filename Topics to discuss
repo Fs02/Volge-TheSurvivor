@@ -1,1 +1,1 @@
-1. To create IEntityManager, i think we should also create a pure IEntity class because i need to call some function inside EntityManager like update and etc. what do you think ?
+//I have commented some of your commit and i'm trully not understand what's in your mind, so i think we need to talk immediately

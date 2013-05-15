@@ -1,8 +1,10 @@
 #pragma once
 #include "Entity.hpp"
-#include "../MadEngine/MadEngine.hpp"
 #include <map>
 #include <list>
+#include <fstream>
+#include "PhysicsSystem.hpp"
+#include "../3rdParty/rapidxml-1.13/rapidxml.hpp"
 
 class IEntityMgrListener
 {
@@ -16,13 +18,14 @@ public:
 class EntityManager
 {
 public:
-	EntityManager();
+	EntityManager(PhysicsSystem *pm);
 	~EntityManager();
 
     void setListener(IEntityMgrListener* listener);
 
     Entity* createEntity(const std::string& name);
     Entity* getEntity(const std::string& name);
+
     const Entity* getEntity(const std::string &name) const;
     std::list<std::string> listEntities() const;
 
@@ -30,8 +33,8 @@ public:
 
 private:
     IEntityMgrListener* m_Listener;
-    std::map<std::string, Entity*> m_Entities;
-    std::list<Entity*> m_Redundant;
-
+	std::map<std::string, Entity*> m_Entities;
+	std::list<Entity*> m_Redundant;
+	PhysicsSystem* m_PhysicsManager;
     void m_removeEntity(Entity* ent);
 };

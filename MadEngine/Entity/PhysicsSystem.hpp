@@ -2,15 +2,21 @@
 
 #include <Box2D/Box2D.h>
 #include "../Interface/IPhysicsSystem.hpp"
-#include "Entity/Entity.hpp"
+#include "Entity.hpp"
 
 class PhysicsSystem 
 	: b2ContactListener,
 	  public Mad::Interface::IPhysicsSystem
 {
-public:
+private:
+	static PhysicsSystem* instance;
 	PhysicsSystem();
 	~PhysicsSystem();
+
+public:
+	static PhysicsSystem* getSingleton();
+	static PhysicsSystem* initialise();
+	static void deinitialise();
 
 	void BeginContact(b2Contact* contact);
 	void EndContact(b2Contact* contact);

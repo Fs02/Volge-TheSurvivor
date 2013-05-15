@@ -4,7 +4,6 @@
 #include "../Entity.hpp"
 #include "PhysicsComponent.hpp"
 #include "TransformableComponent.hpp"
-#include "MadEngine.hpp"
 
 class PlayerCtrlComponent : public IComponent
 {

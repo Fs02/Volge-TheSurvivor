@@ -1,7 +1,18 @@
 #include "EntityManager.hpp"
+#include <iostream>
+#include "Components/CameraComponent.hpp"
+#include "Components/HealthComponent.hpp"
+#include "Components/PhysicsComponent.hpp"
+#include "Components/PlayerCtrlComponent.hpp"
+#include "Components/SoundComponent.hpp"
+#include "Components/SpriteComponent.hpp"
+#include "Components/TransformableComponent.hpp"
+#include "Components/WeaponComponent.hpp"
 
-EntityManager::EntityManager()
+EntityManager::EntityManager(PhysicsSystem *pm)
 {
+	m_PhysicsManager = pm;
+	m_Listener	= nullptr;
 }
 
 EntityManager::~EntityManager()
@@ -18,9 +29,9 @@ Entity *EntityManager::createEntity(const std::string& name)
     if(m_Entities.count(name) == 1)
         return nullptr;
     Entity* ent=new Entity();
-    m_Entities[name]=ent;
-    if(m_Listener)
-        m_Listener->onEntityAdded(name, ent);
+	    m_Entities[name]=ent;
+    if(m_Listener != nullptr)
+       m_Listener->onEntityAdded(name, ent);
     return ent;
 }
 
@@ -50,18 +61,18 @@ std::list<std::string> EntityManager::listEntities() const
 
 void EntityManager::update(float deltaTime)
 {
-    for(auto iter=m_Entities.begin(); iter != m_Entities.end(); ++iter)
-    {
-        iter->second->update(deltaTime);
-        if(iter->second->isRedundant())
-            m_Redundant.push_back(iter->second);
-    }
+	for(auto iter=m_Entities.begin(); iter != m_Entities.end(); ++iter)
+	{
+		iter->second->update(deltaTime);
+		if(iter->second->isRedundant())	
+			m_Redundant.push_back(iter->second);
+	}
 
-    while(!m_Redundant.empty())
-    {
-        this->m_removeEntity(m_Redundant.front());
-        m_Redundant.pop_front();
-    }
+	while(!m_Redundant.empty())
+	{
+		this->m_removeEntity(m_Redundant.front());
+		m_Redundant.pop_front();
+	}
 }
 
 void EntityManager::m_removeEntity(Entity *ent)

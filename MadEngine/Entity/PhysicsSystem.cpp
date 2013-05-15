@@ -1,5 +1,24 @@
 #include "PhysicsSystem.hpp"
-#include "Entity/Entity.hpp"
+
+PhysicsSystem* PhysicsSystem::instance	= nullptr;
+
+PhysicsSystem* PhysicsSystem::getSingleton()
+{
+	if (instance == nullptr)
+		instance = new PhysicsSystem();
+
+	return instance;
+}
+
+PhysicsSystem* PhysicsSystem::initialise()
+{
+	return getSingleton();
+}
+
+void PhysicsSystem::deinitialise()
+{
+	delete instance;
+}
 
 PhysicsSystem::PhysicsSystem()
 	: Mad::Interface::IPhysicsSystem(new b2World(b2Vec2(0, 0)))

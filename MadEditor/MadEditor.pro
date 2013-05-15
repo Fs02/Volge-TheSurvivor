@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2013-05-14T20:10:55
+# Project created by QtCreator 2013-05-15T00:17:40
 #
 #-------------------------------------------------
 
@@ -15,15 +15,12 @@ QMAKE_CXXFLAGS += -std=c++11
 INCLUDEPATH += ../MadEngine
 LIBS += -L../Volge-TheSurvivor-Debug -L/usr/local/lib -lMadEngine -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system -lBox2D
 
+
 SOURCES += main.cpp\
         MainWindow.cpp \
-    GameWorld.cpp \
-    addobjectdlg.cpp
+    Editor.cpp
 
 HEADERS  += MainWindow.h \
-    GameWorld.hpp \
-    addobjectdlg.h \
-    iworldlistener.h
+    Editor.hpp
 
-FORMS    += MainWindow.ui \
-    addobjectdlg.ui
+FORMS    += MainWindow.ui

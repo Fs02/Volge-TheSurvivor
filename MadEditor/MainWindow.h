@@ -1,17 +1,15 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "GameWorld.hpp"
-#include "iworldlistener.h"
+#include "Editor.hpp"
 #include <QMainWindow>
 #include <QTimer>
-#include <QTreeWidget>
 
 namespace Ui {
 class MainWindow;
 }
 
-class MainWindow : public QMainWindow, public IWorldListener
+class MainWindow : public QMainWindow
 {
     Q_OBJECT
     
@@ -19,22 +17,19 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    void onEntityAdded(const QString &name, Entity *ent);
+    void setSelectedEntity(Entity* ent);
 
-public slots:
-    void onCreateNewWorld();
+private slots:
+    void onNewWorld();
     void onOpenWorld();
 
-    void onUpdateWorld();
-
-    void onEntitySelected(QTreeWidgetItem* item);
+signals:
+    void selectedEntity(Entity* ent);
     
 private:
     Ui::MainWindow *ui;
-    GameWorld* m_World;
     QTimer m_UpdateTimer;
-
-    void m_initEntityEditor(Entity* ent);
+    Editor* m_Editor;
 };
 
 #endif // MAINWINDOW_H

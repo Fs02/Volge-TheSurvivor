@@ -38,6 +38,19 @@ void Entity::addComponent(IComponent* comp)
 	m_components.push_back(comp);
 }
 
+void Entity::removeComponent(IComponent *comp)
+{
+    for(auto iter = m_components.begin(); iter != m_components.end(); ++iter)
+    {
+        if(comp == (*iter))
+        {
+            delete comp;
+            m_components.erase(iter);
+            return;
+        }
+    }
+}
+
 std::list<const IComponent*> Entity::listComponents() const
 {
 	std::list<const IComponent*> result;

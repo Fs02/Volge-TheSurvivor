@@ -19,6 +19,7 @@ public:
 
 	void initialise();
 	void addComponent(IComponent* comp);
+    void removeComponent(IComponent* comp);
 	template<class T>
 	inline T* component();
 	template<class T>

@@ -18,9 +18,12 @@ LIBS += -L../Volge-TheSurvivor-Debug -L/usr/local/lib -lMadEngine -lsfml-audio -
 
 SOURCES += main.cpp\
         MainWindow.cpp \
-    Editor.cpp
+    Editor.cpp \
+    EntityEditor.cpp
 
 HEADERS  += MainWindow.h \
-    Editor.hpp
+    Editor.hpp \
+    EntityEditor.h
 
-FORMS    += MainWindow.ui
+FORMS    += MainWindow.ui \
+    entityeditor.ui

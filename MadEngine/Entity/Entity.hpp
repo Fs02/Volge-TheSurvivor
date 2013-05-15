@@ -26,7 +26,7 @@ public:
 	inline T* component();
 	template<class T>
 	inline const T* component() const;
-	std::list<const IComponent*> listComponents() const;
+    std::list<IComponent*> listComponents() const;
 
 	void loadComponent(const std::string& fileName);
 	void update(float deltaTime);

@@ -17,15 +17,6 @@
 #include "Graphics/Sprite.hpp"
 #include "Graphics/Texture.hpp"
 
-#include "3rdParty/FrameClock/FrameClock.hpp"
-#include "3rdParty/FrameClock/ClockHUD.hpp"
-#include "3rdParty/b2DebugDraw/DebugDraw.hpp"
-#include "3rdParty/JSON/JSON.hpp"
-#include "3rdParty/rapidxml-1.13/rapidxml.hpp"
-#include "3rdParty/rapidxml-1.13/rapidxml_iterators.hpp"
-#include "3rdParty/rapidxml-1.13/rapidxml_print.hpp"
-#include "3rdParty/rapidxml-1.13/rapidxml_utils.hpp"
-
 //Begin of The Survivor Game Class
 #include "Entity/Entity.hpp"
 #include "Entity/EntityManager.hpp"

@@ -3,6 +3,7 @@ CONFIG += console staticlib
 CONFIG -= app_bundle
 CONFIG -= qt
 QMAKE_CXXFLAGS += -std=c++11
+INCLUDEPATH += 3rdParty/rapidxml-1.13
 
 SOURCES += \
     3rdParty/b2DebugDraw/DebugDraw.cpp \
@@ -66,5 +67,13 @@ HEADERS += \
     Entity/Components/PhysicsComponent.hpp \
     Entity/Components/HealthComponent.hpp \
     Entity/Components/CameraComponent.hpp \
-    Entity/PhysicsSystem.hpp
+    Entity/PhysicsSystem.hpp \
+    3rdParty/rapidxml-1.13/rapidxml_utils.hpp \
+    3rdParty/rapidxml-1.13/rapidxml_print.hpp \
+    3rdParty/rapidxml-1.13/rapidxml_iterators.hpp \
+    3rdParty/rapidxml-1.13/rapidxml.hpp
+
+OTHER_FILES += \
+    3rdParty/rapidxml-1.13/manual.html \
+    3rdParty/rapidxml-1.13/license.txt
 

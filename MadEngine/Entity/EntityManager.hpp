@@ -18,7 +18,7 @@ public:
 class EntityManager
 {
 public:
-	EntityManager(PhysicsSystem *pm);
+    EntityManager();
 	~EntityManager();
 
     void setListener(IEntityMgrListener* listener);
@@ -34,7 +34,6 @@ public:
 private:
     IEntityMgrListener* m_Listener;
 	std::map<std::string, Entity*> m_Entities;
-	std::list<Entity*> m_Redundant;
-	PhysicsSystem* m_PhysicsManager;
+    std::list<Entity*> m_Redundant;
     void m_removeEntity(Entity* ent);
 };

@@ -123,7 +123,7 @@ void Game::load()
 	{
 		m_PhysicsManager = PhysicsSystem::getSingleton();
 		m_PhysicsManager->enableDebugDraw(Graphics->getRenderWindow());
-		m_EntityManager = new EntityManager(m_PhysicsManager);
+        m_EntityManager = new EntityManager();
 
 		ResourceProvider->load<Mad::Graphics::Texture>("soldier.png");
 		ResourceProvider->load<Mad::Graphics::Texture>("zombie.png");
@@ -142,59 +142,17 @@ void Game::load()
 		Controller->setKeyboardControl("reload", sf::Keyboard::LShift);
 		Controller->setKeyboardControl("throw", sf::Keyboard::G);
 
-		m_Player = m_EntityManager->createEntity("Player");
-		m_Player->loadComponent("Assets/Object/Soldier.xml");
+        Entity* ent = m_EntityManager->createEntity("Player");
+        ent->loadComponent("Assets/Object/Soldier.xml");
 
-		/*
-		m_Player->addComponent(new PlayerCtrlComponent());
-
-		TransformableComponent* tr = new TransformableComponent();
-		tr->setPosition(b2Vec2(250, 250));
-		m_Player->addComponent(tr);
-
-		SpriteComponent* sp = new SpriteComponent();
-		sp->setSprite("soldier.json");
-		sp->setSize(b2Vec2(2, 2));
-		m_Player->addComponent(sp);
-
-		CameraComponent* cam = new CameraComponent();
-		cam->setVirtualSize(b2Vec2(10, 10));
-		cam->makeActive();
-		m_Player->addComponent(cam);
-
-		WeaponComponent* wp = new WeaponComponent(m_PhysicsManager);
-		Item::Gun* gun = new Item::Gun("M16", 20, 30, 30, 0.5f, 0.1f);
-		wp->setGun(gun);
-		m_Player->addComponent(wp);
-
-		PhysicsDef phDef;
-		phDef.shape = PhysicsShape::Circle;
-		phDef.friction = 0.5f;
-		phDef.mass = 80.0f;
-		phDef.circle.radius = 0.5f;
-
-		PhysicsComponent* ph = new PhysicsComponent(m_PhysicsManager, phDef,
-				0xffffffff);
-		m_Player->addComponent(ph);
-
-		SoundComponent* sc = new SoundComponent();
-		sc->addSound("Idle", "gun_noammo.ogg", true);
-		m_Player->addComponent(sc);
-
-		//m_Player->initialise();
-		m_EntityManager->createEntity(m_Player);
-		m_Player->onGenericEvent("Idle");
-		*/
-		//m_EntityManager->loadEntity("Assets/Object/Soldier.xml");
-
-		m_Obstacle = new Entity();
+        ent = m_EntityManager->createEntity("Obstacle");
 
 		DamageListenerComponent* dmgList = new DamageListenerComponent();
-		m_Obstacle->addComponent(dmgList);
+        ent->addComponent(dmgList);
 
 		TransformableComponent* tr = new TransformableComponent();
 		tr->setPosition(b2Vec2(250, 270));
-		m_Obstacle->addComponent(tr);
+        ent->addComponent(tr);
 
 		PhysicsDef phDef;
 		phDef.shape = PhysicsShape::Box;
@@ -203,9 +161,9 @@ void Game::load()
 		phDef.box.size.Set(2, 2);
 
 		PhysicsComponent* ph = new PhysicsComponent(m_PhysicsManager, phDef, ~0);
-		m_Obstacle->addComponent(ph);
+        ent->addComponent(ph);
 
-		m_Obstacle->initialise();
+        ent->initialise();
 	}
 		break;
 	}
@@ -227,8 +185,9 @@ void Game::unLoad()
 		break;
 
 	case GSTATE::Play:
-	{
-		delete m_Player;
+    {
+        delete m_EntityManager;
+        m_EntityManager=nullptr;
 		m_PhysicsManager = nullptr;
 	}
 		break;
@@ -242,9 +201,7 @@ void Game::play()
 	m_PhysicsManager->update(deltaTime);
 
 	Graphics->beginGameRendering();
-	m_PhysicsManager->drawDebugData();
-//	m_Player->update(deltaTime);
-//	m_Obstacle->update(deltaTime);
+    m_PhysicsManager->drawDebugData();
 	m_EntityManager->update(deltaTime);
 	Graphics->endGameRendering();
 

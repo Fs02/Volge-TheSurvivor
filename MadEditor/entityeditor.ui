@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EntityEditor</class>
+ <widget class="QWidget" name="EntityEditor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>300</width>
+    <height>768</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:16pt; font-weight:600;&quot;&gt;Entity editor&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Source</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="sourceType"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_3">
+     <property name="text">
+      <string>Components:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QListWidget" name="listWidget"/>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_4">
+     <property name="text">
+      <string>Selected component:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QTableWidget" name="tableWidget"/>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

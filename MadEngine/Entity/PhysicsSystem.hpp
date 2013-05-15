@@ -9,8 +9,8 @@ class PhysicsSystem
 	  public Mad::Interface::IPhysicsSystem
 {
 private:
-	static PhysicsSystem* instance;
-	PhysicsSystem();
+    static PhysicsSystem* instance;
+    PhysicsSystem();
 	~PhysicsSystem();
 
 public:

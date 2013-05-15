@@ -29,7 +29,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_4">
         <item>
-         <widget class="QWidget" name="rederViewport" native="true"/>
+         <widget class="QWidget" name="renderViewport" native="true"/>
         </item>
        </layout>
       </widget>
@@ -149,6 +149,13 @@
    <widget class="QWidget" name="dockWidgetContents_3">
     <layout class="QVBoxLayout" name="verticalLayout_3">
      <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Components:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QWidget" name="widget_3" native="true">
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
@@ -182,7 +189,17 @@
       </widget>
      </item>
      <item>
-      <widget class="QTableView" name="entPropsTable"/>
+      <widget class="QListWidget" name="compList"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Properties:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QTableWidget" name="compPropsTable"/>
      </item>
     </layout>
    </widget>

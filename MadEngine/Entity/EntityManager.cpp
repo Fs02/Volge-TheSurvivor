@@ -9,9 +9,8 @@
 #include "Components/TransformableComponent.hpp"
 #include "Components/WeaponComponent.hpp"
 
-EntityManager::EntityManager(PhysicsSystem *pm)
+EntityManager::EntityManager()
 {
-	m_PhysicsManager = pm;
 	m_Listener	= nullptr;
 }
 
@@ -81,9 +80,10 @@ void EntityManager::m_removeEntity(Entity *ent)
     {
         if(iter->second == ent)
         {
-            if(m_Listener)
-                m_Listener->onEntityRemoved(iter->first, ent);
+            std::string name=iter->first;
             m_Entities.erase(iter);
+            if(m_Listener)
+                m_Listener->onEntityRemoved(name, ent);
             delete ent;
             return;
         }

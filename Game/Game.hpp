@@ -11,10 +11,7 @@ private:
 	float time;
 
 	PhysicsSystem *m_PhysicsManager;
-	EntityManager* m_EntityManager;
-
-	Entity*			m_Player;
-	Entity*			m_Obstacle;
+    EntityManager* m_EntityManager;
 
 public:
 	void initialize();

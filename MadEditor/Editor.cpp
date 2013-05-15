@@ -4,12 +4,15 @@
 #include <Manager/Resource.hpp>
 
 Editor::Editor()
+    :m_Selected(nullptr)
 {
+    PhysicsSystem::initialise();
     m_Manager.setListener(this);
 }
 
 Editor::~Editor()
 {
+    PhysicsSystem::deinitialise();
 }
 
 void Editor::onEntityAdded(const std::string &, Entity *)
@@ -30,6 +33,17 @@ std::list<std::string> Editor::listEntities() const
 Entity* Editor::getEntity(const std::string &name)
 {
     return m_Manager.getEntity(name);
+}
+
+void Editor::selectEntityByName(const std::string &name)
+{
+    m_Selected=m_Manager.getEntity(name);
+    emit entitySelected();
+}
+
+Entity* Editor::getSelectedEntity()
+{
+    return m_Selected;
 }
 
 void Editor::initialiseEngine(QWidget *renderViewport)
@@ -55,6 +69,11 @@ void Editor::onUpdate()
     graph->getRenderTarget().clear();
     m_Manager.update(0);
     graph->endGameRendering();
+
+    graph->beginRendering();
+    graph->endRendering();
+
+    graph->getRenderWindow().display();
 }
 
 void Editor::onAddEntity()

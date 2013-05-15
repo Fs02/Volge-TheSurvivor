@@ -62,9 +62,9 @@ void Entity::removeComponent(IComponent *comp)
     }
 }
 
-std::list<const IComponent*> Entity::listComponents() const
+std::list<IComponent *> Entity::listComponents() const
 {
-	std::list<const IComponent*> result;
+    std::list<IComponent*> result;
 	for(size_t i=0; i < m_components.size(); ++i)
 		result.push_back(m_components[i]);
 	return result;

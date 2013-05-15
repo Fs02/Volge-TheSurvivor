@@ -4,6 +4,7 @@
 #include "Editor.hpp"
 #include <QMainWindow>
 #include <QTimer>
+#include <QTreeWidget>
 
 namespace Ui {
 class MainWindow;
@@ -22,6 +23,12 @@ public:
 private slots:
     void onNewWorld();
     void onOpenWorld();
+
+    void onEntitySelectedFromTree(QTreeWidgetItem* item, int);
+    void onRemoveEntity();
+
+    void onUpdateWorldTree();
+    void onUpdateSelectedEnt();
 
 signals:
     void selectedEntity(Entity* ent);

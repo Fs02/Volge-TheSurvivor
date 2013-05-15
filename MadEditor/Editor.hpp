@@ -17,6 +17,8 @@ public:
 
     std::list<std::string> listEntities() const;
     Entity* getEntity(const std::string& name);
+    void selectEntityByName(const std::string& name);
+    Entity* getSelectedEntity();
 
     static void initialiseEngine(QWidget* renderViewport);
     static void deinitialiseEngine();
@@ -30,10 +32,11 @@ public slots:
 
 signals:
     void updateEntityTree();
-    void onEntitySelected();
+    void entitySelected();
 
 private:
     EntityManager m_Manager;
+    Entity* m_Selected;
 };
 
 #endif // EDITOR_HPP

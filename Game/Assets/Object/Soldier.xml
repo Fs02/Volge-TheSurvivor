@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity name="Zombie">
+    <Component name="TransformableComponent"/>
+    <Component name="SpriteComponent">
+		<params name="SpriteData" value="soldier.json" />
+		<params name="Size" x="2" y="2" />
+	</Component>
+	<Component name="CameraComponent">
+		<params name="Size" x="10"y="10"/>
+		<params name="Active" value="true" />
+	</Component>
+	<Component name="WeaponComponent">
+		<params name="Type" value="M16" />
+	</Component>
+	<Component name="PhysicsComponent">
+		<params name="def" shape="Circle" friction="0.5f" mass="80.0f" radius="0.5f" />
+	</Component>
+	<Component name="SoundComponent">
+		<params name="Idle" value="gun_shoot.ogg" repeat="true" />
+	</Component>
+</Entity>

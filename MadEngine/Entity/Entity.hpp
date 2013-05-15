@@ -1,7 +1,9 @@
-#pragma once
+#ifndef _ENTITY_HPP_
+#define _ENTITY_HPP_
 
 #include "Property.hpp"
 #include <list>
+#include <vector>
 
 class IComponent;
 
@@ -25,6 +27,7 @@ public:
 	inline const T* component() const;
 	std::list<const IComponent*> listComponents() const;
 
+	void loadComponent(const std::string& fileName);
 	void update(float deltaTime);
 	void onCollisionBegin(Entity* other);
 	void onCollisionEnd(Entity* other);
@@ -87,3 +90,5 @@ inline const T* Entity::component() const
 	}
 	return nullptr;
 }
+
+#endif

@@ -2,9 +2,6 @@
 
 #include "stdafx.h"
 
-#include "Entity/PhysicsSystem.hpp"
-#include "Entity/Entity.hpp"
-
 class Game :
 	public Mad::Interface::IGame
 {
@@ -14,6 +11,7 @@ private:
 	float time;
 
 	PhysicsSystem *m_PhysicsManager;
+	EntityManager* m_EntityManager;
 
 	Entity*			m_Player;
 	Entity*			m_Obstacle;

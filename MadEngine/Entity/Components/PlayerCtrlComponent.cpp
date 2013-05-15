@@ -1,5 +1,5 @@
 #include "PlayerCtrlComponent.hpp"
-#include "Manager/Controller.hpp"
+#include "../../Manager/Controller.hpp"
 
 PlayerCtrlComponent::PlayerCtrlComponent()
 	:m_Owner(nullptr), m_Physics(nullptr), m_Transform(nullptr)

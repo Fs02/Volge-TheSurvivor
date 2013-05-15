@@ -1,7 +1,7 @@
 #pragma once
 
 #include "TransformableComponent.hpp"
-#include "Graphics/Sprite.hpp"
+#include "../../Graphics/Sprite.hpp"
 
 class SpriteComponent : public IComponent
 {

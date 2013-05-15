@@ -4,8 +4,12 @@
 #include "Property.hpp"
 #include <list>
 #include <vector>
+#include <map>
+#include "../3rdParty/rapidxml-1.13/rapidxml.hpp"
 
 class IComponent;
+class ComponentFactory;
+typedef IComponent* (*FactoryFunc) ();
 
 namespace CommonStates
 {
@@ -21,7 +25,7 @@ public:
 
 	void initialise();
 	void addComponent(IComponent* comp);
-    void removeComponent(IComponent* comp);
+	void removeComponent(IComponent* comp);
 	template<class T>
 	inline T* component();
 	template<class T>
@@ -62,6 +66,25 @@ public:
 	virtual void onDamage(Entity* other, int damage);
 	virtual void onStateChanged(const std::string& stateName);
 	virtual void onGenericEvent(const std::string& name);
+	virtual void onDetailChanged(int detail)
+	{}
+	virtual void ConstructComponent()
+	{}
+};
+
+class ComponentFactory
+{
+private:
+	ComponentFactory();
+	~ComponentFactory();
+
+	static ComponentFactory* instance;
+	std::map<std::string, FactoryFunc> m_FactoryFuncs;
+
+public:
+	static ComponentFactory* getSingleton();
+	void addFactoryFunction(const std::string& compType, FactoryFunc func);
+	FactoryFunc getFactoryFunction(const std::string& compType);
 };
 
 /*

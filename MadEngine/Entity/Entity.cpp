@@ -51,15 +51,15 @@ void Entity::addComponent(IComponent* comp)
 
 void Entity::removeComponent(IComponent *comp)
 {
-    for(auto iter = m_components.begin(); iter != m_components.end(); ++iter)
-    {
-        if(comp == (*iter))
-        {
-            delete comp;
-            m_components.erase(iter);
-            return;
-        }
-    }
+	for(auto iter = m_components.begin(); iter != m_components.end(); ++iter)
+	{
+		if(comp == (*iter))
+		{
+			delete comp;
+			m_components.erase(iter);
+			return;
+		}
+	}
 }
 
 std::list<IComponent *> Entity::listComponents() const
@@ -244,4 +244,33 @@ void IComponent::onStateChanged(const std::string& stateName)
 
 void IComponent::onGenericEvent(const std::string& name)
 {
+}
+
+ComponentFactory* ComponentFactory::instance	= nullptr;
+
+ComponentFactory::ComponentFactory()
+{
+}
+
+ComponentFactory::~ComponentFactory()
+{
+	m_FactoryFuncs.clear();
+}
+
+ComponentFactory* ComponentFactory::getSingleton()
+{
+		if (instance == nullptr)
+		instance = new ComponentFactory();
+
+	return instance;
+}
+
+void ComponentFactory::addFactoryFunction(const std::string& compType, FactoryFunc func)
+{
+	m_FactoryFuncs.insert(std::pair<std::string, FactoryFunc>(std::string(compType), func));
+}
+
+FactoryFunc ComponentFactory::getFactoryFunction(const std::string& compType)
+{
+	return m_FactoryFuncs[compType];
 }

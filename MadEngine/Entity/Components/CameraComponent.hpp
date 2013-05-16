@@ -3,6 +3,7 @@
 
 #include "../Entity.hpp"
 #include "TransformableComponent.hpp"
+#include "../../3rdParty/rapidxml-1.13/rapidxml.hpp"
 #include <SFML/Graphics.hpp>
 #include <Box2D/Box2D.h>
 
@@ -20,6 +21,8 @@ public:
 
 	void initialise(Entity* owner);
 	void update(float dt);
+
+    static IComponent* factoryFunction(rapidxml::xml_node<>* data);
 
 private:
 	TransformableComponent* m_Transform;

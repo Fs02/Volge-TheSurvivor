@@ -21,6 +21,7 @@ void PlayerCtrlComponent::initialise(Entity* owner)
 	m_Owner=owner;
 	m_Physics=owner->component<PhysicsComponent>();
 	m_Transform=owner->component<TransformableComponent>();
+    m_Weapon=owner->component<WeaponComponent>();
 }
 
 void PlayerCtrlComponent::update(float dt)
@@ -63,9 +64,17 @@ void PlayerCtrlComponent::update(float dt)
 	if(ctrl->getControl("left"))
 		angle-=10.0f*b2_pi/180.0f;
 	if(ctrl->getControl("right"))
-		angle+=10.0f*b2_pi/180.0f;
+        angle+=10.0f*b2_pi/180.0f;
 
 	m_Physics->setSpeed(1.5f);
 	m_Physics->setMovementDirection(dir);
 	m_Physics->setAngle(angle);
+
+    if(m_Weapon)
+    {
+        if(ctrl->getControl("attack"))
+            m_Weapon->shoot();
+        if(ctrl->getControl("reload"))
+            m_Weapon->reload();
+    }
 }

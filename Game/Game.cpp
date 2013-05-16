@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Game.hpp"
+#include <Entity/Components/InventoryComponent.hpp>
 #include <iostream>
 
 namespace GSTATE
@@ -143,24 +144,63 @@ void Game::load()
 		Controller->setKeyboardControl("throw", sf::Keyboard::G);
 
         Entity* ent = m_EntityManager->createEntity("Player");
-        ent->loadComponent("Assets/Object/Soldier.xml");
+        ent->addComponent(new PlayerCtrlComponent());
+
+        TransformableComponent* tr = new TransformableComponent();
+        tr->setPosition(b2Vec2(250, 250));
+        ent->addComponent(tr);
+
+        SpriteComponent* sp = new SpriteComponent();
+        sp->setSprite("soldier.json");
+        sp->setSize(b2Vec2(2, 2));
+        ent->addComponent(sp);
+
+        CameraComponent* cam = new CameraComponent();
+        cam->setVirtualSize(b2Vec2(10, 10));
+        cam->makeActive();
+        ent->addComponent(cam);
+
+        InventoryComponent* inv=new InventoryComponent();
+        inv->addItem(new Item::GunMagazine("M16"));
+        ent->addComponent(inv);
+
+        WeaponComponent* wp = new WeaponComponent(m_PhysicsManager);
+        Item::Gun* gun = new Item::Gun("M16", 20, 30, 30, 0.5f, 0.1f);
+        wp->setGun(gun);
+        ent->addComponent(wp);
+
+        PhysicsDef phDef;
+        phDef.shape = PhysicsShape::Circle;
+        phDef.friction = 0.5f;
+        phDef.mass = 80.0f;
+        phDef.circle.radius = 0.5f;
+
+        PhysicsComponent* ph = new PhysicsComponent(m_PhysicsManager, phDef,
+            0xffffffff);
+        ent->addComponent(ph);
+
+        SoundComponent* sc = new SoundComponent();
+        sc->addSound("Idle", "gun_noammo.ogg", true);
+        ent->addComponent(sc);
+
+        ent->initialise();
 
         ent = m_EntityManager->createEntity("Obstacle");
 
 		DamageListenerComponent* dmgList = new DamageListenerComponent();
         ent->addComponent(dmgList);
 
-		TransformableComponent* tr = new TransformableComponent();
+        tr = new TransformableComponent();
 		tr->setPosition(b2Vec2(250, 270));
         ent->addComponent(tr);
 
-		PhysicsDef phDef;
+        phDef;
 		phDef.shape = PhysicsShape::Box;
 		phDef.friction = 0.5f;
 		phDef.mass = 0;
 		phDef.box.size.Set(2, 2);
 
-		PhysicsComponent* ph = new PhysicsComponent(m_PhysicsManager, phDef, ~0);
+        ph = new PhysicsComponent(m_PhysicsManager, phDef, ~0);
         ent->addComponent(ph);
 
         ent->initialise();

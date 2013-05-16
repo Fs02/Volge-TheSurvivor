@@ -9,13 +9,27 @@ namespace Item
 		enum Enum{ ReadyToShoot, ShootDelay, Reloading, EmptyMag };
 	}
 
+    class GunMagazine : public IItem
+    {
+    public:
+        GunMagazine(const std::string& gunName);
+
+        ItemClass::Enum getClass() const;
+        std::string getName() const;
+        bool compare(const IItem *other) const;
+
+    private:
+        std::string m_Name;
+    };
+
 	class Gun : public IItem
 	{
 	public:
 		Gun(const std::string& name, int damage, int magCap, int numBullets, float reloadTime, float shootDelay);
 
 		ItemClass::Enum getClass() const;
-		const std::string& getName() const;
+        std::string getName() const;
+        bool compare(const IItem *other) const;
 		int getBulletDamage() const;
 		int getMagCapacity() const;
 		int getNumBulletsInMag() const;

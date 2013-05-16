@@ -1,5 +1,37 @@
 #include "Gun.hpp"
 
+/*
+ * Item::GunMagazine
+ */
+
+Item::GunMagazine::GunMagazine(const std::string &gunName)
+    :m_Name(gunName + " magazine")
+{
+}
+
+Item::ItemClass::Enum Item::GunMagazine::getClass() const
+{
+    return ItemClass::PickUp;
+}
+
+std::string Item::GunMagazine::getName() const
+{
+    return m_Name;
+}
+
+bool Item::GunMagazine::compare(const IItem *other) const
+{
+    const GunMagazine* gm=dynamic_cast<const GunMagazine*>(other);
+    if(!gm)
+        return false;
+
+    return m_Name == gm->m_Name;
+}
+
+/*
+ * Item::Gun
+ */
+
 Item::Gun::Gun(const std::string& name, int damage, int magCap,
 		int numBullets, float reloadTime, float shootDelay)
 		: m_Name(name), m_Damage(damage), m_MagCap(magCap), m_NumBullets(
@@ -16,9 +48,18 @@ Item::ItemClass::Enum Item::Gun::getClass() const
 	return ItemClass::Weapon;
 }
 
-const std::string& Item::Gun::getName() const
+std::string Item::Gun::getName() const
 {
 	return m_Name;
+}
+
+bool Item::Gun::compare(const IItem *other) const
+{
+    const Gun* gun=dynamic_cast<const Gun*>(other);
+    if(!gun)
+        return false;
+
+    return gun->m_Name == m_Name;
 }
 
 int Item::Gun::getBulletDamage() const
@@ -68,10 +109,11 @@ bool Item::Gun::shoot()
 
 bool Item::Gun::reloadMag()
 {
-	if(m_State != GunState::ReadyToShoot)
+    if(m_State != GunState::ReadyToShoot && m_State != GunState::EmptyMag)
 		return false;
 
 	m_State=GunState::Reloading;
+    m_NumBullets=m_MagCap;
 	m_LastActionTime=m_Time;
 	return true;
 }

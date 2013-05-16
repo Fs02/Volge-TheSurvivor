@@ -27,9 +27,9 @@ public:
 	void addComponent(IComponent* comp);
 	void removeComponent(IComponent* comp);
 	template<class T>
-	inline T* component();
+    inline T* component(int index=0);
 	template<class T>
-	inline const T* component() const;
+    inline const T* component(int index=0) const;
     std::list<IComponent*> listComponents() const;
 
 	void loadComponent(const std::string& fileName);
@@ -66,8 +66,10 @@ public:
 	virtual void onDamage(Entity* other, int damage);
 	virtual void onStateChanged(const std::string& stateName);
 	virtual void onGenericEvent(const std::string& name);
-	virtual void onDetailChanged(int detail)
-	{}
+    virtual void onDetailChanged(int detail)
+    {
+        (void)detail;
+    }
 	virtual void ConstructComponent()
 	{}
 };
@@ -92,25 +94,37 @@ public:
  */
 
 template<class T>
-inline T* Entity::component()
+inline T* Entity::component(int index)
 {
 	T* ptr;
+    int compIdx=0;
 	for(unsigned int i=0; i < m_components.size(); ++i)
 	{
-		if((ptr=dynamic_cast<T*>(m_components[i])) != nullptr)
-			return ptr;
+        if((ptr=dynamic_cast<T*>(m_components[i])) != nullptr)
+        {
+            if(compIdx == index)
+                return ptr;
+            else
+                ++compIdx;
+        }
 	}
 	return nullptr;
 }
 
 template<class T>
-inline const T* Entity::component() const
+inline const T* Entity::component(int index) const
 {
 	const T* ptr;
+    int compIdx=0;
 	for(unsigned int i=0; i < m_components.size(); ++i)
 	{
 		if((ptr=dynamic_cast<const T*>(m_components[i])) != nullptr)
-			return ptr;
+        {
+            if(compIdx == index)
+                return ptr;
+            else
+                ++compIdx;
+        }
 	}
 	return nullptr;
 }

@@ -2,14 +2,13 @@
 #include <fstream>
 #include "../3rdParty/rapidxml-1.13/rapidxml.hpp"
 #include "PhysicsSystem.hpp"
-#include "Components/CameraComponent.hpp"
-#include "Components/HealthComponent.hpp"
-#include "Components/PhysicsComponent.hpp"
 #include "Components/PlayerCtrlComponent.hpp"
-#include "Components/SoundComponent.hpp"
-#include "Components/SpriteComponent.hpp"
 #include "Components/TransformableComponent.hpp"
+#include "Components/SpriteComponent.hpp"
+#include "Components/CameraComponent.hpp"
 #include "Components/WeaponComponent.hpp"
+#include "Components/PhysicsComponent.hpp"
+#include "Components/SoundComponent.hpp"
 
 /*
  * CommonStates

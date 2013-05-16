@@ -65,3 +65,8 @@ void CameraComponent::update(float dt)
 		Mad::Manager::Graphics::getSingleton()->setGameView(m_View);
 	}
 }
+
+IComponent* CameraComponent::factoryFunction(rapidxml::xml_node<> *data)
+{
+
+}

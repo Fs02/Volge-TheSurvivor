@@ -33,7 +33,8 @@ SOURCES += \
     Entity/Components/PhysicsComponent.cpp \
     Entity/Components/HealthComponent.cpp \
     Entity/Components/CameraComponent.cpp \
-    Entity/PhysicsSystem.cpp
+    Entity/PhysicsSystem.cpp \
+    Entity/Components/InventoryComponent.cpp
 
 HEADERS += \
     3rdParty/b2DebugDraw/DebugDraw.hpp \
@@ -71,7 +72,8 @@ HEADERS += \
     3rdParty/rapidxml-1.13/rapidxml_utils.hpp \
     3rdParty/rapidxml-1.13/rapidxml_print.hpp \
     3rdParty/rapidxml-1.13/rapidxml_iterators.hpp \
-    3rdParty/rapidxml-1.13/rapidxml.hpp
+    3rdParty/rapidxml-1.13/rapidxml.hpp \
+    Entity/Components/InventoryComponent.hpp
 
 OTHER_FILES += \
     3rdParty/rapidxml-1.13/manual.html \

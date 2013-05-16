@@ -4,6 +4,7 @@
 #include "../Entity.hpp"
 #include "PhysicsComponent.hpp"
 #include "TransformableComponent.hpp"
+#include "WeaponComponent.hpp"
 
 class PlayerCtrlComponent : public IComponent
 {
@@ -20,6 +21,7 @@ private:
 	Entity* m_Owner;
 	PhysicsComponent* m_Physics;
 	TransformableComponent* m_Transform;
+    WeaponComponent* m_Weapon;
 };
 
 #endif /* _PLAYERCTRLCOMPONENT_HPP_ */

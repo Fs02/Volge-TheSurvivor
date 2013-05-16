@@ -3,6 +3,7 @@
 
 #include "../Entity.hpp"
 #include "TransformableComponent.hpp"
+#include "InventoryComponent.hpp"
 #include "../Item/Gun.hpp"
 #include "../PhysicsSystem.hpp"
 
@@ -16,6 +17,8 @@ public:
 	std::list<Property> listProperties() const;
 
 	void setGun(Item::Gun* gun);
+    bool shoot();
+    bool reload();
 
 	void initialise(Entity* ent);
 	void update(float dt);
@@ -25,6 +28,7 @@ private:
 	Entity* m_Owner;
 	Item::Gun* m_Gun;
 	TransformableComponent* m_Transform;
+    InventoryComponent* m_Inventory;
 };
 
 #endif /* _WEAPONCOMPONENT_HPP_ */

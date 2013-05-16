@@ -45,6 +45,19 @@ void SoundComponent::update(float deltaTime)
 
 void SoundComponent::onGenericEvent(const std::string& name)
 {
-	m_SFXList[name]->play();
+	if (m_SFXList.count(name) > 0)
+		m_SFXList[name]->play();
 }
 
+
+IComponent* SoundComponent::factoryFunction(rapidxml::xml_node<>* comp_data)
+{
+	SoundComponent* sc = new SoundComponent();
+	for (comp_data; comp_data; comp_data = comp_data->next_sibling())
+	{
+		sc->addSound(comp_data->first_attribute("name")->value()
+					, comp_data->first_attribute("value")->value()
+					, (comp_data->first_attribute("repeat")->value() == "true"));
+	}
+	return sc;
+}

@@ -43,6 +43,11 @@ void SpriteComponent::setSize(const b2Vec2& size)
 	m_Sprite->setSize(size);
 }
 
+void SpriteComponent::setOrigin(const b2Vec2& origin)
+{
+	m_Sprite->setOrigin(origin);
+}
+
 void SpriteComponent::initialise(Entity* owner)
 {
 	m_Transformable=owner->component<TransformableComponent>();
@@ -63,4 +68,22 @@ void SpriteComponent::update(float dt)
 void SpriteComponent::onStateChanged(const std::string& stateName)
 {
 	m_Sprite->setAnimation(stateName);
+}
+
+IComponent* SpriteComponent::factoryFunction(rapidxml::xml_node<>* comp_data)
+{
+	SpriteComponent* sc = new SpriteComponent();
+	Mad::Graphics::Sprite sprite;
+	for (comp_data; comp_data; comp_data = comp_data->next_sibling())
+	{
+		std::string name = comp_data->first_attribute("name")->value();
+		if (name == "SpriteData")
+			sc->setSprite(comp_data->first_attribute("value")->value());
+		else if(name == "Size")
+			sc->setSize(b2Vec2(std::stof(comp_data->first_attribute("size-x")->value()), std::stof(comp_data->first_attribute("size-y")->value())));
+		else if(name == "Origin")
+			sc->setOrigin(b2Vec2(std::stof(comp_data->first_attribute("origin-x")->value()), std::stof(comp_data->first_attribute("origin-y")->value())));
+		else;
+	}
+	return sc;
 }

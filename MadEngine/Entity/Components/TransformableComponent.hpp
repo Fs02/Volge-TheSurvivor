@@ -26,6 +26,8 @@ public:
 	void initialise(Entity* owner);
 	void update(float dt);
 
+	static IComponent* factoryFunction(rapidxml::xml_node<>* comp_data);
+
 private:
 	bool m_HasChanged;
 	b2Vec2 m_Position;

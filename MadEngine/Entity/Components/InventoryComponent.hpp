@@ -29,6 +29,8 @@ public:
     void onCollisionBegin(Entity *);
     void onCollisionEnd(Entity *);
 
+	static IComponent* factoryFunction(rapidxml::xml_node<>* comp_data);
+
 private:
     typedef std::deque<Item::IItem*> ItemStack;
     TransformableComponent* m_Transform;

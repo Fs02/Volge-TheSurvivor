@@ -71,3 +71,21 @@ bool HealthComponent::isAlive() const
 {
 	return (m_HP > 0);
 }
+
+IComponent* HealthComponent::factoryFunction(rapidxml::xml_node<>* comp_data)
+{
+	int maxHealth, initHealth;
+	float recoveryTime;
+	for (comp_data; comp_data; comp_data = comp_data->next_sibling())
+	{
+		std::string name = comp_data->first_attribute("name")->value();
+		if (name == "maxHP")
+			maxHealth = std::stoi(comp_data->first_attribute("value")->value());
+		else if (name == "initHP")
+			initHealth = std::stoi(comp_data->first_attribute("value")->value());
+		else if (name == "recoveryTime")
+			recoveryTime = std::stof(comp_data->first_attribute("value")->value());
+		else;
+	}
+	return new HealthComponent(maxHealth, initHealth, recoveryTime);
+}

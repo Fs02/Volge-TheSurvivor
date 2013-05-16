@@ -95,3 +95,9 @@ void WeaponComponent::update(float dt)
 //	Mad::Utility::DrawBatch& db=Mad::Manager::Graphics::getSingleton()->getDrawBatch();
 //	db.drawLine(origin, end, sf::Color(255, 0, 0));
 }
+
+IComponent* WeaponComponent::factoryFunction(rapidxml::xml_node<>* comp_data)
+{
+	//Todo
+	return new WeaponComponent(PhysicsSystem::getSingleton());
+}

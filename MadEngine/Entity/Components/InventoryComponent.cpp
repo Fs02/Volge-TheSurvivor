@@ -61,7 +61,8 @@ void InventoryComponent::addItem(Item::IItem *item)
         }
     }
 
-    m_Items.push_back({item});
+	m_Items.push_back(ItemStack());
+	m_Items.back().push_back(item);
 }
 
 void InventoryComponent::removeItem(Item::IItem *item)
@@ -126,4 +127,10 @@ void InventoryComponent::onCollisionBegin(Entity *)
 void InventoryComponent::onCollisionEnd(Entity *)
 {
     // TODO
+}
+
+IComponent* InventoryComponent::factoryFunction(rapidxml::xml_node<>* comp_data)
+{
+	// TODO
+	return new InventoryComponent();
 }

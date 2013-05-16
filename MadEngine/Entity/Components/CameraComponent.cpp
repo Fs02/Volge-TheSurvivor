@@ -66,7 +66,20 @@ void CameraComponent::update(float dt)
 	}
 }
 
-IComponent* CameraComponent::factoryFunction(rapidxml::xml_node<> *data)
+IComponent* CameraComponent::factoryFunction(rapidxml::xml_node<> *comp_data)
 {
-
+	CameraComponent* cc = new CameraComponent();
+	for (comp_data; comp_data; comp_data = comp_data->next_sibling())
+	{
+		std::string name = comp_data->first_attribute("name")->value();
+		if (name == "Size")
+			cc->setVirtualSize(b2Vec2(std::stof(comp_data->first_attribute("size-x")->value()), std::stof(comp_data->first_attribute("size-y")->value())));
+		else if(name == "Active")
+		{
+			if (comp_data->first_attribute("value")->value() == "true")
+				cc->makeActive();
+		}
+		else;
+	}
+	return cc;
 }

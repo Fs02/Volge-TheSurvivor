@@ -22,7 +22,7 @@
 		<params name="Type" value="M16" />
 	</Component>
 	<Component name="PhysicsComponent">
-		<params name="Shape"  value="Circle" radius="0.5f" />
+		<params name="Shape"  value="Box" size-x="0.5f" size-y="0.5f" />
 		<params name="Friction" value="0,5f" />
 		<params name="Mass" value="80.0f" />
 		<params name="catBits" value="0" />

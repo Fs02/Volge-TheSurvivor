@@ -52,6 +52,8 @@ public:
 	void initialise(Entity* owner);
 	void update(float dt);
 
+	static IComponent* factoryFunction(rapidxml::xml_node<>* comp_data);
+
 private:
 	Mad::Interface::IPhysicsSystem* m_Physics;
 	TransformableComponent* m_Transform;

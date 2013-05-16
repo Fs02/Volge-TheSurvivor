@@ -78,3 +78,8 @@ void PlayerCtrlComponent::update(float dt)
             m_Weapon->reload();
     }
 }
+
+IComponent* PlayerCtrlComponent::factoryFunction(rapidxml::xml_node<>* comp_data)
+{
+	return new PlayerCtrlComponent();
+}

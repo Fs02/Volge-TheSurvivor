@@ -24,15 +24,18 @@ public:
     bool dropItem(int typeIndex);
     void dropAllItems();
 
+    void pickUp();
+
     void initialise(Entity *owner);
     void update(float);
-    void onCollisionBegin(Entity *);
-    void onCollisionEnd(Entity *);
+    void onCollisionBegin(Entity *ent);
+    void onCollisionEnd(Entity *ent);
 
 private:
     typedef std::deque<Item::IItem*> ItemStack;
     TransformableComponent* m_Transform;
     std::vector<ItemStack> m_Items;
+    Entity* m_PickUpAble;
 };
 
 #endif // INVENTORYCOMPONENT_HPP

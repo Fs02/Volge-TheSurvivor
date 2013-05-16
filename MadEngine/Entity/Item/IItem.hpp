@@ -19,6 +19,7 @@ namespace Item
 
 		virtual ItemClass::Enum getClass() const=0;
         virtual std::string getName() const=0;
+        virtual std::string getIconName() const=0;
         virtual bool compare(const IItem* other) const=0; // used by InventoryComponent to put items on stacks
 	};
 }

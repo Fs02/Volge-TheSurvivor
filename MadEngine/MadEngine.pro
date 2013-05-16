@@ -2,7 +2,7 @@ TEMPLATE = lib
 CONFIG += console staticlib
 CONFIG -= app_bundle
 CONFIG -= qt
-QMAKE_CXXFLAGS += -std=c++11
+QMAKE_CXXFLAGS += -std=c++11 -Weffc++
 INCLUDEPATH += 3rdParty/rapidxml-1.13
 
 SOURCES += \
@@ -34,7 +34,8 @@ SOURCES += \
     Entity/Components/HealthComponent.cpp \
     Entity/Components/CameraComponent.cpp \
     Entity/PhysicsSystem.cpp \
-    Entity/Components/InventoryComponent.cpp
+    Entity/Components/InventoryComponent.cpp \
+    Entity/Components/PickUpAbleComponent.cpp
 
 HEADERS += \
     3rdParty/b2DebugDraw/DebugDraw.hpp \
@@ -73,7 +74,8 @@ HEADERS += \
     3rdParty/rapidxml-1.13/rapidxml_print.hpp \
     3rdParty/rapidxml-1.13/rapidxml_iterators.hpp \
     3rdParty/rapidxml-1.13/rapidxml.hpp \
-    Entity/Components/InventoryComponent.hpp
+    Entity/Components/InventoryComponent.hpp \
+    Entity/Components/PickUpAbleComponent.hpp
 
 OTHER_FILES += \
     3rdParty/rapidxml-1.13/manual.html \

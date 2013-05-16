@@ -285,13 +285,14 @@ sf::Rect<int> Mad::Graphics::SpriteData::getFrameArea(int frameIndex) const
 
 Mad::Graphics::Sprite::Sprite()
 		: m_Data(nullptr), m_Anim(nullptr), m_Looped(true), m_Time(0), m_defOrigin(
-				true), m_Size(1, 1)
+                true), m_Size(0, 0)
 {
+    this->setDefaultSize();
 }
 
 Mad::Graphics::Sprite::Sprite(const std::string& spriteDataName)
 		: m_Data(nullptr), m_Anim(nullptr), m_Looped(true), m_Time(0), m_defOrigin(
-				true), m_Size(1, 1)
+                true), m_Size(0, 0)
 {
 	m_Data = Manager::Resource::get<SpriteData>(spriteDataName);
 	if (m_Data)
@@ -312,21 +313,13 @@ Mad::Graphics::Sprite::Sprite(const SpriteData* sd)
 void Mad::Graphics::Sprite::setSource(const std::string& spriteDataName)
 {
 	m_Data = Manager::Resource::get<SpriteData>(spriteDataName);
-	m_Anim = m_Data->getAnimation("Idle");
-	m_Looped = true;
-	m_Time = 0;
-	m_Size.Set(0, 0);
-	this->setDefaultSize();
+    m_Anim = m_Data->getAnimation("Idle");
 }
 
 void Mad::Graphics::Sprite::setSource(const SpriteData* sd)
 {
 	m_Data = sd;
-	m_Anim = m_Data->getAnimation("Idle");
-	m_Looped = true;
-	m_Time = 0;
-	m_Size.Set(0, 0);
-	this->setDefaultSize();
+    m_Anim = m_Data->getAnimation("Idle");
 }
 
 const Mad::Graphics::SpriteData* Mad::Graphics::Sprite::getSource() const

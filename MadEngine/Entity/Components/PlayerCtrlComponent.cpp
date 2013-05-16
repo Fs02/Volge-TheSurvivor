@@ -2,7 +2,7 @@
 #include "../../Manager/Controller.hpp"
 
 PlayerCtrlComponent::PlayerCtrlComponent()
-	:m_Owner(nullptr), m_Physics(nullptr), m_Transform(nullptr)
+    :m_Owner(nullptr), m_Physics(nullptr), m_Transform(nullptr), m_Weapon(nullptr), m_Inventory(nullptr)
 {
 }
 
@@ -24,7 +24,7 @@ void PlayerCtrlComponent::initialise(Entity* owner)
     m_Weapon=owner->component<WeaponComponent>();
 }
 
-void PlayerCtrlComponent::update(float dt)
+void PlayerCtrlComponent::update(float)
 {
 	if(!m_Physics || !m_Transform)
 		return;
@@ -77,4 +77,8 @@ void PlayerCtrlComponent::update(float dt)
         if(ctrl->getControl("reload"))
             m_Weapon->reload();
     }
+
+    if(ctrl->getControl("pickUp"))
+        if(m_Inventory)
+            m_Inventory->pickUp();
 }

@@ -1,0 +1,14 @@
+{
+	"Texture" : "M16_magazine.png",
+	"Texture division" : {
+		"Type" : "Matrix-column",
+		"Width" : 400,
+		"Height" : 400
+	},
+	"Animations" : {
+		"Idle" : {
+			"Length" : 1,
+			"Frames" : [ 0 ]
+		}
+	}
+}

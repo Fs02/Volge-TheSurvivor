@@ -15,13 +15,14 @@ public:
 	std::list<Property> listProperties() const;
 
 	void initialise(Entity* owner);
-	void update(float dt);
+    void update(float);
 
 private:
 	Entity* m_Owner;
 	PhysicsComponent* m_Physics;
 	TransformableComponent* m_Transform;
     WeaponComponent* m_Weapon;
+    InventoryComponent* m_Inventory;
 };
 
 #endif /* _PLAYERCTRLCOMPONENT_HPP_ */

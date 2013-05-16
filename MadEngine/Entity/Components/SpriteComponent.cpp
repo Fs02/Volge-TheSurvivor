@@ -1,13 +1,12 @@
 #include "SpriteComponent.hpp"
 
 SpriteComponent::SpriteComponent()
-	:m_Transformable(nullptr), m_Sprite(nullptr)
+    :m_Transformable(nullptr)
 {
 }
 
 SpriteComponent::~SpriteComponent()
 {
-	delete m_Sprite;
 }
 
 std::string SpriteComponent::getTypeName() const
@@ -21,8 +20,8 @@ std::list<Property> SpriteComponent::listProperties() const
 	Property pr;
 
 	pr.setName("Sprite file");
-	if(m_Sprite)
-		pr.setPath(m_Sprite->getSource()->getFileName());
+    if(m_Sprite.getSource())
+        pr.setPath(m_Sprite.getSource()->getFileName());
 	else
 		pr.setPath(std::string());
 	pr.setAsMutable(true);
@@ -33,14 +32,12 @@ std::list<Property> SpriteComponent::listProperties() const
 
 void SpriteComponent::setSprite(const std::string& name)
 {
-	delete m_Sprite;
-	m_Sprite=new Mad::Graphics::Sprite(name);
-	m_Sprite->setAnimation("Walk");
+    m_Sprite.setSource(name);
 }
 
 void SpriteComponent::setSize(const b2Vec2& size)
 {
-	m_Sprite->setSize(size);
+    m_Sprite.setSize(size);
 }
 
 void SpriteComponent::initialise(Entity* owner)
@@ -55,12 +52,12 @@ void SpriteComponent::update(float dt)
 
 	b2Vec2 pos=m_Transformable->position();
 	float rot=m_Transformable->rotation();
-	m_Sprite->setPosition(pos);
-	m_Sprite->setRotation(rot);
-	m_Sprite->draw(dt);
+    m_Sprite.setPosition(pos);
+    m_Sprite.setRotation(rot);
+    m_Sprite.draw(dt);
 }
 
 void SpriteComponent::onStateChanged(const std::string& stateName)
 {
-	m_Sprite->setAnimation(stateName);
+    m_Sprite.setAnimation(stateName);
 }

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Game.hpp"
 #include <Entity/Components/InventoryComponent.hpp>
+#include <Entity/Components/PickUpAbleComponent.hpp>
 #include <iostream>
 
 namespace GSTATE
@@ -142,6 +143,7 @@ void Game::load()
 		Controller->setKeyboardControl("attack", sf::Keyboard::LControl);
 		Controller->setKeyboardControl("reload", sf::Keyboard::LShift);
 		Controller->setKeyboardControl("throw", sf::Keyboard::G);
+        Controller->setKeyboardControl("pickUp", sf::Keyboard::E);
 
         Entity* ent = m_EntityManager->createEntity("Player");
         ent->addComponent(new PlayerCtrlComponent());
@@ -185,6 +187,27 @@ void Game::load()
 
         ent->initialise();
 
+        ent = m_EntityManager->createEntity("Some pick-up-able stuff...");
+        PickUpAbleComponent* pickUp=new PickUpAbleComponent();
+        pickUp->changeItem(new Item::GunMagazine("M16"));
+        ent->addComponent(pickUp);
+
+        tr=new TransformableComponent();
+        tr->setPosition(b2Vec2(250, 260));
+        ent->addComponent(tr);
+
+        phDef.shape=PhysicsShape::Circle;
+        phDef.circle.radius=0.25f;
+        phDef.mass=0;
+        ph=new PhysicsComponent(m_PhysicsManager, phDef, ~0);
+        ent->addComponent(ph);
+
+        sp=new SpriteComponent();
+        sp->setSize(b2Vec2(0.5f, 0.5f));
+        ent->addComponent(sp);
+
+        ent->initialise();
+
         ent = m_EntityManager->createEntity("Obstacle");
 
 		DamageListenerComponent* dmgList = new DamageListenerComponent();
@@ -194,7 +217,6 @@ void Game::load()
 		tr->setPosition(b2Vec2(250, 270));
         ent->addComponent(tr);
 
-        phDef;
 		phDef.shape = PhysicsShape::Box;
 		phDef.friction = 0.5f;
 		phDef.mass = 0;
@@ -236,6 +258,9 @@ void Game::unLoad()
 
 void Game::play()
 {
+    static int Frame=0;
+    ++Frame;
+
 	float deltaTime = clock.getElapsedTime().asSeconds();
 
 	m_PhysicsManager->update(deltaTime);

@@ -19,6 +19,16 @@ std::string Item::GunMagazine::getName() const
     return m_Name;
 }
 
+std::string Item::GunMagazine::getIconName() const
+{
+    std::string in=m_Name;
+    for(size_t i=0; i < in.size(); ++i)
+        if(in[i] == ' ')
+            in[i]='_';
+    in+=".json";
+    return in;
+}
+
 bool Item::GunMagazine::compare(const IItem *other) const
 {
     const GunMagazine* gm=dynamic_cast<const GunMagazine*>(other);
@@ -51,6 +61,16 @@ Item::ItemClass::Enum Item::Gun::getClass() const
 std::string Item::Gun::getName() const
 {
 	return m_Name;
+}
+
+std::string Item::Gun::getIconName() const
+{
+    std::string in=m_Name;
+    for(size_t i=0; i < in.size(); ++i)
+        if(in[i] == ' ')
+            in[i]='_';
+    in+=".png";
+    return in;
 }
 
 bool Item::Gun::compare(const IItem *other) const

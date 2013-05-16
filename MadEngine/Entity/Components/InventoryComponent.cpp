@@ -1,7 +1,8 @@
 #include "InventoryComponent.hpp"
+#include "PickUpAbleComponent.hpp"
 
 InventoryComponent::InventoryComponent()
-    :m_Transform(nullptr)
+    :m_Transform(nullptr), m_PickUpAble(nullptr)
 {
 }
 
@@ -108,6 +109,19 @@ void InventoryComponent::dropAllItems()
     }
 }
 
+void InventoryComponent::pickUp()
+{
+    if(m_PickUpAble)
+    {
+        PickUpAbleComponent* comp=m_PickUpAble->component<PickUpAbleComponent>();
+        Item::IItem* item=comp->orphanItem();
+        if(item)
+            this->addItem(item);
+        m_PickUpAble->markAsRedundant();
+        m_PickUpAble=nullptr;
+    }
+}
+
 void InventoryComponent::initialise(Entity *owner)
 {
     m_Transform=owner->component<TransformableComponent>();
@@ -117,13 +131,14 @@ void InventoryComponent::update(float)
 {
 }
 
-void InventoryComponent::onCollisionBegin(Entity *)
+void InventoryComponent::onCollisionBegin(Entity *ent)
 {
-    // TODO checking if other has PickUpAbleComponent
-    // and showing appropriate message on the screen
+    if(ent->component<PickUpAbleComponent>())
+        m_PickUpAble=ent;
 }
 
-void InventoryComponent::onCollisionEnd(Entity *)
+void InventoryComponent::onCollisionEnd(Entity *ent)
 {
-    // TODO
+    if(m_PickUpAble == ent)
+        m_PickUpAble=nullptr;
 }

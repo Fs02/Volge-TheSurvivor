@@ -21,5 +21,5 @@ public:
 
 private:
 	TransformableComponent* m_Transformable;
-	Mad::Graphics::Sprite* m_Sprite;
+    Mad::Graphics::Sprite m_Sprite;
 };

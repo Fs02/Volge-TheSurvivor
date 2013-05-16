@@ -16,6 +16,7 @@ namespace Item
 
         ItemClass::Enum getClass() const;
         std::string getName() const;
+        std::string getIconName() const;
         bool compare(const IItem *other) const;
 
     private:
@@ -29,6 +30,7 @@ namespace Item
 
 		ItemClass::Enum getClass() const;
         std::string getName() const;
+        std::string getIconName() const;
         bool compare(const IItem *other) const;
 		int getBulletDamage() const;
 		int getMagCapacity() const;

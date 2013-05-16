@@ -176,6 +176,7 @@ void Game::load()
         phDef.friction = 0.5f;
         phDef.mass = 80.0f;
         phDef.circle.radius = 0.5f;
+        phDef.isSensor=false;
 
         PhysicsComponent* ph = new PhysicsComponent(m_PhysicsManager, phDef,
             0xffffffff);
@@ -199,8 +200,10 @@ void Game::load()
         phDef.shape=PhysicsShape::Circle;
         phDef.circle.radius=0.25f;
         phDef.mass=0;
+        phDef.isSensor=true;
         ph=new PhysicsComponent(m_PhysicsManager, phDef, ~0);
         ent->addComponent(ph);
+        phDef.isSensor=false;
 
         sp=new SpriteComponent();
         sp->setSize(b2Vec2(0.5f, 0.5f));

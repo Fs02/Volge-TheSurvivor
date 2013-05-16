@@ -42,7 +42,7 @@ void SpriteComponent::setSize(const b2Vec2& size)
 
 void SpriteComponent::setOrigin(const b2Vec2& origin)
 {
-	m_Sprite->setOrigin(origin);
+    m_Sprite.setOrigin(origin);
 }
 
 void SpriteComponent::initialise(Entity* owner)

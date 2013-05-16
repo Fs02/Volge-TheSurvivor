@@ -21,6 +21,7 @@ struct PhysicsDef
 	PhysicsShape::Enum shape;
 	float friction;
 	float mass;
+    bool isSensor;
 
 	struct
 	{
@@ -60,6 +61,8 @@ private:
 	b2Body* m_Body;
 	float m_Speed, m_Angle;
 	b2Vec2 m_Direction;
+
+    PhysicsComponent(const PhysicsComponent&);
 };
 
 #endif /* _PHYSICSCOMPONENT_HPP_ */

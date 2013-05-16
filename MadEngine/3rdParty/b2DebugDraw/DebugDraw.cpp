@@ -16,8 +16,8 @@
 #include "DebugDraw.hpp"
 
 DebugDraw::DebugDraw(sf::RenderWindow &window)
+    :window(&window)
 {
-    this->window = &window;
 }
 
 DebugDraw::~DebugDraw()

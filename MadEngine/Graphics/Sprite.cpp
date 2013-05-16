@@ -230,8 +230,6 @@ void Mad::Graphics::SpriteData::loadFromJSON()
 
 void Mad::Graphics::SpriteData::unload()
 {
-	delete m_Texture;
-	m_Texture = nullptr;
 	for (auto iter = m_Animations.begin(); iter != m_Animations.end(); ++iter)
 		delete iter->second;
 	m_Animations.clear();

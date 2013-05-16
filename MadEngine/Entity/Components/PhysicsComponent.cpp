@@ -1,12 +1,17 @@
 #include "PhysicsComponent.hpp"
 #include "../PhysicsSystem.hpp"
 
+namespace
+{
+    const float Margin=0.05f;
+}
+
 /*
  * PhysicsDef
  */
 
 PhysicsDef::PhysicsDef()
-	:shape(PhysicsShape::Circle), friction(0), mass(0)
+    :shape(PhysicsShape::Circle), friction(0), mass(0), isSensor(false)
 {
 	circle.radius=0;
 	box.size.Set(0, 0);
@@ -42,6 +47,7 @@ PhysicsComponent::PhysicsComponent(Mad::Interface::IPhysicsSystem* physics,
 	fixDef.density=dens;
 	fixDef.filter.categoryBits=categoryBits;
 	fixDef.friction=def.friction;
+    fixDef.isSensor=def.isSensor;
 
 	switch(def.shape)
 	{
@@ -62,7 +68,29 @@ PhysicsComponent::PhysicsComponent(Mad::Interface::IPhysicsSystem* physics,
 	b2BodyDef bodyDef;
 	bodyDef.type=(def.mass <= 0 ? b2_staticBody : b2_dynamicBody);
 	m_Body=m_Physics->createBody(bodyDef);
-	m_Body->CreateFixture(&fixDef);
+    m_Body->CreateFixture(&fixDef);
+
+    if(def.isSensor)
+    {
+        delete fixDef.shape;
+        return;
+    }
+
+    // create a sensor
+    switch(def.shape)
+    {
+    case PhysicsShape::Circle:
+        {
+            ((b2CircleShape*)fixDef.shape)->m_radius+=Margin;
+        }break;
+    case PhysicsShape::Box:
+        {
+            ((b2PolygonShape*)fixDef.shape)->SetAsBox(def.box.size.x/2.0f+Margin, def.box.size.y/2.0f+Margin);
+        }break;
+    }
+
+    fixDef.isSensor=true;
+    m_Body->CreateFixture(&fixDef);
 	delete fixDef.shape;
 }
 

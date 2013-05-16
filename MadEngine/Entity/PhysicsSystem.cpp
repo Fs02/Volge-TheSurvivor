@@ -37,13 +37,20 @@ void PhysicsSystem::BeginContact(b2Contact* contact)
 	void* userDataA		= fixA->GetBody()->GetUserData();
 	void* userDataB		= fixB->GetBody()->GetUserData();
 
+    // we want to report collisions only for sensors
+    if(!fixA->IsSensor() || !fixB->IsSensor())
+        return;
+
 	if(userDataA && userDataB)
 	{
 		Entity* entA=(Entity*)userDataA;
 		Entity* entB=(Entity*)userDataB;
 
-		entA->onCollisionBegin(entB);
-		entB->onCollisionBegin(entA);
+        if(!entA->isRedundant() && !entB->isRedundant())
+        {
+            entA->onCollisionBegin(entB);
+            entB->onCollisionBegin(entA);
+        }
 	}
 }
 
@@ -54,13 +61,20 @@ void PhysicsSystem::EndContact(b2Contact* contact)
 	void* userDataA		= fixA->GetBody()->GetUserData();
 	void* userDataB		= fixB->GetBody()->GetUserData();
 
+    // we want to report collisions only for sensors
+    if(!fixA->IsSensor() || !fixB->IsSensor())
+        return;
+
 	if(userDataA && userDataB)
 	{
 		Entity* entA=(Entity*)userDataA;
 		Entity* entB=(Entity*)userDataB;
 
-		entA->onCollisionEnd(entB);
-		entB->onCollisionEnd(entA);
+        if(!entA->isRedundant() && !entB->isRedundant())
+        {
+            entA->onCollisionEnd(entB);
+            entB->onCollisionEnd(entA);
+        }
 	}
 }
 

@@ -22,6 +22,7 @@ void PlayerCtrlComponent::initialise(Entity* owner)
 	m_Physics=owner->component<PhysicsComponent>();
 	m_Transform=owner->component<TransformableComponent>();
     m_Weapon=owner->component<WeaponComponent>();
+    m_Inventory=owner->component<InventoryComponent>();
 }
 
 void PlayerCtrlComponent::update(float)

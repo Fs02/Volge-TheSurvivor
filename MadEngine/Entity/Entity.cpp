@@ -71,6 +71,7 @@ std::list<IComponent *> Entity::listComponents() const
 
 void Entity::loadComponent(const std::string& fileName)
 {
+	//Todo
 	this->addComponent(new PlayerCtrlComponent());
 
 	rapidxml::xml_document<> doc;

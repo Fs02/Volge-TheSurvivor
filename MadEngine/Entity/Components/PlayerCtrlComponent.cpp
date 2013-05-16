@@ -82,3 +82,8 @@ void PlayerCtrlComponent::update(float)
         if(m_Inventory)
             m_Inventory->pickUp();
 }
+
+IComponent* PlayerCtrlComponent::factoryFunction(rapidxml::xml_node<>* comp_data)
+{
+	return new PlayerCtrlComponent();
+}

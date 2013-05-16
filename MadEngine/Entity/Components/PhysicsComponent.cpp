@@ -1,4 +1,5 @@
 #include "PhysicsComponent.hpp"
+#include "../PhysicsSystem.hpp"
 
 /*
  * PhysicsDef
@@ -128,4 +129,37 @@ void PhysicsComponent::update(float dt)
 
 	m_Transform->m_Position=m_Body->GetPosition();
 	m_Transform->m_Rotation=m_Body->GetAngle();
+}
+
+IComponent* PhysicsComponent::factoryFunction(rapidxml::xml_node<>* comp_data)
+{
+	PhysicsDef def;
+	int catBits;
+	for (comp_data; comp_data; comp_data = comp_data->next_sibling())
+	{
+		std::string name = comp_data->first_attribute("name")->value();
+		if (name == "Shape")
+		{
+			std::string s = comp_data->first_attribute("value")->value();
+			if (s == "Circle")
+			{
+				def.shape = PhysicsShape::Circle;
+				def.circle.radius = std::stof(comp_data->first_attribute("radius")->value());
+			} 
+			else if (s == "Box")
+			{
+				def.shape = PhysicsShape::Box;
+				def.box.size.Set(std::stof(comp_data->first_attribute("size-x")->value()), std::stof(comp_data->first_attribute("size-y")->value()));
+			}
+			else;
+		}
+		else if (name == "Friction")
+			def.friction = std::stof(comp_data->first_attribute("value")->value());
+		else if (name == "Mass")
+			def.mass = std::stof(comp_data->first_attribute("value")->value());
+		else if (name == "catBits")
+			catBits = std::stoi(comp_data->first_attribute("value")->value());
+		else;
+	}
+	return new PhysicsComponent(PhysicsSystem::getSingleton(), def, catBits);
 }

@@ -23,6 +23,8 @@ public:
 	void initialise(Entity* ent);
 	void update(float dt);
 
+	static IComponent* factoryFunction(rapidxml::xml_node<>* comp_data);
+
 private:
 	PhysicsSystem* m_Physics;
 	Entity* m_Owner;

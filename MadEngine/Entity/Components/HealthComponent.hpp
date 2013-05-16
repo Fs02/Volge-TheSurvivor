@@ -17,6 +17,8 @@ public:
 
 	bool isAlive() const;
 
+	static IComponent* factoryFunction(rapidxml::xml_node<>* comp_data);
+
 private:
 	Entity* m_Owner;
 	int m_MaxHP, m_HP;

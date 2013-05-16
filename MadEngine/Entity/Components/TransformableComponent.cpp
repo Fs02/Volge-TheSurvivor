@@ -58,3 +58,18 @@ void TransformableComponent::initialise(Entity* owner)
 void TransformableComponent::update(float dt)
 {
 }
+
+IComponent* TransformableComponent::factoryFunction(rapidxml::xml_node<>* comp_data)
+{
+	TransformableComponent* tc = new TransformableComponent();
+	for (comp_data; comp_data; comp_data = comp_data->next_sibling())
+	{
+		std::string name = comp_data->first_attribute("name")->value();
+		if (name == "default-pos")
+			tc->setPosition(b2Vec2(std::stof(comp_data->first_attribute("pos-x")->value()), std::stof(comp_data->first_attribute("pos-y")->value())));
+		else if(name == "default-rot")
+			tc->setRotation(std::stof(comp_data->first_attribute("rot")->value()) * b2_pi / 180.f);
+		else;
+	}
+	return tc;
+}

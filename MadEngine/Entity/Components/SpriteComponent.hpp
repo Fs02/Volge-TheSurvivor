@@ -14,10 +14,13 @@ public:
 
 	void setSprite(const std::string& name);
 	void setSize(const b2Vec2& size);
+	void setOrigin(const b2Vec2& origin);
 
 	void initialise(Entity* owner);
 	void update(float dt);
 	void onStateChanged(const std::string& stateName);
+
+	static IComponent* factoryFunction(rapidxml::xml_node<>* comp_data);
 
 private:
 	TransformableComponent* m_Transformable;

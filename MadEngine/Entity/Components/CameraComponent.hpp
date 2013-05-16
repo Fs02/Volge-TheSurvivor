@@ -22,7 +22,7 @@ public:
 	void initialise(Entity* owner);
 	void update(float dt);
 
-    static IComponent* factoryFunction(rapidxml::xml_node<>* data);
+    static IComponent* factoryFunction(rapidxml::xml_node<>* comp_data);
 
 private:
 	TransformableComponent* m_Transform;

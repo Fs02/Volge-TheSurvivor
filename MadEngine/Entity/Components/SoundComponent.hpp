@@ -19,6 +19,8 @@ public:
 	void update(float deltaTime);
 	void onGenericEvent(const std::string& name);
 
+	static IComponent* factoryFunction(rapidxml::xml_node<>* comp_data);
+
 private:
 	std::map<std::string,sf::Sound*> m_SFXList;
 	std::string currentEvent;
